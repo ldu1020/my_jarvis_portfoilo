@@ -20,22 +20,22 @@ const TodoList: React.FC<TodoListProps> = ({
   return (
     <div>
       <ul>
-        {Object.keys(todoList) //
-          .filter((key) => {
-            const topicInKey = key.split('/')[1];
-            return topicInKey === topic;
-          }) //
-          .map((key) => {
-            const data = todoList[key];
-            return (
-              <Todoitem
-                key={key}
-                id={key}
-                todoListData={data}
-                removeTodoList={removeTodoList}
-              />
-            );
-          })}
+        {todoList &&
+          Object.keys(todoList) //
+            .filter((key) => {
+              const topicInKey = key.split('&')[1];
+              return topicInKey === topic;
+            }) //
+            .map((key) => {
+              const data = todoList[key];
+              return (
+                <Todoitem
+                  key={key}
+                  todoListData={data}
+                  removeTodoList={removeTodoList}
+                />
+              );
+            })}
       </ul>
       <TodoAddItemForm
         addOrUpdateTodoList={addOrUpdateTodoList}

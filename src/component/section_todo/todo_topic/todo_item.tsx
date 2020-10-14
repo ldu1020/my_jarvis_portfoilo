@@ -5,13 +5,11 @@ import React from 'react';
 interface TodoitemProps {
   todoListData: TodoListData;
   removeTodoList: (id: string) => void;
-  id: string;
 }
 
 const Todoitem: React.FC<TodoitemProps> = ({
   todoListData,
   removeTodoList,
-  id,
 }) => {
   return (
     <div>
@@ -19,7 +17,7 @@ const Todoitem: React.FC<TodoitemProps> = ({
       <p>{todoListData.until}</p>
       <button
         onClick={() => {
-          removeTodoList(id);
+          removeTodoList(todoListData.id);
         }}></button>
     </div>
   );

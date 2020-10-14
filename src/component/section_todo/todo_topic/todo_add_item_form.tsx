@@ -12,7 +12,7 @@ const TodoAddItemForm: React.FC<TodoAddItemFormProps> = ({
   topic,
 }) => {
   const [todoData, setTodoData] = useState<TodoListData>({
-    id: Date.now().toString(),
+    id: Date.now().toString() + '&' + topic,
     topic: topic,
     what: '',
     until: '',
@@ -34,7 +34,7 @@ const TodoAddItemForm: React.FC<TodoAddItemFormProps> = ({
     event.preventDefault();
     addOrUpdateTodoList(todoData);
     setTodoData({
-      id: Date.now().toString(),
+      id: Date.now().toString() + '&' + topic,
       topic: topic,
       what: '',
       until: '',

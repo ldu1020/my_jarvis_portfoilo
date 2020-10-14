@@ -1,25 +1,46 @@
 /** @format */
 
-import React, { useReducer, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useReducer } from 'react';
+import AuthService from '../../service/auth_service';
+import DataBase from '../../service/database';
 import TodoAddTopicForm from './todo_add_topic_form/todo_add_topic_form';
 import TodoGraph from './todo_graph/todo_graph';
 import { initialState, todoReducer } from './todo_reducer';
-import TodoList from './todo_topic/todo_list';
 import TodoTopic from './todo_topic/todo_topic';
 
-const TodoMain: React.FC = () => {
-  const history = useHistory();
-  const [todoState, dispatch] = useReducer(todoReducer, initialState);
-  const [userId, setUserId] = useState(
-    history.location.state && (history.location.state as UserData).uid
-  );
+interface TodoMainProps {
+  authService: AuthService;
+  database: DataBase;
+  userId: string | null;
+}
 
-  const addTopic = (topic: TodoTopicData) => {
+const TodoMain: React.FC<TodoMainProps> = ({
+  authService,
+  database,
+  userId,
+}) => {
+  const [todoState, dispatch] = useReducer(todoReducer, initialState);
+
+  useEffect(() => {
+    if (!userId) {
+      return;
+    }
+    const stopSync = database.syncData(userId, 'todoState', (dataOfDB: any) => {
+      dispatch({
+        type: 'FETCH_TODO_STATE',
+        fetchData: dataOfDB,
+      });
+    });
+
+    return () => stopSync();
+  }, [userId, database]);
+
+  const addTopic = (topicData: TodoTopicData) => {
     dispatch({
       type: 'ADD_TOPIC',
-      topic,
+      topicData: topicData,
     });
+    database.saveTodoData(userId as string, 'topicList', topicData);
   };
 
   const removeTopic = (id: string, topic: string) => {
@@ -28,13 +49,19 @@ const TodoMain: React.FC = () => {
       id,
       topic,
     });
+    database.removeTodoData(userId as string, 'topicList', id);
+    Object.keys(todoState.todoList).forEach((key) => {
+      key.split('&')[1] === topic &&
+        database.removeTodoData(userId as string, 'todoList', key);
+    });
   };
 
-  const addOrUpdateTodoList = (todoData: TodoListData) => {
+  const addOrUpdateTodoList = (todoListData: TodoListData) => {
     dispatch({
       type: 'ADD_OR_UPDATE_TODO_LIST',
-      todoData,
+      todoListData,
     });
+    database.saveTodoData(userId as string, 'todoList', todoListData);
   };
 
   const removeTodoList = (id: string) => {
@@ -42,27 +69,31 @@ const TodoMain: React.FC = () => {
       type: 'REMOVE_TODO_LIST',
       id,
     });
+    database.removeTodoData(userId as string, 'todoList', id);
   };
+
+  const { topicList, todoList } = todoState;
 
   return (
     <div>
       <section>
-        {todoState.topicList.map((topicData: TodoTopicData) => {
-          return (
-            <TodoTopic
-              key={topicData.id}
-              topicData={topicData}
-              todoList={todoState.todoList}
-              removeTopic={removeTopic}
-              addOrUpdateTodoList={addOrUpdateTodoList}
-              removeTodoList={removeTodoList}
-            />
-          );
-        })}
+        {topicList &&
+          topicList.map((topicData: TodoTopicData) => {
+            return (
+              <TodoTopic
+                key={topicData.id}
+                topicData={topicData}
+                todoList={todoState.todoList}
+                removeTopic={removeTopic}
+                addOrUpdateTodoList={addOrUpdateTodoList}
+                removeTodoList={removeTodoList}
+              />
+            );
+          })}
         <TodoAddTopicForm onAdd={addTopic} />
       </section>
       <section>
-        <TodoGraph todoList={todoState.todoList} />
+        {todoList && <TodoGraph todoList={todoState.todoList} />}
       </section>
     </div>
   );

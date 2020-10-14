@@ -13,11 +13,23 @@ export default class DataBase {
     return () => ref.off();
   }
 
-  saveData(userId: any, category: any, list: any) {
-    firebaseDatabase.ref(`${userId}/${category}/${list.id}`).set(list);
+  saveTodoData(
+    userId: string,
+    category: 'todoList' | 'topicList',
+    list: TodoListData | TodoTopicData
+  ) {
+    firebaseDatabase //
+      .ref(`${userId}/todoState/${category}/${list.id}`)
+      .set(list);
   }
 
-  removeData(userId: any, category: any, list: any) {
-    firebaseDatabase.ref(`${userId}/${category}/${list.id}`).remove();
+  removeTodoData(
+    userId: string,
+    category: 'todoList' | 'topicList',
+    id: string
+  ) {
+    firebaseDatabase //
+      .ref(`${userId}/todoState/${category}/${id}`)
+      .remove();
   }
 }
