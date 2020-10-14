@@ -6,7 +6,7 @@ import TodoList from './todo_list';
 interface TodoTopicProps {
   topicData: TodoTopicData;
   todoList: TodoList;
-  removeTopic: (id: string) => void;
+  removeTopic: (id: string, topic: string) => void;
   addOrUpdateTodoList: (todoList: TodoListData) => void;
   removeTodoList: (id: string) => void;
 }
@@ -20,7 +20,9 @@ const TodoTopic: React.FC<TodoTopicProps> = ({
 }) => {
   return (
     <div>
-      <button onClick={() => removeTopic(topicData.id)}>topicRemove</button>
+      <button onClick={() => removeTopic(topicData.id, topicData.topic)}>
+        topicRemove
+      </button>
       <h1>{topicData.topic}</h1>
       <TodoList
         topic={topicData.topic}

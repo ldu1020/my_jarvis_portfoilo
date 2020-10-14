@@ -3,6 +3,7 @@
 import React, { useReducer, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import TodoAddTopicForm from './todo_add_topic_form/todo_add_topic_form';
+import TodoList from './todo_topic/todo_list';
 import TodoTopic from './todo_topic/todo_topic';
 
 const initialState = {
@@ -10,22 +11,30 @@ const initialState = {
   todoList: {} as TodoList,
 };
 
-function todoReducer(state: any, action: any) {
+function todoReducer(state: TodoState, action: TodoAction) {
   const { topicList, todoList } = state;
-
   let updated;
+
   switch (action.type) {
     case 'ADD_TOPIC':
       return { ...state, topicList: [...topicList, action.topic] };
     case 'REMOVE_TOPIC':
-      updated = topicList.filter((list: any) => {
+      const filteredTopic = topicList.filter((list) => {
         return list.id !== action.id;
       });
-      return { ...state, topicList: updated };
+      const filteredTodoList = { ...todoList };
+      Object.keys(filteredTodoList) //
+        .filter((key) => {
+          const topicInKey = key.split('/')[1];
+          return topicInKey === action.topic;
+        }) //
+        .forEach((key) => {
+          delete filteredTodoList[key];
+        });
+      updated = { topicList: filteredTopic, todoList: filteredTodoList };
+      return updated;
     case 'ADD_OR_UPDATE_TODO_LIST':
-      console.log(action.todoData);
       updated = { ...todoList };
-      console.log(action.todoData.id + '/' + action.todoData.topic);
       updated[action.todoData.id + '/' + action.todoData.topic] =
         action.todoData;
       return { ...state, todoList: updated };
@@ -45,31 +54,32 @@ const TodoMain: React.FC = () => {
     history.location.state && (history.location.state as UserData).uid
   );
 
-  const addTopic = (topic: any) => {
+  const addTopic = (topic: TodoTopicData) => {
     dispatch({
       type: 'ADD_TOPIC',
-      topic: topic,
+      topic,
     });
   };
 
-  const removeTopic = (id: any) => {
+  const removeTopic = (id: string, topic: string) => {
     dispatch({
       type: 'REMOVE_TOPIC',
-      id: id,
+      id,
+      topic,
     });
   };
 
-  const addOrUpdateTodoList = (todoData: any) => {
+  const addOrUpdateTodoList = (todoData: TodoListData) => {
     dispatch({
       type: 'ADD_OR_UPDATE_TODO_LIST',
-      todoData: todoData,
+      todoData,
     });
   };
 
-  const removeTodoList = (id: any) => {
+  const removeTodoList = (id: string) => {
     dispatch({
       type: 'REMOVE_TODO_LIST',
-      id: id,
+      id,
     });
   };
 

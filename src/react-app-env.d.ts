@@ -36,10 +36,11 @@ type wiseSaying = {
 
 type TodoState = {
   topicList: TodoTopic;
-  todoList: Record<string, TodoListData>;
+  todoList: TodoList;
 };
 
 type TodoAction =
-  | { type: 'request' }
-  | { type: 'success'; results: HNResponse }
-  | { type: 'failure'; error: string };
+  | { type: 'ADD_TOPIC'; topic: TodoTopicData }
+  | { type: 'REMOVE_TOPIC'; id: string; topic: string }
+  | { type: 'ADD_OR_UPDATE_TODO_LIST'; todoData: TodoListData }
+  | { type: 'REMOVE_TODO_LIST'; id: string };

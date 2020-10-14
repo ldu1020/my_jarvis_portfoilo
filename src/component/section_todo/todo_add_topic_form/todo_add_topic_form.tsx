@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid';
 import React, { useState } from 'react';
 
 interface TodoAddTopicFormProps {
-  onAdd: any;
+  onAdd: (topicData: TodoTopicData) => void;
 }
 
 const TodoAddTopicForm: React.FC<TodoAddTopicFormProps> = ({ onAdd }) => {
