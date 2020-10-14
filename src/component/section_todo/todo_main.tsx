@@ -3,49 +3,10 @@
 import React, { useReducer, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import TodoAddTopicForm from './todo_add_topic_form/todo_add_topic_form';
+import TodoGraph from './todo_graph/todo_graph';
+import { initialState, todoReducer } from './todo_reducer';
 import TodoList from './todo_topic/todo_list';
 import TodoTopic from './todo_topic/todo_topic';
-
-const initialState = {
-  topicList: [] as TodoTopic,
-  todoList: {} as TodoList,
-};
-
-function todoReducer(state: TodoState, action: TodoAction) {
-  const { topicList, todoList } = state;
-  let updated;
-
-  switch (action.type) {
-    case 'ADD_TOPIC':
-      return { ...state, topicList: [...topicList, action.topic] };
-    case 'REMOVE_TOPIC':
-      const filteredTopic = topicList.filter((list) => {
-        return list.id !== action.id;
-      });
-      const filteredTodoList = { ...todoList };
-      Object.keys(filteredTodoList) //
-        .filter((key) => {
-          const topicInKey = key.split('/')[1];
-          return topicInKey === action.topic;
-        }) //
-        .forEach((key) => {
-          delete filteredTodoList[key];
-        });
-      updated = { topicList: filteredTopic, todoList: filteredTodoList };
-      return updated;
-    case 'ADD_OR_UPDATE_TODO_LIST':
-      updated = { ...todoList };
-      updated[action.todoData.id + '/' + action.todoData.topic] =
-        action.todoData;
-      return { ...state, todoList: updated };
-    case 'REMOVE_TODO_LIST':
-      updated = { ...todoList };
-      delete updated[action.id];
-      return { ...state, todoList: updated };
-    default:
-      return state;
-  }
-}
 
 const TodoMain: React.FC = () => {
   const history = useHistory();
@@ -99,6 +60,9 @@ const TodoMain: React.FC = () => {
           );
         })}
         <TodoAddTopicForm onAdd={addTopic} />
+      </section>
+      <section>
+        <TodoGraph todoList={todoState.todoList} />
       </section>
     </div>
   );
