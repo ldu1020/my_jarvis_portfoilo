@@ -2,12 +2,12 @@
 
 import React, { useState } from 'react';
 
-interface TodoAddItemFormProps {
+interface ListAddItemFormProps {
   addOrUpdateTodoList: (todoData: TodoListData) => void;
   topic: string;
 }
 
-const TodoAddItemForm: React.FC<TodoAddItemFormProps> = ({
+const ListAddItemForm: React.FC<ListAddItemFormProps> = ({
   addOrUpdateTodoList,
   topic,
 }) => {
@@ -58,16 +58,11 @@ const TodoAddItemForm: React.FC<TodoAddItemFormProps> = ({
         value={todoData.until}
       />
 
-      <input
-        name='autoCheck'
-        type='checkbox'
-        onChange={onChange}
-        checked={todoData.autoCheck}
-      />
+      <input name='autoCheck' type='checkbox' onChange={onChange} />
 
       <button onClick={onAddTodo}>add</button>
     </form>
   );
 };
 
-export default TodoAddItemForm;
+export default ListAddItemForm;

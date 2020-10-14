@@ -1,17 +1,17 @@
 /** @format */
 
 import React from 'react';
-import TodoAddItemForm from './todo_add_item_form';
-import Todoitem from './todo_item';
+import ListItem from './list_item';
+import ListAddItemForm from './list_add_item_form';
 
-interface TodoListProps {
+interface TopicListProps {
   topic: string;
   todoList: TodoList;
   addOrUpdateTodoList: (todoData: TodoListData) => void;
   removeTodoList: (id: string) => void;
 }
 
-const TodoList: React.FC<TodoListProps> = ({
+const TopicList: React.FC<TopicListProps> = ({
   topic,
   todoList,
   addOrUpdateTodoList,
@@ -29,15 +29,16 @@ const TodoList: React.FC<TodoListProps> = ({
             .map((key) => {
               const data = todoList[key];
               return (
-                <Todoitem
+                <ListItem
                   key={key}
                   todoListData={data}
                   removeTodoList={removeTodoList}
+                  addOrUpdateTodoList={addOrUpdateTodoList}
                 />
               );
             })}
       </ul>
-      <TodoAddItemForm
+      <ListAddItemForm
         addOrUpdateTodoList={addOrUpdateTodoList}
         topic={topic}
       />
@@ -45,4 +46,4 @@ const TodoList: React.FC<TodoListProps> = ({
   );
 };
 
-export default TodoList;
+export default TopicList;

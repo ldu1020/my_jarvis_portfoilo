@@ -1,7 +1,7 @@
 /** @format */
 
 import React from 'react';
-import TodoList from './todo_list';
+import TopicList from './topic_list/topic_list';
 
 interface TodoTopicProps {
   topicData: TodoTopicData;
@@ -24,7 +24,7 @@ const TodoTopic: React.FC<TodoTopicProps> = ({
         topicRemove
       </button>
       <h1>{topicData.topic}</h1>
-      <TodoList
+      <TopicList
         topic={topicData.topic}
         todoList={todoList}
         addOrUpdateTodoList={addOrUpdateTodoList}
