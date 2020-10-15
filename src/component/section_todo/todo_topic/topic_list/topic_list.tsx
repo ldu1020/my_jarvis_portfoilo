@@ -1,8 +1,11 @@
 /** @format */
 
 import React from 'react';
-import ListItem from './list_item';
+import TopicListItem from './topic_list_item';
 import ListAddItemForm from './list_add_item_form';
+import { List, ListItem } from '@material-ui/core';
+
+import styles from './topic_list.module.css';
 
 interface TopicListProps {
   topic: string;
@@ -19,7 +22,7 @@ const TopicList: React.FC<TopicListProps> = ({
 }) => {
   return (
     <div>
-      <ul>
+      <List className={styles.ul}>
         {todoList &&
           Object.keys(todoList) //
             .filter((key) => {
@@ -29,7 +32,7 @@ const TopicList: React.FC<TopicListProps> = ({
             .map((key) => {
               const data = todoList[key];
               return (
-                <ListItem
+                <TopicListItem
                   key={key}
                   todoListData={data}
                   removeTodoList={removeTodoList}
@@ -37,11 +40,13 @@ const TopicList: React.FC<TopicListProps> = ({
                 />
               );
             })}
-      </ul>
-      <ListAddItemForm
-        addOrUpdateTodoList={addOrUpdateTodoList}
-        topic={topic}
-      />
+        <ListItem>
+          <ListAddItemForm
+            addOrUpdateTodoList={addOrUpdateTodoList}
+            topic={topic}
+          />
+        </ListItem>
+      </List>
     </div>
   );
 };

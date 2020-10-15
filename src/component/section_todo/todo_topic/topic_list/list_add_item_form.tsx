@@ -1,6 +1,8 @@
 /** @format */
 
+import { IconButton, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
+import AddIcon from '@material-ui/icons/Add';
 
 interface ListAddItemFormProps {
   addOrUpdateTodoList: (todoData: TodoListData) => void;
@@ -11,6 +13,7 @@ const ListAddItemForm: React.FC<ListAddItemFormProps> = ({
   addOrUpdateTodoList,
   topic,
 }) => {
+  const [open, setOpen] = useState(false);
   const [todoData, setTodoData] = useState<TodoListData>({
     id: Date.now().toString() + '&' + topic,
     topic: topic,
@@ -21,16 +24,14 @@ const ListAddItemForm: React.FC<ListAddItemFormProps> = ({
   });
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, checked } = event.target;
+    const { name, value } = event.target;
     setTodoData({
       ...todoData,
-      [name]: name === 'autoCheck' ? checked : value,
+      [name]: value,
     });
   };
 
-  const onAddTodo = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const onSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
     addOrUpdateTodoList(todoData);
     setTodoData({
@@ -41,27 +42,40 @@ const ListAddItemForm: React.FC<ListAddItemFormProps> = ({
       checked: false,
       autoCheck: false,
     });
+    setOpen(false);
   };
 
   return (
-    <form>
-      <input
-        name='what'
-        type='text'
-        onChange={onChange}
-        value={todoData.what}
-      />
-      <input
-        name='until'
-        type='time'
-        onChange={onChange}
-        value={todoData.until}
-      />
+    <>
+      {open && (
+        <form autoComplete='off'>
+          <TextField
+            name='what'
+            label='무엇을'
+            type='text'
+            onChange={onChange}
+            value={todoData.what}
+          />
 
-      <input name='autoCheck' type='checkbox' onChange={onChange} />
+          <TextField
+            id='time'
+            label='until'
+            name='until'
+            type='time'
+            onChange={onChange}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            inputProps={{ value: todoData.until }}
+          />
 
-      <button onClick={onAddTodo}>add</button>
-    </form>
+          <button onClick={onSubmit}>add</button>
+        </form>
+      )}
+      <IconButton onClick={() => setOpen(!open)}>
+        <AddIcon />
+      </IconButton>
+    </>
   );
 };
 

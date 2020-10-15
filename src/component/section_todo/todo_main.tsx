@@ -1,5 +1,6 @@
 /** @format */
 
+import { Grid } from '@material-ui/core';
 import React, { useEffect, useReducer } from 'react';
 import AuthService from '../../service/auth_service';
 import DataBase from '../../service/database';
@@ -7,6 +8,7 @@ import TodoAddTopicForm from './todo_add_topic_form/todo_add_topic_form';
 import TodoGraph from './todo_graph/todo_graph';
 import { initialState, todoReducer } from './todo_reducer';
 import TodoTopic from './todo_topic/todo_topic';
+import styles from './todo_main.module.css';
 
 interface TodoMainProps {
   authService: AuthService;
@@ -75,23 +77,21 @@ const TodoMain: React.FC<TodoMainProps> = ({
   const { topicList, todoList } = todoState;
 
   return (
-    <div>
-      <section>
-        {topicList &&
-          topicList.map((topicData: TodoTopicData) => {
-            return (
-              <TodoTopic
-                key={topicData.id}
-                topicData={topicData}
-                todoList={todoState.todoList}
-                removeTopic={removeTopic}
-                addOrUpdateTodoList={addOrUpdateTodoList}
-                removeTodoList={removeTodoList}
-              />
-            );
-          })}
-        <TodoAddTopicForm onAdd={addTopic} />
-      </section>
+    <div className={styles.main}>
+      {topicList &&
+        topicList.map((topicData: TodoTopicData) => {
+          return (
+            <TodoTopic
+              key={topicData.id}
+              topicData={topicData}
+              todoList={todoState.todoList}
+              removeTopic={removeTopic}
+              addOrUpdateTodoList={addOrUpdateTodoList}
+              removeTodoList={removeTodoList}
+            />
+          );
+        })}
+      <TodoAddTopicForm onAdd={addTopic} />
       <section>
         {todoList && <TodoGraph todoList={todoState.todoList} />}
       </section>

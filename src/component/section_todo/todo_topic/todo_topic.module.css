@@ -1,0 +1,22 @@
+/** @format */
+
+.topic {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.removeBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transition: all 0.3s;
+}
+
+.removeBtn:hover {
+  color: red;
+  transform: scale(1.1);
+}
+
+.timerCreated {
+  display: inline;
+}

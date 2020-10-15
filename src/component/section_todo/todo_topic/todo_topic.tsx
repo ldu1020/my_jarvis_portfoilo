@@ -1,7 +1,10 @@
 /** @format */
 
+import { Card, CardContent, IconButton, Typography } from '@material-ui/core';
+import { RemoveCircle } from '@material-ui/icons';
 import React from 'react';
 import TopicList from './topic_list/topic_list';
+import styles from './todo_topic.module.css';
 
 interface TodoTopicProps {
   topicData: TodoTopicData;
@@ -18,19 +21,31 @@ const TodoTopic: React.FC<TodoTopicProps> = ({
   addOrUpdateTodoList,
   removeTodoList,
 }) => {
+  console.log(topicData.start);
+
   return (
-    <div>
-      <button onClick={() => removeTopic(topicData.id, topicData.topic)}>
-        topicRemove
-      </button>
-      <h1>{topicData.topic}</h1>
+    <Card variant='outlined' className={styles.topic}>
+      <IconButton
+        onClick={() => removeTopic(topicData.id, topicData.topic)}
+        className={styles.removeBtn}>
+        <RemoveCircle />
+      </IconButton>
+      <CardContent component='header' className={styles.cardheader}>
+        <Typography variant='h6' className={styles.topicTitle}>
+          {topicData.topic}
+        </Typography>
+        <Typography variant='caption' className={styles.timeCreated}>
+          {`${topicData.start}-`}
+        </Typography>
+      </CardContent>
+
       <TopicList
         topic={topicData.topic}
         todoList={todoList}
         addOrUpdateTodoList={addOrUpdateTodoList}
         removeTodoList={removeTodoList}
       />
-    </div>
+    </Card>
   );
 };
 

@@ -6,6 +6,7 @@ import Login from './component/login/login';
 import AuthService from './service/auth_service';
 import DataBase from './service/database';
 import Main from './component/main/main';
+import { CssBaseline, StylesProvider } from '@material-ui/core';
 
 interface AppProps {
   authService: AuthService;
@@ -14,18 +15,23 @@ interface AppProps {
 
 const App: React.FC<AppProps> = ({ authService, database }) => {
   return (
-    <div>
-      <BrowserRouter>
-        <Switch>
-          <Route exact path='/'>
-            <Login authService={authService} />
-          </Route>
-          <Route path='/main'>
-            <Main authService={authService} database={database} />
-          </Route>
-        </Switch>
-      </BrowserRouter>
-    </div>
+    <>
+      <CssBaseline />
+      <StylesProvider injectFirst>
+        <div>
+          <BrowserRouter>
+            <Switch>
+              <Route exact path='/'>
+                <Login authService={authService} />
+              </Route>
+              <Route path='/main'>
+                <Main authService={authService} database={database} />
+              </Route>
+            </Switch>
+          </BrowserRouter>
+        </div>
+      </StylesProvider>
+    </>
   );
 };
 

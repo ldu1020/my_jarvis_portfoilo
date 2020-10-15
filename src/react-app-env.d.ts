@@ -23,7 +23,7 @@ type TodoTopic = TodoTopicData[];
 type TodoTopicData = {
   id: string;
   topic: string;
-  start: Date | null;
+  start: string | null;
   complete?: boolean;
   end?: string;
 };

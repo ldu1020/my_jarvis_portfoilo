@@ -17,9 +17,10 @@ const TodoAddTopicForm: React.FC<TodoAddTopicFormProps> = ({ onAdd }) => {
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, checked } = event.target;
+    const date = new Date();
     setTopicData({
       ...topicData,
-      start: new Date(),
+      start: `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`,
       [name]: name === 'complete' ? checked : value,
     });
   };
@@ -28,11 +29,13 @@ const TodoAddTopicForm: React.FC<TodoAddTopicFormProps> = ({ onAdd }) => {
     console.log('sub');
     event.preventDefault();
     onAdd(topicData);
+    console.log(topicData);
     setTopicData({
       id: Date.now().toString(),
       topic: '',
       start: null,
     });
+    setOpen(false);
   };
 
   return (
