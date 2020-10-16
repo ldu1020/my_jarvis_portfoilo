@@ -35,7 +35,7 @@ const TodoTopic: React.FC<TodoTopicProps> = ({
           {topicData.topic}
         </Typography>
         <Typography variant='caption' className={styles.timeCreated}>
-          {`${topicData.start}-`}
+          {`${topicData.start} -`}
         </Typography>
       </CardContent>
 

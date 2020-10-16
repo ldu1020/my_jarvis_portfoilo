@@ -1,7 +1,12 @@
 /** @format */
 
-import { Grid } from '@material-ui/core';
-import React, { useEffect, useReducer } from 'react';
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useReducer,
+  useRef,
+  useState,
+} from 'react';
 import AuthService from '../../service/auth_service';
 import DataBase from '../../service/database';
 import TodoAddTopicForm from './todo_add_topic_form/todo_add_topic_form';
@@ -9,6 +14,7 @@ import TodoGraph from './todo_graph/todo_graph';
 import { initialState, todoReducer } from './todo_reducer';
 import TodoTopic from './todo_topic/todo_topic';
 import styles from './todo_main.module.css';
+import { Card } from '@material-ui/core';
 
 interface TodoMainProps {
   authService: AuthService;
@@ -22,6 +28,8 @@ const TodoMain: React.FC<TodoMainProps> = ({
   userId,
 }) => {
   const [todoState, dispatch] = useReducer(todoReducer, initialState);
+  const [section_performence_Y, setPerY] = useState(false);
+  let section_performence_Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!userId) {
@@ -36,6 +44,13 @@ const TodoMain: React.FC<TodoMainProps> = ({
 
     return () => stopSync();
   }, [userId, database]);
+
+  useLayoutEffect(() => {
+    window.addEventListener('scroll', () => {
+      let rect = section_performence_Ref.current?.getBoundingClientRect();
+      rect?.y === 0 ? setPerY(true) : setPerY(false);
+    });
+  });
 
   const addTopic = (topicData: TodoTopicData) => {
     dispatch({
@@ -78,22 +93,29 @@ const TodoMain: React.FC<TodoMainProps> = ({
 
   return (
     <div className={styles.main}>
-      {topicList &&
-        topicList.map((topicData: TodoTopicData) => {
-          return (
-            <TodoTopic
-              key={topicData.id}
-              topicData={topicData}
-              todoList={todoState.todoList}
-              removeTopic={removeTopic}
-              addOrUpdateTodoList={addOrUpdateTodoList}
-              removeTodoList={removeTodoList}
-            />
-          );
-        })}
-      <TodoAddTopicForm onAdd={addTopic} />
-      <section>
-        {todoList && <TodoGraph todoList={todoState.todoList} />}
+      <Card
+        className={`${styles.section_performence} 
+          ${section_performence_Y && styles.SecPerY0}`}
+        ref={section_performence_Ref}>
+        <section className={styles.graph_Wrapper}>
+          {todoList && <TodoGraph todoList={todoState.todoList} />}
+        </section>
+      </Card>
+      <section className={styles.section_todoList}>
+        {topicList &&
+          topicList.map((topicData: TodoTopicData) => {
+            return (
+              <TodoTopic
+                key={topicData.id}
+                topicData={topicData}
+                todoList={todoState.todoList}
+                removeTopic={removeTopic}
+                addOrUpdateTodoList={addOrUpdateTodoList}
+                removeTodoList={removeTodoList}
+              />
+            );
+          })}
+        <TodoAddTopicForm onAdd={addTopic} />
       </section>
     </div>
   );
