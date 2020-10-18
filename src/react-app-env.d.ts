@@ -11,6 +11,7 @@ type UserData = {
 type TodoState = {
   topicList: TodoTopic;
   todoList: TodoList;
+  todoPerformence: TodoPerformence;
 };
 
 type TodoStateOfDB = {
@@ -23,9 +24,16 @@ type TodoTopic = TodoTopicData[];
 type TodoTopicData = {
   id: string;
   topic: string;
-  start: string | null;
-  complete?: boolean;
-  end?: string;
+  made: string;
+  complete: boolean;
+};
+
+type TodoPerformence = Record<string, TodoPerformenceData>;
+
+type TodoPerformenceData = {
+  id: string;
+  checked: number;
+  checkList: number;
 };
 
 type TodoList = Record<string, TodoListData>;
@@ -49,4 +57,8 @@ type TodoAction =
   | { type: 'ADD_TOPIC'; topicData: TodoTopicData }
   | { type: 'REMOVE_TOPIC'; id: string; topic: string }
   | { type: 'ADD_OR_UPDATE_TODO_LIST'; todoListData: TodoListData }
-  | { type: 'REMOVE_TODO_LIST'; id: string };
+  | { type: 'REMOVE_TODO_LIST'; id: string }
+  | {
+      type: 'ADD_OR_UPDATE_TODO_PERFORMENCE';
+      todoPerformenceData: TodoPerformenceData;
+    };

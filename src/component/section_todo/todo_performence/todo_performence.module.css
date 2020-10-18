@@ -1,0 +1,23 @@
+/** @format */
+
+.section_performence {
+  position: sticky;
+  z-index: 1500;
+  width: 90%;
+  top: 0;
+  margin: 1rem;
+  transition: all 1s;
+}
+
+.section_todoList {
+  width: 90%;
+}
+.graph_Wrapper {
+  font-size: 3px;
+}
+
+.SecPerY0 {
+  transition: all 1s;
+  width: 100%;
+  background-color: #7986cb;
+}

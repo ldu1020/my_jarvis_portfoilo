@@ -12,7 +12,8 @@ const TodoAddTopicForm: React.FC<TodoAddTopicFormProps> = ({ onAdd }) => {
   const [topicData, setTopicData] = useState<TodoTopicData>({
     id: nanoid(),
     topic: '',
-    start: null,
+    made: '',
+    complete: false,
   });
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +21,7 @@ const TodoAddTopicForm: React.FC<TodoAddTopicFormProps> = ({ onAdd }) => {
     const date = new Date();
     setTopicData({
       ...topicData,
-      start: `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`,
+      made: `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`,
       [name]: name === 'complete' ? checked : value,
     });
   };
@@ -33,7 +34,8 @@ const TodoAddTopicForm: React.FC<TodoAddTopicFormProps> = ({ onAdd }) => {
     setTopicData({
       id: Date.now().toString(),
       topic: '',
-      start: null,
+      made: '',
+      complete: false,
     });
     setOpen(false);
   };

@@ -32,6 +32,7 @@ const Header: React.FC<HeaderProps> = ({ onLogout, userData }) => {
               aria-label='account of current user'
               aria-controls='menu-appbar'
               aria-haspopup='true'
+              onClick={onLogout}
               color='inherit'>
               <AccountCircle />
             </IconButton>

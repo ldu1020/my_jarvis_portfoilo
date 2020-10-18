@@ -6,12 +6,14 @@ import CountUp from 'react-countup';
 import styles from './todo_graph.module.css';
 
 interface TodoGraphProps {
-  todoList: TodoList;
   count?: boolean;
+  checked: number;
+  checkList: number;
 }
 
-const TodoGraph: React.FC<TodoGraphProps> = ({ todoList, count }) => {
-  const { checkedData, checkedRate } = getChecked(todoList);
+const TodoGraph: React.FC<TodoGraphProps> = ({ checked, checkList, count }) => {
+  const checkedRate = Math.floor(checked / checkList);
+  const checkedData = [checked, checkList - checked];
 
   const data = {
     labels: ['한 일', '할 일'],
@@ -56,13 +58,5 @@ const TodoGraph: React.FC<TodoGraphProps> = ({ todoList, count }) => {
     </div>
   );
 };
-
-function getChecked(todoList: TodoList) {
-  const checkList = Object.keys(todoList).map((key) => todoList[key].checked);
-  const checked = checkList.filter((li) => li === true);
-  const checkedData = [checked.length, checkList.length - checked.length];
-  const checkedRate = Math.floor((checkedData[0] / checkList.length) * 100);
-  return { checkedData, checkedRate };
-}
 
 export default TodoGraph;

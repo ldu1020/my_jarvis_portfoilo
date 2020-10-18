@@ -21,8 +21,6 @@ const TodoTopic: React.FC<TodoTopicProps> = ({
   addOrUpdateTodoList,
   removeTodoList,
 }) => {
-  console.log(topicData.start);
-
   return (
     <Card variant='outlined' className={styles.topic}>
       <IconButton
@@ -35,7 +33,7 @@ const TodoTopic: React.FC<TodoTopicProps> = ({
           {topicData.topic}
         </Typography>
         <Typography variant='caption' className={styles.timeCreated}>
-          {`${topicData.start} -`}
+          {topicData.made}
         </Typography>
       </CardContent>
 

@@ -15,8 +15,8 @@ export default class DataBase {
 
   saveTodoData(
     userId: string,
-    category: 'todoList' | 'topicList',
-    list: TodoListData | TodoTopicData
+    category: 'todoList' | 'topicList' | 'todoPerformence',
+    list: TodoListData | TodoTopicData | TodoPerformenceData
   ) {
     firebaseDatabase //
       .ref(`${userId}/todoState/${category}/${list.id}`)
@@ -25,7 +25,7 @@ export default class DataBase {
 
   removeTodoData(
     userId: string,
-    category: 'todoList' | 'topicList',
+    category: 'todoList' | 'topicList' | 'todoPerformence',
     id: string
   ) {
     firebaseDatabase //
