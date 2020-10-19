@@ -17,6 +17,7 @@ type TodoState = {
 type TodoStateOfDB = {
   topicList: Record<string, TodoTopicData>;
   todoList: TodoList;
+  todoPerformence: TodoPerformence;
 };
 
 type TodoTopic = TodoTopicData[];

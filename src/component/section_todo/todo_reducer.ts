@@ -14,11 +14,13 @@ export function todoReducer(state: TodoState, action: TodoAction) {
     case 'FETCH_TODO_STATE':
       const todoListOfDB = action.fetchData.todoList;
       const topicListOfDB = action.fetchData.topicList;
+      const todoPerformenceOfDB = action.fetchData.todoPerformence;
+
       if (topicListOfDB) {
         return {
           topicList: Object.values(topicListOfDB),
           todoList: todoListOfDB,
-          todoPerformence: todoPerformence,
+          todoPerformence: todoPerformenceOfDB,
         };
       } else {
         return state;

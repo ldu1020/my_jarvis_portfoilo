@@ -8,7 +8,6 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import DataBase from '../../../service/database';
 import TodoGraph from '../todo_graph/todo_graph';
 
 import styles from './todo_performence.module.css';
@@ -45,6 +44,8 @@ const TodoPerformence: React.FC<TodoPerformenceProps> = ({
   });
 
   useEffect(() => {
+    console.log('before right');
+
     if (inspectDate) {
       console.log('right!');
       addOrUpdatePerformence({
@@ -56,6 +57,8 @@ const TodoPerformence: React.FC<TodoPerformenceProps> = ({
   }, [todoList]);
 
   useEffect(() => {
+    console.log('before No!');
+    console.log(Object.keys(todoList).length);
     if (Object.keys(todoList).length && !inspectDate) {
       console.log('no!');
 
@@ -68,7 +71,7 @@ const TodoPerformence: React.FC<TodoPerformenceProps> = ({
         checkList: checkList.length,
       });
     }
-  }, [todoPerformence]);
+  }, [todoPerformence, todoList, inspectDate]);
 
   let section_performence_Ref = useRef<HTMLDivElement>(null);
 

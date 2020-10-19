@@ -57,10 +57,11 @@ const TodoMain: React.FC<TodoMainProps> = ({
       topic,
     });
     database.removeTodoData(userId as string, 'topicList', id);
-    Object.keys(todoState.todoList).forEach((key) => {
-      key.split('&')[1] === topic &&
-        database.removeTodoData(userId as string, 'todoList', key);
-    });
+    todoState.todoList &&
+      Object.keys(todoState.todoList).forEach((key) => {
+        key.split('&')[1] === topic &&
+          database.removeTodoData(userId as string, 'todoList', key);
+      });
   };
 
   const addOrUpdateTodoList = (todoListData: TodoListData) => {
@@ -79,17 +80,24 @@ const TodoMain: React.FC<TodoMainProps> = ({
     database.removeTodoData(userId as string, 'todoList', id);
   };
 
-  const addOrUpdatePerformence = (performanceData: TodoPerformenceData) => {
-    dispatch({
-      type: 'ADD_OR_UPDATE_TODO_PERFORMENCE',
-      todoPerformenceData: performanceData,
-    });
-    database.saveTodoData(userId as string, 'todoPerformence', performanceData);
-  };
+  const addOrUpdatePerformence = useCallback(
+    (performanceData: TodoPerformenceData) => {
+      dispatch({
+        type: 'ADD_OR_UPDATE_TODO_PERFORMENCE',
+        todoPerformenceData: performanceData,
+      });
+      database.saveTodoData(
+        userId as string,
+        'todoPerformence',
+        performanceData
+      );
+    },
+    []
+  );
 
   return (
     <div className={styles.main}>
-      {todoState.todoList && (
+      {todoState.todoList && Object.keys(todoState.todoPerformence).length && (
         <TodoPerformence
           todoList={todoState.todoList}
           todoPerformence={todoState.todoPerformence}
