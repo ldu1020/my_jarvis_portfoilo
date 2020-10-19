@@ -2,6 +2,8 @@
 
 .section_performence {
   position: sticky;
+  display: flex;
+  align-items: center;
   z-index: 1500;
   width: 90%;
   top: 0;
@@ -9,11 +11,20 @@
   transition: all 1s;
 }
 
-.section_todoList {
-  width: 90%;
-}
 .graph_Wrapper {
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 3px;
+}
+
+.threeDays_wrapper {
+  padding: 0;
+  height: 100%;
+  width: 70%;
+  display: flex;
+  align-items: center;
 }
 
 .SecPerY0 {

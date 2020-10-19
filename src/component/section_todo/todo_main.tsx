@@ -1,12 +1,6 @@
 /** @format */
 
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useReducer,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useReducer } from 'react';
 import AuthService from '../../service/auth_service';
 import DataBase from '../../service/database';
 import TodoAddTopicForm from './todo_add_topic_form/todo_add_topic_form';
@@ -92,7 +86,7 @@ const TodoMain: React.FC<TodoMainProps> = ({
         performanceData
       );
     },
-    []
+    [database, userId]
   );
 
   return (
