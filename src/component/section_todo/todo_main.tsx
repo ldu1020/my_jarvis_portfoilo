@@ -36,43 +36,55 @@ const TodoMain: React.FC<TodoMainProps> = ({
     return () => stopSync();
   }, [userId, database]);
 
-  const addTopic = (topicData: TodoTopicData) => {
-    dispatch({
-      type: 'ADD_TOPIC',
-      topicData: topicData,
-    });
-    database.saveTodoData(userId as string, 'topicList', topicData);
-  };
-
-  const removeTopic = (id: string, topic: string) => {
-    dispatch({
-      type: 'REMOVE_TOPIC',
-      id,
-      topic,
-    });
-    database.removeTodoData(userId as string, 'topicList', id);
-    todoState.todoList &&
-      Object.keys(todoState.todoList).forEach((key) => {
-        key.split('&')[1] === topic &&
-          database.removeTodoData(userId as string, 'todoList', key);
+  const addTopic = useCallback(
+    (topicData: TodoTopicData) => {
+      dispatch({
+        type: 'ADD_TOPIC',
+        topicData: topicData,
       });
-  };
+      database.saveTodoData(userId as string, 'topicList', topicData);
+    },
+    [database, userId]
+  );
 
-  const addOrUpdateTodoList = (todoListData: TodoListData) => {
-    dispatch({
-      type: 'ADD_OR_UPDATE_TODO_LIST',
-      todoListData,
-    });
-    database.saveTodoData(userId as string, 'todoList', todoListData);
-  };
+  const removeTopic = useCallback(
+    (id: string, topic: string) => {
+      dispatch({
+        type: 'REMOVE_TOPIC',
+        id,
+        topic,
+      });
+      database.removeTodoData(userId as string, 'topicList', id);
+      todoState.todoList &&
+        Object.keys(todoState.todoList).forEach((key) => {
+          key.split('&')[1] === topic &&
+            database.removeTodoData(userId as string, 'todoList', key);
+        });
+    },
+    [todoState.todoList, database, userId]
+  );
 
-  const removeTodoList = (id: string) => {
-    dispatch({
-      type: 'REMOVE_TODO_LIST',
-      id,
-    });
-    database.removeTodoData(userId as string, 'todoList', id);
-  };
+  const addOrUpdateTodoList = useCallback(
+    (todoListData: TodoListData) => {
+      dispatch({
+        type: 'ADD_OR_UPDATE_TODO_LIST',
+        todoListData,
+      });
+      database.saveTodoData(userId as string, 'todoList', todoListData);
+    },
+    [database, userId]
+  );
+
+  const removeTodoList = useCallback(
+    (id: string) => {
+      dispatch({
+        type: 'REMOVE_TODO_LIST',
+        id,
+      });
+      database.removeTodoData(userId as string, 'todoList', id);
+    },
+    [database, userId]
+  );
 
   const addOrUpdatePerformence = useCallback(
     (performanceData: TodoPerformenceData) => {
@@ -91,16 +103,16 @@ const TodoMain: React.FC<TodoMainProps> = ({
 
   return (
     <div className={styles.main}>
-      {todoState.todoList && Object.keys(todoState.todoPerformence).length && (
+      <section className={styles.section_performence}>
         <TodoPerformence
           todoList={todoState.todoList}
           todoPerformence={todoState.todoPerformence}
           removeTodoList={removeTodoList}
           addOrUpdatePerformence={addOrUpdatePerformence}
         />
-      )}
+      </section>
 
-      <section className={styles.section_todoList}>
+      <section className={styles.section_topicList}>
         {todoState.topicList &&
           todoState.topicList.map((topicData: TodoTopicData) => {
             return (
@@ -120,4 +132,4 @@ const TodoMain: React.FC<TodoMainProps> = ({
   );
 };
 
-export default TodoMain;
+export default React.memo(TodoMain);

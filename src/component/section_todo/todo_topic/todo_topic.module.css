@@ -1,4 +1,5 @@
 /** @format */
+@value mediaQuery-md from '../../../common/size.css';
 
 .topic {
   position: relative;
@@ -19,4 +20,11 @@
 
 .timerCreated {
   display: inline;
+}
+
+@media screen and (min-width: mediaQuery-md) {
+  .topic {
+    position: relative;
+    margin: 0.3rem;
+  }
 }

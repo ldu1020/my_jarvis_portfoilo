@@ -12,9 +12,9 @@ interface TodoGraphProps {
 }
 
 const TodoGraph: React.FC<TodoGraphProps> = ({ checked, checkList, count }) => {
-  const checkedRate = Math.floor(checked / checkList);
+  const checkedRate = Math.floor((checked / checkList) * 100);
   const checkedData = [checked, checkList - checked];
-
+  console.log(checkedRate);
   const data = {
     labels: ['한 일', '할 일'],
     datasets: [

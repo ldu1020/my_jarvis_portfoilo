@@ -1,4 +1,6 @@
 /** @format */
+@value mediaQuery-sm from '../../../../common/size.css';
+@value mediaQuery-md from '../../../../common/size.css';
 
 .section {
   display: flex;
@@ -39,8 +41,54 @@
   font-size: 4px;
 }
 
-@media screen and (min-width: 750px) {
+@media screen and (min-width: mediaQuery-sm) {
   .rate {
     display: inline;
+  }
+}
+
+@media screen and (min-width: mediaQuery-md) {
+  .section {
+    height: 17rem;
+    display: flex;
+    flex-direction: column;
+    border: 0.3px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+  }
+
+  .item {
+    height: 100%;
+    width: 100%;
+    display: flex;
+  }
+
+  .primary {
+    font-size: 1rem;
+    text-align: start;
+  }
+
+  .secondary {
+    font-size: 0.8rem;
+    text-align: start;
+  }
+
+  .secondary::before {
+    font-size: 0.6rem;
+    content: 'CHECK/LIST: ';
+  }
+
+  .display {
+    position: absolute;
+    left: 60%;
+  }
+
+  .display::before {
+    content: '전일대비: ';
+    color: gray;
+    font-size: 0.6rem;
+  }
+
+  .rate {
+    font-size: 0.8rem;
   }
 }

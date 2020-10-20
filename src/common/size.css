@@ -1,0 +1,7 @@
+/** @format */
+
+@value mediaQuery-xs: 300px;
+@value mediaQuery-sm: 600px;
+@value mediaQuery-md: 960px;
+@value mediaQuery-lg: 1280px;
+@value mediaQuery-xl: 1920px;

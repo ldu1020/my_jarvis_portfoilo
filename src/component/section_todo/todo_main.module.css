@@ -1,4 +1,5 @@
 /** @format */
+@value mediaQuery-md from '../../common/size.css';
 
 .main {
   display: flex;
@@ -8,22 +9,38 @@
 
 .section_performence {
   position: sticky;
-  z-index: 1500;
-  width: 90%;
   top: 0;
   margin: 1rem;
-  transition: all 1s;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
-.section_todoList {
+.section_topicList {
   width: 90%;
 }
-.graph_Wrapper {
-  font-size: 3px;
-}
 
-.SecPerY0 {
-  transition: all 1s;
-  width: 100%;
-  background-color: #7986cb;
+@media screen and (min-width: mediaQuery-md) {
+  .main {
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-start;
+  }
+  .section_performence {
+    box-shadow: none;
+    position: static;
+    display: inline;
+    width: 35%;
+    z-index: auto;
+  }
+
+  .section_topicList {
+    padding: 1rem;
+    width: 65%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

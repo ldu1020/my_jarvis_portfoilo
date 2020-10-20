@@ -1,7 +1,10 @@
 /** @format */
 
+import { Card, IconButton, TextField } from '@material-ui/core';
 import { nanoid } from 'nanoid';
 import React, { useState } from 'react';
+import AddIcon from '@material-ui/icons/Add';
+import styles from './todo_add_topic_form.module.css';
 
 interface TodoAddTopicFormProps {
   onAdd: (topicData: TodoTopicData) => void;
@@ -42,19 +45,26 @@ const TodoAddTopicForm: React.FC<TodoAddTopicFormProps> = ({ onAdd }) => {
 
   return (
     <div>
-      {open && (
-        <form>
-          <input
-            type='text'
-            name='topic'
-            onChange={onChange}
-            value={topicData.topic}
-          />
-          <input type='checkbox' name='complete' />
-          <button onClick={onSubmit}>push</button>
-        </form>
+      {open ? (
+        <Card>
+          <form>
+            <TextField
+              label='TOPIC'
+              type='text'
+              name='topic'
+              onChange={onChange}
+              value={topicData.topic}
+            />
+            <IconButton className={styles.toggleBtn} onClick={onSubmit}>
+              <AddIcon />
+            </IconButton>
+          </form>
+        </Card>
+      ) : (
+        <IconButton className={styles.toggleBtn} onClick={() => setOpen(!open)}>
+          <AddIcon />
+        </IconButton>
       )}
-      <button onClick={() => setOpen(!open)}>add</button>
     </div>
   );
 };

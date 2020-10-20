@@ -6,7 +6,7 @@ import {
   ListItem,
   ListItemText,
 } from '@material-ui/core';
-import React from 'react';
+import React, { useCallback } from 'react';
 import ListTimer from './list_timer';
 import CheckIcon from '@material-ui/icons/Check';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
@@ -24,17 +24,17 @@ const TopicListItem: React.FC<TopicListitemProps> = ({
   removeTodoList,
   addOrUpdateTodoList,
 }) => {
-  const updateCheck = () => {
+  const updateCheck = useCallback(() => {
     let updated = { ...todoListData };
     updated.checked = !updated.checked;
     addOrUpdateTodoList(updated);
-  };
+  }, [addOrUpdateTodoList, todoListData]);
 
-  const updateAutoCheck = () => {
+  const updateAutoCheck = useCallback(() => {
     let updated = { ...todoListData };
     updated.autoCheck = !updated.autoCheck;
     addOrUpdateTodoList(updated);
-  };
+  }, [addOrUpdateTodoList, todoListData]);
 
   return (
     <>
@@ -75,4 +75,4 @@ const TopicListItem: React.FC<TopicListitemProps> = ({
   );
 };
 
-export default TopicListItem;
+export default React.memo(TopicListItem);

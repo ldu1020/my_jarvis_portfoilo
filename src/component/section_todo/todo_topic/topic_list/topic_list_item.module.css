@@ -1,0 +1,6 @@
+/** @format */
+
+@value mediaQuery-md from '../../../../common/size.css';
+
+@media screen and (min-width: mediaQuery-md) {
+}

@@ -10,7 +10,7 @@ import styles from './todo_performence.module.css';
 interface TodoPerformenceProps {
   todoPerformence: TodoPerformence;
   addOrUpdatePerformence: (performenceData: TodoPerformenceData) => void;
-  todoList: TodoList;
+  todoList: TodoList | null;
   removeTodoList: (id: string) => void;
 }
 
@@ -29,10 +29,19 @@ const TodoPerformence: React.FC<TodoPerformenceProps> = ({
   const checked = todoList ? checkList.filter((li) => li === true) : [];
 
   useLayoutEffect(() => {
-    window.addEventListener('scroll', () => {
-      let rect = section_performence_Ref.current?.getBoundingClientRect();
-      rect?.y === 0 ? setPerY(true) : setPerY(false);
-    });
+    function handleScrollChange() {
+      window.addEventListener('scroll', () => {
+        let rect = section_performence_Ref.current?.getBoundingClientRect();
+        rect && rect.y <= 0 ? setPerY(true) : setPerY(false);
+        console.log(rect?.y);
+        console.log(section_performence_Y);
+      });
+    }
+    handleScrollChange();
+
+    return () => {
+      window.removeEventListener('scroll', handleScrollChange);
+    };
   }, []);
 
   useEffect(() => {
@@ -46,7 +55,7 @@ const TodoPerformence: React.FC<TodoPerformenceProps> = ({
   }, [todoList]);
 
   useEffect(() => {
-    if (Object.keys(todoList).length && !todoPerformence[today]) {
+    if (todoList && Object.keys(todoList).length && !todoPerformence[today]) {
       Object.keys(todoList).forEach((key) => {
         removeTodoList(key);
       });

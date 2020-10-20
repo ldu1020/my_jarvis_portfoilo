@@ -1,8 +1,9 @@
 /** @format */
 
-import { IconButton, TextField } from '@material-ui/core';
-import React, { useState } from 'react';
+import { IconButton, ListItem, TextField } from '@material-ui/core';
+import React, { useCallback, useState } from 'react';
 import AddIcon from '@material-ui/icons/Add';
+import styles from './list_add_item_form.module.css';
 
 interface ListAddItemFormProps {
   addOrUpdateTodoList: (todoData: TodoListData) => void;
@@ -23,43 +24,54 @@ const ListAddItemForm: React.FC<ListAddItemFormProps> = ({
     autoCheck: false,
   });
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setTodoData({
-      ...todoData,
-      [name]: value,
-    });
-  };
+  const onChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = event.target;
+      setTodoData({
+        ...todoData,
+        [name]: value,
+      });
+    },
+    [todoData]
+  );
 
-  const onSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.preventDefault();
-    addOrUpdateTodoList(todoData);
-    setTodoData({
-      id: Date.now().toString() + '&' + topic,
-      topic: topic,
-      what: '',
-      until: '',
-      checked: false,
-      autoCheck: false,
-    });
-    setOpen(false);
-  };
+  const onSubmit = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event.preventDefault();
+      addOrUpdateTodoList(todoData);
+      setTodoData({
+        id: Date.now().toString() + '&' + topic,
+        topic: topic,
+        what: '',
+        until: '',
+        checked: false,
+        autoCheck: false,
+      });
+      setOpen(false);
+    },
+    [topic, todoData, addOrUpdateTodoList]
+  );
 
   return (
-    <>
-      {open && (
-        <form autoComplete='off'>
+    <ListItem className={styles.list}>
+      {open ? (
+        <form autoComplete='off' className={styles.form}>
           <TextField
+            className={styles.what}
             name='what'
             label='무엇을'
             type='text'
             onChange={onChange}
+            InputLabelProps={{
+              shrink: true,
+            }}
             value={todoData.what}
           />
 
           <TextField
+            className={styles.until}
             id='time'
-            label='until'
+            label='언제까지'
             name='until'
             type='time'
             onChange={onChange}
@@ -68,15 +80,17 @@ const ListAddItemForm: React.FC<ListAddItemFormProps> = ({
             }}
             inputProps={{ value: todoData.until }}
           />
-
-          <button onClick={onSubmit}>add</button>
+          <IconButton className={styles.submit} onClick={onSubmit}>
+            <AddIcon />
+          </IconButton>
         </form>
+      ) : (
+        <IconButton className={styles.toggleBtn} onClick={() => setOpen(!open)}>
+          <AddIcon />
+        </IconButton>
       )}
-      <IconButton onClick={() => setOpen(!open)}>
-        <AddIcon />
-      </IconButton>
-    </>
+    </ListItem>
   );
 };
 
-export default ListAddItemForm;
+export default React.memo(ListAddItemForm);

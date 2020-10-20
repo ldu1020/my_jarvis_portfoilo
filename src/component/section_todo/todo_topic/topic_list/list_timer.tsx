@@ -46,7 +46,7 @@ const ListTimer: React.FC<TimerProps> = ({ todoListData, addOrUpdateTodo }) => {
   );
 };
 
-export default ListTimer;
+export default React.memo(ListTimer);
 
 function getRestTime(until: string, nowTime: Date) {
   const untilValue = until.split(':');

@@ -47,4 +47,4 @@ const TodoTopic: React.FC<TodoTopicProps> = ({
   );
 };
 
-export default TodoTopic;
+export default React.memo(TodoTopic);

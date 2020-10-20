@@ -1,13 +1,10 @@
 /** @format */
+@value mediaQuery-md from '../../../common/size.css';
 
 .section_performence {
-  position: sticky;
   display: flex;
   align-items: center;
-  z-index: 1500;
   width: 90%;
-  top: 0;
-  margin: 1rem;
   transition: all 1s;
 }
 
@@ -31,4 +28,40 @@
   transition: all 1s;
   width: 100%;
   background-color: #7986cb;
+}
+
+@media screen and (min-width: mediaQuery-md) {
+  .section_performence {
+    box-shadow: none;
+    position: static;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: auto;
+    width: 100%;
+
+    transition: none;
+  }
+
+  .graph_Wrapper {
+    width: 100%;
+    display: flex;
+    font-size: 8px;
+    height: 17rem;
+    margin: 0.3rem;
+    border: 0.3px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+  }
+
+  .threeDays_wrapper {
+    margin: 0.3rem;
+
+    width: 100%;
+  }
+
+  .SecPerY0 {
+    transition: none;
+    width: 100%;
+    background-color: #ffffff;
+  }
 }

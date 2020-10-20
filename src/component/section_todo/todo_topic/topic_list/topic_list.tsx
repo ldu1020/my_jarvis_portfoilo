@@ -3,7 +3,7 @@
 import React from 'react';
 import TopicListItem from './topic_list_item';
 import ListAddItemForm from './list_add_item_form';
-import { List, ListItem } from '@material-ui/core';
+import { List } from '@material-ui/core';
 
 import styles from './topic_list.module.css';
 
@@ -40,15 +40,13 @@ const TopicList: React.FC<TopicListProps> = ({
                 />
               );
             })}
-        <ListItem>
-          <ListAddItemForm
-            addOrUpdateTodoList={addOrUpdateTodoList}
-            topic={topic}
-          />
-        </ListItem>
+        <ListAddItemForm
+          addOrUpdateTodoList={addOrUpdateTodoList}
+          topic={topic}
+        />
       </List>
     </div>
   );
 };
 
-export default TopicList;
+export default React.memo(TopicList);

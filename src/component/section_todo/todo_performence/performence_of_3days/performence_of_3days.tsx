@@ -1,13 +1,6 @@
 /** @format */
 
-import {
-  Box,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-} from '@material-ui/core';
+import { List, ListItem, ListItemText, Typography } from '@material-ui/core';
 import React from 'react';
 import styles from './performence_of_3days.module.css';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
@@ -73,7 +66,7 @@ const PerformenceOf3Days: React.FC<PerformenceOf3DaysProps> = ({
   );
 };
 
-export default PerformenceOf3Days;
+export default React.memo(PerformenceOf3Days);
 
 function make3days(todoPerformence: TodoPerformence) {
   let days = [];
