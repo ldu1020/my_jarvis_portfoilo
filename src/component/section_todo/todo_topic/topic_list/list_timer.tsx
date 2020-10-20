@@ -1,6 +1,8 @@
 /** @format */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
+
+const initialState = 0;
 
 interface TimerProps {
   todoListData: TodoListData;
@@ -8,32 +10,45 @@ interface TimerProps {
 }
 
 const ListTimer: React.FC<TimerProps> = ({ todoListData, addOrUpdateTodo }) => {
-  const [restTime, setRestTime] = useState(0);
+  const [restTime, dispatch] = useReducer(reducer, initialState);
   const { hour, minute } = timeSet(restTime);
+
+  function reducer(state: any, action: any) {
+    switch (action.type) {
+      case 'SET_REST_TIME':
+        console.log('fuck.....');
+        const REST_TIME = getRestTime(todoListData.until, new Date());
+        if (todoListData.autoCheck && REST_TIME === 0) {
+          const updated = { ...todoListData };
+          updated.checked = true;
+          updated.autoCheck = false;
+          addOrUpdateTodo(updated);
+          action.clear();
+        } else if (todoListData.checked || REST_TIME === 0) {
+          action.clear();
+          console.log('fine ^^');
+          return 0;
+        }
+        return REST_TIME;
+
+      default:
+        return state;
+    }
+  }
 
   useEffect(() => {
     const setNow = setInterval(() => {
-      if (todoListData.checked) {
-        clearInterval(setNow);
-        setRestTime(0);
-      } else {
-        const now = new Date();
-        const time = getRestTime(todoListData.until, now);
-        setRestTime(time);
-      }
-      if (todoListData.autoCheck && restTime === 0) {
-        let updated = { ...todoListData };
-        updated.checked = true;
-        addOrUpdateTodo(updated);
-        clearInterval(setNow);
-      }
+      dispatch({
+        type: 'SET_REST_TIME',
+        clear: () => clearInterval(setNow),
+      });
     }, 1000);
 
     return () => {
       clearInterval(setNow);
       console.log('use return');
     };
-  }, [todoListData]);
+  }, [dispatch, todoListData]);
 
   return (
     <>

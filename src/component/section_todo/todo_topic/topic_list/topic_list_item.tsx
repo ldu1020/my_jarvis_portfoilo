@@ -51,16 +51,16 @@ const TopicListItem: React.FC<TopicListitemProps> = ({
         />
 
         <Checkbox
-          icon={<AlarmOnIcon />}
+          icon={<AlarmOnIcon className={styles.icon} />}
           size='small'
-          checkedIcon={<AlarmOnIcon />}
+          checkedIcon={<AlarmOnIcon className={styles.icon} />}
           onChange={updateAutoCheck}
           checked={todoListData.autoCheck}
         />
         <Checkbox
-          icon={<CheckIcon />}
+          icon={<CheckIcon className={styles.icon} />}
           size='small'
-          checkedIcon={<CheckIcon />}
+          checkedIcon={<CheckIcon className={styles.icon} />}
           onChange={updateCheck}
           checked={todoListData.checked}
         />
@@ -68,7 +68,7 @@ const TopicListItem: React.FC<TopicListitemProps> = ({
           onClick={() => {
             removeTodoList(todoListData.id);
           }}>
-          <DeleteOutlineIcon fontSize='small' />
+          <DeleteOutlineIcon fontSize='small' className={styles.icon} />
         </IconButton>
       </ListItem>
     </>
