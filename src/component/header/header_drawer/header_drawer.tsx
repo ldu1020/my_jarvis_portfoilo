@@ -9,7 +9,7 @@ import {
   ListItemText,
 } from '@material-ui/core';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from './header_drawer.module.css';
 import HomeIcon from '@material-ui/icons/Home';
 import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
@@ -26,44 +26,23 @@ const HeaderDrawer: React.FC<HeaderDrawerProps> = ({
   open,
   toggleOpen,
 }) => {
-  const goToHome = (userData: UserData) => {
-    history.push({
-      pathname: '/home',
-      state: { ...userData },
-    });
-  };
-  const goToTodo = (userData: UserData) => {
-    history.push({
-      pathname: '/atomic-habits',
-      state: { ...userData },
-    });
-  };
-  const goToWhatDone = (userData: UserData) => {
-    history.push({
-      pathname: '/whatDone',
-      state: { ...userData },
-    });
-  };
-
   const drawerState = [
     {
       label: '홈',
+      path: '/home',
       iconName: HomeIcon,
-      functionName: goToHome,
     },
     {
       label: '할일목록',
+      path: '/main/atomic-habits',
       iconName: PlaylistAddCheckIcon,
-      functionName: goToTodo,
     },
     {
       label: '한일목록',
+      path: '/main/what-done',
       iconName: PieChartIcon,
-      functionName: goToWhatDone,
     },
   ];
-
-  const history = useHistory();
 
   return (
     <nav className={styles.nav} aria-label='mailbox folders'>
@@ -77,16 +56,13 @@ const HeaderDrawer: React.FC<HeaderDrawerProps> = ({
         }}>
         <List>
           {drawerState.map((item) => (
-            <ListItem
-              button
-              key={item.label}
-              onClick={() => {
-                item.functionName(userData);
-              }}>
+            <ListItem button key={item.label}>
               <ListItemIcon>
                 <item.iconName />
               </ListItemIcon>
-              <ListItemText primary={item.label} />
+              <Link to={item.path}>
+                <ListItemText primary={item.label} />
+              </Link>
             </ListItem>
           ))}
         </List>

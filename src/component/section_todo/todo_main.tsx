@@ -7,7 +7,8 @@ import TodoAddTopicForm from './todo_add_topic_form/todo_add_topic_form';
 import TodoTopic from './todo_topic/todo_topic';
 import styles from './todo_main.module.css';
 import TodoPerformence from './todo_performence/todo_performence';
-import { initialState, todoReducer } from './todo_reducer';
+import { todoInitialState, todoReducer } from './todo_reducer';
+import { useHistory } from 'react-router-dom';
 
 interface TodoMainProps {
   authService: AuthService;
@@ -20,12 +21,9 @@ const TodoMain: React.FC<TodoMainProps> = ({
   database,
   userId,
 }) => {
-  const [todoState, dispatch] = useReducer(todoReducer, initialState);
-
+  const [todoState, dispatch] = useReducer(todoReducer, todoInitialState);
+  const history = useHistory();
   useEffect(() => {
-    if (!userId) {
-      return;
-    }
     const stopSync = database.syncData(userId, 'todoState', (dataOfDB: any) => {
       dispatch({
         type: 'FETCH_TODO_STATE',
@@ -34,7 +32,7 @@ const TodoMain: React.FC<TodoMainProps> = ({
     });
 
     return () => stopSync();
-  }, [userId, database]);
+  }, [userId, database, history]);
 
   const addTopic = useCallback(
     (topicData: TodoTopicData) => {

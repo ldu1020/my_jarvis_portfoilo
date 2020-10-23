@@ -1,11 +1,12 @@
 /** @format */
 
 import React, { useCallback, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { BrowserRouter, Route, useHistory } from 'react-router-dom';
 import AuthService from '../../service/auth_service';
 import DataBase from '../../service/database';
 import Header from '../header/header';
 import TodoMain from '../section_todo/todo_main';
+import WhatDoneMain from '../section_what_done/what_done_main';
 
 interface MainProps {
   authService: AuthService;
@@ -14,9 +15,8 @@ interface MainProps {
 
 const Main: React.FC<MainProps> = ({ authService, database }) => {
   const history = useHistory();
-  const [userId, setUserId] = useState(
-    history.location.state && (history.location.state as UserData).uid
-  );
+  const [userData, setUserId] = useState<UserData>();
+  console.log(history.location.state);
   const onLogout = useCallback(() => {
     authService.logout();
   }, [authService]);
@@ -24,20 +24,33 @@ const Main: React.FC<MainProps> = ({ authService, database }) => {
   useEffect(() => {
     authService.onAuthChange((user: firebase.User) => {
       if (user) {
-        setUserId(user.uid);
+        const { uid, displayName, email } = user;
+        const data = { uid, displayName, email };
+        setUserId(data);
       } else {
         history.push('/');
       }
     });
-  }, [authService, userId, history]);
+  }, [authService, history]);
   return (
     <div>
-      <Header
-        userData={history.location.state as UserData}
-        onLogout={onLogout}
-      />
-
-      <TodoMain authService={authService} database={database} userId={userId} />
+      <BrowserRouter>
+        <Header userData={userData} onLogout={onLogout} />
+        <Route path='/main/atomic-habits'>
+          <TodoMain
+            authService={authService}
+            database={database}
+            userId={userData ? userData.uid : null}
+          />
+        </Route>
+        <Route path='/main/what-done'>
+          <WhatDoneMain
+            authService={authService}
+            database={database}
+            userId={userData ? userData.uid : null}
+          />
+        </Route>
+      </BrowserRouter>
     </div>
   );
 };

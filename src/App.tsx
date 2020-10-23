@@ -15,23 +15,19 @@ interface AppProps {
 
 const App: React.FC<AppProps> = ({ authService, database }) => {
   return (
-    <>
+    <BrowserRouter>
       <CssBaseline />
       <StylesProvider injectFirst>
-        <div>
-          <BrowserRouter>
-            <Switch>
-              <Route exact path='/'>
-                <Login authService={authService} />
-              </Route>
-              <Route path='/main'>
-                <Main authService={authService} database={database} />
-              </Route>
-            </Switch>
-          </BrowserRouter>
-        </div>
+        <Switch>
+          <Route exact path='/'>
+            <Login authService={authService} />
+          </Route>
+          <Route path='/main'>
+            <Main authService={authService} database={database} />
+          </Route>
+        </Switch>
       </StylesProvider>
-    </>
+    </BrowserRouter>
   );
 };
 

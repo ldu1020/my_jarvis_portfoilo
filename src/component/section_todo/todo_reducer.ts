@@ -1,6 +1,6 @@
 /** @format */
 
-export const initialState = {
+export const todoInitialState = {
   topicList: [] as TodoTopic,
   todoList: {} as TodoList,
   todoPerformence: {} as TodoPerformence,
@@ -12,8 +12,8 @@ export function todoReducer(state: TodoState, action: TodoAction) {
 
   switch (action.type) {
     case 'FETCH_TODO_STATE':
-      const todoListOfDB = action.fetchData.todoList;
       const topicListOfDB = action.fetchData.topicList;
+      const todoListOfDB = action.fetchData.todoList;
       const todoPerformenceOfDB = action.fetchData.todoPerformence;
 
       if (topicListOfDB) {

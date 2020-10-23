@@ -8,6 +8,8 @@ type UserData = {
   uid: string | null;
 };
 
+// TODO Type
+
 type TodoState = {
   topicList: TodoTopic;
   todoList: TodoList;
@@ -63,3 +65,23 @@ type TodoAction =
       type: 'ADD_OR_UPDATE_TODO_PERFORMENCE';
       todoPerformenceData: TodoPerformenceData;
     };
+
+// WHAT DONE TYPE
+
+type WhatDoneState = {
+  whatDoneList: WhatDoneData[];
+  donePerformence: DoingTimeOfCategory[];
+};
+
+type WhatDoneData = {
+  id: string;
+  startTime: string;
+  endTime: string;
+  whatDo: string;
+  category: string;
+};
+
+type DoingTimeOfCategory = {
+  category: string;
+  doingTime: number;
+};
