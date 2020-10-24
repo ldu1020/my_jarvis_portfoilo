@@ -16,7 +16,7 @@ const WhatDoneList: React.FC<WhatDoneListProps> = ({
       <ul>
         {whatDoneList.map((item) => (
           <li>
-            <h1>{item.whatDo}</h1>
+            <h1>{item.category}</h1>
             <h3>
               {item.startTime}-{item.endTime}
             </h3>

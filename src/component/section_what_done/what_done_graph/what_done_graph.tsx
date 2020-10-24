@@ -2,28 +2,43 @@
 
 import React from 'react';
 import { Pie } from 'react-chartjs-2';
+import {
+  getCustomOrRandomColor,
+  getHexOpectityByNumber,
+} from '../what_done_my_function';
 import styles from './what_done_graph.module.css';
 
 interface WhatDoneGraphProps {
-  doingTimeOfCategory: DoingTimeOfCategory[];
+  doingTimeOfCategoryList: DoingTimeOfCategory[];
+  customCategoryList: CustomCategoryData[];
 }
 
 const WhatDoneGraph: React.FC<WhatDoneGraphProps> = ({
-  doingTimeOfCategory,
+  customCategoryList,
+  doingTimeOfCategoryList,
 }) => {
+  const CustomOrRandomColor = getCustomOrRandomColor(
+    customCategoryList,
+    doingTimeOfCategoryList
+  );
+
+  const opacityHover = getHexOpectityByNumber(1);
+  const opacityBG = getHexOpectityByNumber(0.7);
+
   const data = {
-    labels: doingTimeOfCategory.map((li) => li.category),
+    labels: doingTimeOfCategoryList.map((li) => li.category),
     datasets: [
       {
-        backgroundColor: doingTimeOfCategory.map((li) => 'red'),
-        borderColor: ['green'],
         borderWidth: 0,
-        hoverBackgroundColor: ['red'],
-        hoverBorderColor: ['red'],
-        data: doingTimeOfCategory.map((li) => li.doingTime),
+        backgroundColor: CustomOrRandomColor.map((color) => color + opacityBG),
+        hoverBackgroundColor: CustomOrRandomColor.map(
+          (color) => color + opacityHover
+        ),
+        data: doingTimeOfCategoryList.map((li) => li.doingTime),
       },
     ],
   };
+
   const options = {
     responsive: true,
     maintainAspectRatio: false,

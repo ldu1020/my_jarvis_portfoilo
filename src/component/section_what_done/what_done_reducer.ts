@@ -1,32 +1,38 @@
 /** @format */
 
-import { getPerformence } from './what_done_my_function';
-
 export const whatDoneInitialState = {
   whatDoneList: [] as WhatDoneData[],
   donePerformence: [] as DoingTimeOfCategory[],
+  customCategoryList: [] as CustomCategoryData[],
 };
 
 export function whatDoneReducer(state: WhatDoneState, action: any) {
-  const { whatDoneList } = state;
+  const { whatDoneList, customCategoryList } = state;
 
   switch (action.type) {
     case 'ADD_DONE_LIST':
       console.log(action.whatDoneData);
       return { ...state, whatDoneList: [...whatDoneList, action.whatDoneData] };
     case 'REMOVE_DONE_LIST':
-      const updatedDoneList = whatDoneList.filter((data) => {
-        return data.id !== action.id;
-      });
+      const updatedDoneList = whatDoneList.filter(
+        (data) => data.id !== action.id
+      );
       return {
         ...state,
         whatDoneList: updatedDoneList,
       };
-    case 'SET_DONE_LSIT_PERFORMENCE':
-      const performence = getPerformence(action.whatDoneList);
+    case 'ADD_CUSTOM_CATEGORY':
       return {
         ...state,
-        donePerformence: { ...state.donePerformence, performence },
+        customCategoryList: [...customCategoryList, action.customCategoryData],
+      };
+    case 'REMOVE_CUSTOM_CATEGORY':
+      const updatedCCList = customCategoryList.filter(
+        (data) => data.category !== action.category
+      );
+      return {
+        ...state,
+        customCategoryList: updatedCCList,
       };
     default:
       return state;

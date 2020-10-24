@@ -22,16 +22,14 @@ const WhatDoneMain: React.FC<WhatDoneMainProps> = ({
   userId,
 }) => {
   const [state, dispatch] = useReducer(whatDoneReducer, whatDoneInitialState);
-  const doingTimeOfCategory = getPerformence(state.whatDoneList);
+  const doingTimeOfCategoryList = getPerformence(state.whatDoneList);
 
   const addDoneList = (whatDoneData: WhatDoneData) => {
-    console.log(whatDoneData);
     dispatch({
       type: 'ADD_DONE_LIST',
       whatDoneData,
     });
   };
-  console.log(state);
 
   const removeDoneList = useCallback((id: string) => {
     dispatch({
@@ -40,14 +38,35 @@ const WhatDoneMain: React.FC<WhatDoneMainProps> = ({
     });
   }, []);
 
+  const addCustomCategory = (customCategoryData: CustomCategoryData) => {
+    dispatch({
+      type: 'ADD_CUSTOM_CATEGORY',
+      customCategoryData,
+    });
+  };
+
+  const removeCustomCategory = (category: string) => {
+    dispatch({
+      type: 'REMOVE_CUSTOM_CATEGORY',
+      category,
+    });
+  };
   return (
     <div>
-      <WhatDoneGraph doingTimeOfCategory={doingTimeOfCategory} />
+      <WhatDoneGraph
+        doingTimeOfCategoryList={doingTimeOfCategoryList}
+        customCategoryList={state.customCategoryList}
+      />
       <WhatDoneList
         whatDoneList={state.whatDoneList}
         onRemove={removeDoneList}
       />
-      <WhatDoneAddListForm addDoneList={addDoneList} />
+      <WhatDoneAddListForm
+        customCategoryList={state.customCategoryList}
+        addCustomCategory={addCustomCategory}
+        removeCustomCategory={removeCustomCategory}
+        addDoneList={addDoneList}
+      />
     </div>
   );
 };

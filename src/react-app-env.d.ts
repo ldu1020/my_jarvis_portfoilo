@@ -71,6 +71,7 @@ type TodoAction =
 type WhatDoneState = {
   whatDoneList: WhatDoneData[];
   donePerformence: DoingTimeOfCategory[];
+  customCategoryList: CustomCategoryData[];
 };
 
 type WhatDoneData = {
@@ -84,4 +85,9 @@ type WhatDoneData = {
 type DoingTimeOfCategory = {
   category: string;
   doingTime: number;
+};
+
+type CustomCategoryData = {
+  category: string;
+  color: string;
 };
