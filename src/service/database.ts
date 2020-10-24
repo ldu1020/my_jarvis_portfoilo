@@ -32,4 +32,24 @@ export default class DataBase {
       .ref(`${userId}/todoState/${category}/${id}`)
       .remove();
   }
+
+  saveWhatDoneData(
+    userId: string,
+    category: 'whatDoneList' | 'customCategoryList' | 'donePerformence',
+    list: WhatDoneData | CustomCategoryData
+  ) {
+    firebaseDatabase //
+      .ref(`${userId}/whatDoneState/${category}/${list.id}`)
+      .set(list);
+  }
+
+  removeWhatDoneData(
+    userId: string,
+    category: 'whatDoneList' | 'customCategoryList' | 'donePerformence',
+    id: string
+  ) {
+    firebaseDatabase //
+      .ref(`${userId}/whatDoneState/${category}/${id}`)
+      .remove();
+  }
 }

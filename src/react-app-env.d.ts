@@ -88,6 +88,7 @@ type DoingTimeOfCategory = {
 };
 
 type CustomCategoryData = {
+  id: string;
   category: string;
   color: string;
 };

@@ -16,6 +16,7 @@ const AddCustomCategory: React.FC<AddCustomCategoryProps> = ({
   removeCustomCategory,
 }) => {
   const [customCagoryData, setCustomCagoryData] = useState({
+    id: (Date.now() - 1).toString(),
     category: '',
     color: '',
   });
@@ -32,6 +33,7 @@ const AddCustomCategory: React.FC<AddCustomCategoryProps> = ({
     event.preventDefault();
     addCustomCategory(customCagoryData);
     setCustomCagoryData((beforeData) => ({
+      id: Date.now().toString(),
       category: '',
       color: '',
     }));
@@ -41,12 +43,12 @@ const AddCustomCategory: React.FC<AddCustomCategoryProps> = ({
     <div>
       <ul>
         {customCategoryList.map((data) => (
-          <li>
+          <li key={data.id}>
             {data.category}
             <input type='color' value={data.color} />
             <button
               onClick={() => {
-                removeCustomCategory(data.category);
+                removeCustomCategory(data.id);
               }}>
               remove
             </button>

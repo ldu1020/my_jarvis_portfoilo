@@ -1,6 +1,7 @@
 /** @format */
 
-import React, { useCallback, useReducer } from 'react';
+import React, { useCallback, useEffect, useReducer } from 'react';
+import { useHistory } from 'react-router-dom';
 import AuthService from '../../service/auth_service';
 import DataBase from '../../service/database';
 import WhatDoneAddListForm from './what_done_add_list_form/what_done_add_list_form';
@@ -24,32 +25,57 @@ const WhatDoneMain: React.FC<WhatDoneMainProps> = ({
   const [state, dispatch] = useReducer(whatDoneReducer, whatDoneInitialState);
   const doingTimeOfCategoryList = getPerformence(state.whatDoneList);
 
+  const history = useHistory();
+  useEffect(() => {
+    const stopSync = database.syncData(
+      userId,
+      'whatDoneState',
+      (dataOfDB: any) => {
+        dispatch({
+          type: 'FETCH_DONE_STATE',
+          fetchData: dataOfDB,
+        });
+      }
+    );
+    console.log(state);
+
+    return () => stopSync();
+  }, [userId, database, history]);
+
   const addDoneList = (whatDoneData: WhatDoneData) => {
     dispatch({
       type: 'ADD_DONE_LIST',
       whatDoneData,
     });
+    database.saveWhatDoneData(userId as string, 'whatDoneList', whatDoneData);
   };
 
-  const removeDoneList = useCallback((id: string) => {
+  const removeDoneList = (id: string) => {
     dispatch({
       type: 'REMOVE_DONE_LIST',
       id,
     });
-  }, []);
+    database.removeWhatDoneData(userId as string, 'whatDoneList', id);
+  };
 
   const addCustomCategory = (customCategoryData: CustomCategoryData) => {
     dispatch({
       type: 'ADD_CUSTOM_CATEGORY',
       customCategoryData,
     });
+    database.saveWhatDoneData(
+      userId as string,
+      'customCategoryList',
+      customCategoryData
+    );
   };
 
-  const removeCustomCategory = (category: string) => {
+  const removeCustomCategory = (id: string) => {
     dispatch({
       type: 'REMOVE_CUSTOM_CATEGORY',
-      category,
+      id,
     });
+    database.removeWhatDoneData(userId as string, 'customCategoryList', id);
   };
   return (
     <div>
