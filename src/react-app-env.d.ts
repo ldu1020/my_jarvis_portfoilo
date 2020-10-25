@@ -31,14 +31,6 @@ type TodoTopicData = {
   complete: boolean;
 };
 
-type TodoPerformence = Record<string, TodoPerformenceData>;
-
-type TodoPerformenceData = {
-  id: string;
-  checked: number;
-  checkList: number;
-};
-
 type TodoList = Record<string, TodoListData>;
 
 type TodoListData = {
@@ -70,7 +62,6 @@ type TodoAction =
 
 type WhatDoneState = {
   whatDoneList: WhatDoneData[];
-  donePerformence: DoingTimeOfCategory[];
   customCategoryList: CustomCategoryData[];
 };
 
@@ -91,4 +82,26 @@ type CustomCategoryData = {
   id: string;
   category: string;
   color: string;
+};
+
+//PERFORMENCE TYPE
+
+type Performence = {
+  todoPerfomence: TodoPerformence;
+  whatDonePerformence: whatDonePerformence;
+};
+
+type TodoPerformence = Record<string, TodoPerformenceData>;
+
+type TodoPerformenceData = {
+  id: string;
+  checked: number;
+  checkList: number;
+};
+
+type WhatDoonePerfomence = Record<string, WhatDonePerformenceData>;
+
+type WhatDonePerformenceData = {
+  category: string;
+  doingTime: number;
 };

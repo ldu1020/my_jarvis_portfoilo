@@ -13,6 +13,8 @@ export default class DataBase {
     return () => ref.off();
   }
 
+  //Todo
+
   saveTodoData(
     userId: string,
     category: 'todoList' | 'topicList' | 'todoPerformence',
@@ -33,6 +35,8 @@ export default class DataBase {
       .remove();
   }
 
+  // WhatDone
+
   saveWhatDoneData(
     userId: string,
     category: 'whatDoneList' | 'customCategoryList' | 'donePerformence',
@@ -46,10 +50,44 @@ export default class DataBase {
   removeWhatDoneData(
     userId: string,
     category: 'whatDoneList' | 'customCategoryList' | 'donePerformence',
-    id: string
+    id: string | 'removeAll'
+  ) {
+    id === 'removeAll'
+      ? firebaseDatabase.ref(`${userId}/whatDoneState/${category}`).set(null)
+      : firebaseDatabase //
+          .ref(`${userId}/whatDoneState/${category}/${id}`)
+          .remove();
+  }
+
+  //Performence
+
+  findTodayData(
+    userId: string,
+    category: 'todoPerformence' | 'whatDonePerformence',
+    today: string,
+    callback: any
+  ) {
+    console.log('FIND!!!!!!');
+    const ref = firebaseDatabase.ref(`${userId}/performence/${category}`);
+    ref
+      .orderByKey()
+      .equalTo(today)
+      .on('value', (snapshot) => {
+        const value = snapshot.val();
+        callback(value);
+      });
+
+    return () => ref.off();
+  }
+
+  async savePerformence(
+    userId: string,
+    category: 'todoPerformence' | 'whatDonePerformence',
+    date: string,
+    list: any
   ) {
     firebaseDatabase //
-      .ref(`${userId}/whatDoneState/${category}/${id}`)
-      .remove();
+      .ref(`${userId}/performence/${category}/${date}`)
+      .set(list);
   }
 }

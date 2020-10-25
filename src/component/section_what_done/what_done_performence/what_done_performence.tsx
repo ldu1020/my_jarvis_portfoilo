@@ -1,6 +1,6 @@
 /** @format */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import DataBase from '../../../service/database';
 import styles from './what_done_performence.module.css';
 
@@ -13,6 +13,9 @@ const WhatDonePerformence: React.FC<WhatDonePerformenceProps> = ({
   database,
   doingTimeOfCategoryList,
 }) => {
+  const [performence, setPerformence] = useState();
+  useEffect(() => {});
+
   return <div>performence</div>;
 };
 

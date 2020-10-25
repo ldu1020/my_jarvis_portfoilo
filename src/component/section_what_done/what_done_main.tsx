@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useCallback, useEffect, useReducer } from 'react';
+import React, { useEffect, useLayoutEffect, useReducer } from 'react';
 import { useHistory } from 'react-router-dom';
 import AuthService from '../../service/auth_service';
 import DataBase from '../../service/database';
@@ -8,6 +8,7 @@ import WhatDoneAddListForm from './what_done_add_list_form/what_done_add_list_fo
 import WhatDoneGraph from './what_done_graph/what_done_graph';
 import WhatDoneList from './what_done_list/what_done_list';
 import { getPerformence } from './what_done_my_function';
+import WhatDonePerformence from './what_done_performence/what_done_performence';
 
 import { whatDoneInitialState, whatDoneReducer } from './what_done_reducer';
 
@@ -23,9 +24,43 @@ const WhatDoneMain: React.FC<WhatDoneMainProps> = ({
   userId,
 }) => {
   const [state, dispatch] = useReducer(whatDoneReducer, whatDoneInitialState);
+  const date = new Date();
+  const today = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`;
   const doingTimeOfCategoryList = getPerformence(state.whatDoneList);
-
   const history = useHistory();
+
+  useLayoutEffect(() => {
+    const stopSync = database.findTodayData(
+      userId as string,
+      'whatDonePerformence',
+      today,
+      (todayData: any) => {
+        todayData &&
+          doingTimeOfCategoryList.length !== 0 &&
+          database.savePerformence(
+            userId as string,
+            'whatDonePerformence',
+            today,
+            doingTimeOfCategoryList
+          );
+        !todayData &&
+          database
+            .savePerformence(userId as string, 'whatDonePerformence', today, [
+              { category: 'Welcome!!', doingTime: 1 },
+            ])
+            .then(() => {
+              database.removeWhatDoneData(
+                userId as string,
+                'whatDoneList',
+                'removeAll'
+              );
+            });
+      }
+    );
+
+    return () => stopSync();
+  }, [userId, database, today, doingTimeOfCategoryList]);
+
   useEffect(() => {
     const stopSync = database.syncData(
       userId,
@@ -37,7 +72,6 @@ const WhatDoneMain: React.FC<WhatDoneMainProps> = ({
         });
       }
     );
-    console.log(state);
 
     return () => stopSync();
   }, [userId, database, history]);
@@ -92,6 +126,10 @@ const WhatDoneMain: React.FC<WhatDoneMainProps> = ({
         addCustomCategory={addCustomCategory}
         removeCustomCategory={removeCustomCategory}
         addDoneList={addDoneList}
+      />
+      <WhatDonePerformence
+        database={database}
+        doingTimeOfCategoryList={doingTimeOfCategoryList}
       />
     </div>
   );

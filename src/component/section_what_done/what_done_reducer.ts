@@ -2,7 +2,6 @@
 
 export const whatDoneInitialState = {
   whatDoneList: [] as WhatDoneData[],
-  donePerformence: [] as DoingTimeOfCategory[],
   customCategoryList: [] as CustomCategoryData[],
 };
 
@@ -23,12 +22,15 @@ export function whatDoneReducer(state: WhatDoneState, action: any) {
           : state.customCategoryList,
       };
     case 'ADD_DONE_LIST':
-      console.log(action.whatDoneData);
       return { ...state, whatDoneList: [...whatDoneList, action.whatDoneData] };
     case 'REMOVE_DONE_LIST':
-      const updatedDoneList = whatDoneList.filter(
-        (data) => data.id !== action.id
-      );
+      let updatedDoneList: [] | WhatDoneData[];
+
+      action.id === 'removeAll'
+        ? (updatedDoneList = [])
+        : (updatedDoneList = whatDoneList.filter(
+            (data) => data.id !== action.id
+          ));
       return {
         ...state,
         whatDoneList: updatedDoneList,

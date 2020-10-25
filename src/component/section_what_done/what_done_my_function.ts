@@ -1,12 +1,13 @@
 /** @format */
 
+import { Category } from '@material-ui/icons';
+import { whatDoneInitialState } from './what_done_reducer';
+/** @format */
+
 export function getPerformence(
   whatDoneList: WhatDoneData[]
 ): DoingTimeOfCategory[] {
   let performence: any = [];
-
-  console.log(whatDoneList);
-
   const categroies = whatDoneList //
     .map((li) => li.category)
     .filter((item, index, self) => {
@@ -16,7 +17,7 @@ export function getPerformence(
   categroies.forEach((category) => {
     const doingTime = whatDoneList //
       .filter((list) => list.category === category) //
-      .map((list) => calcDoingTime(list.startTime, list.endTime))
+      .map((list) => calcDoingTime(list.startTime, list.endTime) || 0)
       .reduce((acc, cur) => acc + cur);
 
     performence.push({

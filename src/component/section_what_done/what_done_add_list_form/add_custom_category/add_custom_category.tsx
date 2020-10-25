@@ -45,7 +45,7 @@ const AddCustomCategory: React.FC<AddCustomCategoryProps> = ({
         {customCategoryList.map((data) => (
           <li key={data.id}>
             {data.category}
-            <input type='color' value={data.color} />
+            <input type='color' value={data.color} readOnly />
             <button
               onClick={() => {
                 removeCustomCategory(data.id);
@@ -55,7 +55,7 @@ const AddCustomCategory: React.FC<AddCustomCategoryProps> = ({
           </li>
         ))}
       </ul>
-      <form>
+      <div>
         <TextField
           name='category'
           type='text'
@@ -72,7 +72,7 @@ const AddCustomCategory: React.FC<AddCustomCategoryProps> = ({
           value={customCagoryData.color}
         />
         <button onClick={onSubmit}>add category</button>
-      </form>
+      </div>
     </div>
   );
 };

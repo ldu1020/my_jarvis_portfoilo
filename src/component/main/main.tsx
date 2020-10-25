@@ -16,7 +16,6 @@ interface MainProps {
 const Main: React.FC<MainProps> = ({ authService, database }) => {
   const history = useHistory();
   const [userData, setUserId] = useState<UserData>();
-  console.log(history.location.state);
   const onLogout = useCallback(() => {
     authService.logout();
   }, [authService]);
