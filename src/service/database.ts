@@ -67,11 +67,30 @@ export default class DataBase {
     today: string,
     callback: any
   ) {
-    console.log('FIND!!!!!!');
     const ref = firebaseDatabase.ref(`${userId}/performence/${category}`);
     ref
       .orderByKey()
       .equalTo(today)
+      .on('value', (snapshot) => {
+        const value = snapshot.val();
+        callback(value);
+      });
+
+    return () => ref.off();
+  }
+
+  findSomedayData(
+    userId: string,
+    category: 'todoPerformence' | 'whatDonePerformence',
+    startAt: string,
+    endAt: string,
+    callback: any
+  ) {
+    const ref = firebaseDatabase.ref(`${userId}/performence/${category}`);
+    ref
+      .orderByKey()
+      .startAt(startAt)
+      .endAt(endAt)
       .on('value', (snapshot) => {
         const value = snapshot.val();
         callback(value);

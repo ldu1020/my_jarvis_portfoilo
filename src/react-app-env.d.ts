@@ -99,7 +99,7 @@ type TodoPerformenceData = {
   checkList: number;
 };
 
-type WhatDoonePerfomence = Record<string, WhatDonePerformenceData>;
+type WhatDonePerfomence = Record<string, WhatDonePerformenceData[]>;
 
 type WhatDonePerformenceData = {
   category: string;

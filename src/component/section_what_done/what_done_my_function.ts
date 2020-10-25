@@ -4,6 +4,33 @@ import { Category } from '@material-ui/icons';
 import { whatDoneInitialState } from './what_done_reducer';
 /** @format */
 
+export function getAverageAndWholeTime(
+  performenceList: WhatDonePerfomence,
+  dayLength: number
+) {
+  const valueFlatten = Object.values(performenceList).flat();
+  const nonDuplicateCategroy = Array.from(
+    new Set(valueFlatten.map((data) => data.category))
+  );
+
+  let valueCombined: any = [];
+
+  nonDuplicateCategroy.forEach((category) => {
+    const doingTimeComblined = valueFlatten //
+      .filter((list) => list.category === category) //
+      .map((list) => list.doingTime || 0)
+      .reduce((acc, cur) => acc + cur);
+
+    valueCombined.push({
+      category,
+      doingTime: doingTimeComblined,
+      average: doingTimeComblined / dayLength,
+    });
+  });
+
+  return valueCombined.sort((a: any, b: any) => b.doingTime - a.doingTime);
+}
+
 export function getPerformence(
   whatDoneList: WhatDoneData[]
 ): DoingTimeOfCategory[] {
@@ -78,4 +105,11 @@ export function getHexOpectityByNumber(opacity: opacity) {
     default:
       return 'hh';
   }
+}
+
+export function getDifferenceInDays(startAt: any, endAt: any) {
+  const date1 = new Date(startAt).valueOf();
+  const date2 = new Date(endAt).valueOf();
+  const diffInMs = Math.abs(date2 - date1);
+  return diffInMs / (1000 * 60 * 60 * 24);
 }
