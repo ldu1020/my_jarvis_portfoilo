@@ -76,6 +76,7 @@ type WhatDoneData = {
 type DoingTimeOfCategory = {
   category: string;
   doingTime: number;
+  rate?: number;
 };
 
 type CustomCategoryData = {

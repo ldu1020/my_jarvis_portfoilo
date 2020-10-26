@@ -4,39 +4,43 @@ import { TextField } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import DataBase from '../../../service/database';
 import { getDifferenceInDays } from '../what_done_my_function';
-import PerformenceForDate from './performence_for_date';
 import styles from './what_done_performence.module.css';
+import PerformencePicker from './performence_picker/performence_picker';
 
 interface WhatDonePerformenceProps {
   userId: string | null;
   database: DataBase;
+  customCategoryList: CustomCategoryData[];
 }
 
 const WhatDonePerformence: React.FC<WhatDonePerformenceProps> = ({
   userId,
   database,
+  customCategoryList,
 }) => {
   const [targetDate, setTartgetDate] = useState({
     startAt: '',
     endAt: '',
   });
-  const [performenceList, setPerformenceList] = useState([]);
+  const [performenceList, setPerformenceList] = useState<WhatDonePerfomence>();
   const differenceInDays = getDifferenceInDays(
     targetDate.startAt,
     targetDate.endAt
   );
 
   useEffect(() => {
-    const stopSync = database.findSomedayData(
-      userId as string,
-      'whatDonePerformence',
-      targetDate.startAt.replace(/-/gi, ''),
-      targetDate.endAt.replace(/-/gi, ''),
-      (dataOfDB: any) => {
-        dataOfDB && setPerformenceList(dataOfDB);
-      }
-    );
-    return () => stopSync();
+    if (targetDate.startAt && targetDate.endAt) {
+      const stopSync = database.findSomedayData(
+        userId as string,
+        'whatDonePerformence',
+        targetDate.startAt.replace(/-/gi, ''),
+        targetDate.endAt.replace(/-/gi, ''),
+        (dataOfDB: any) => {
+          dataOfDB && setPerformenceList(dataOfDB);
+        }
+      );
+      return () => stopSync();
+    }
   }, [userId, database, targetDate]);
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,12 +75,24 @@ const WhatDonePerformence: React.FC<WhatDonePerformenceProps> = ({
           onChange={onChange}
         />
       </form>
-      <PerformenceForDate
-        performenceList={performenceList}
-        dayLength={differenceInDays}
-      />
+      {performenceList && (
+        <PerformencePicker
+          performenceList={performenceList}
+          dayLength={differenceInDays}
+          customCategoryList={customCategoryList}
+        />
+      )}
     </div>
   );
 };
 
 export default WhatDonePerformence;
+
+function getCategory(performenceList: WhatDonePerfomence) {
+  const valueFlatten = Object.values(performenceList).flat();
+  const nonDuplicateCategroy = Array.from(
+    new Set(valueFlatten.map((data) => data.category))
+  );
+
+  return nonDuplicateCategroy;
+}

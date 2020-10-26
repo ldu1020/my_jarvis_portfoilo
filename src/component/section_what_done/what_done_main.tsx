@@ -127,7 +127,11 @@ const WhatDoneMain: React.FC<WhatDoneMainProps> = ({
         removeCustomCategory={removeCustomCategory}
         addDoneList={addDoneList}
       />
-      <WhatDonePerformence database={database} userId={userId} />
+      <WhatDonePerformence
+        database={database}
+        userId={userId}
+        customCategoryList={state.customCategoryList}
+      />
     </div>
   );
 };

@@ -1,13 +1,9 @@
 /** @format */
 
-import { Category } from '@material-ui/icons';
-import { whatDoneInitialState } from './what_done_reducer';
-/** @format */
-
 export function getAverageAndWholeTime(
   performenceList: WhatDonePerfomence,
   dayLength: number
-) {
+): DoingTimeOfCategory[] {
   const valueFlatten = Object.values(performenceList).flat();
   const nonDuplicateCategroy = Array.from(
     new Set(valueFlatten.map((data) => data.category))
@@ -111,5 +107,5 @@ export function getDifferenceInDays(startAt: any, endAt: any) {
   const date1 = new Date(startAt).valueOf();
   const date2 = new Date(endAt).valueOf();
   const diffInMs = Math.abs(date2 - date1);
-  return diffInMs / (1000 * 60 * 60 * 24);
+  return diffInMs / (1000 * 60 * 60 * 24) + 1;
 }
