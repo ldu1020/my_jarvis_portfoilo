@@ -34,7 +34,7 @@ const EachCategoryGraph: React.FC<EachCategoryGraphProps> = ({
     },
   };
 
-  return <Line data={data} options={options}></Line>;
+  return <Line data={data} options={options} />;
 };
 
 export default EachCategoryGraph;

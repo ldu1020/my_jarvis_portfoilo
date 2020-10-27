@@ -1,0 +1,41 @@
+/** @format */
+
+.main {
+  padding: 1rem;
+}
+
+.card {
+  padding: 0.5rem;
+  position: relative;
+}
+
+.addZone {
+  display: flex;
+}
+
+.textInput {
+  width: 60%;
+  margin-right: 0.5rem;
+}
+
+.colorInput {
+  width: 20%;
+  margin-right: 0.5rem;
+}
+
+.inputButton {
+  width: 20%;
+}
+
+.infoModal {
+  position: absolute;
+  top: 30%;
+  right: 10%;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: gray;
+  font-style: oblique;
+  text-decoration: underline;
+}

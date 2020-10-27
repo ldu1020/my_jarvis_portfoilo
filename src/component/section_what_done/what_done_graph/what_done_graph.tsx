@@ -42,18 +42,14 @@ const WhatDoneGraph: React.FC<WhatDoneGraphProps> = ({
   const options = {
     responsive: true,
     maintainAspectRatio: false,
+    aspectRatio: 1,
     legend: {
       display: false,
     },
-
     animation: {
       easing: 'easeInOutBack',
     },
   };
-  return (
-    <div className={styles.graph_zone}>
-      <Pie data={data} options={options} />
-    </div>
-  );
+  return <Pie data={data} options={options} />;
 };
 export default WhatDoneGraph;

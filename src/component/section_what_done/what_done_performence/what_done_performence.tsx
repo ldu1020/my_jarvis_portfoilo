@@ -88,11 +88,3 @@ const WhatDonePerformence: React.FC<WhatDonePerformenceProps> = ({
 
 export default WhatDonePerformence;
 
-function getCategory(performenceList: WhatDonePerfomence) {
-  const valueFlatten = Object.values(performenceList).flat();
-  const nonDuplicateCategroy = Array.from(
-    new Set(valueFlatten.map((data) => data.category))
-  );
-
-  return nonDuplicateCategroy;
-}

@@ -7,10 +7,15 @@ import DataBase from '../../service/database';
 import WhatDoneAddListForm from './what_done_add_list_form/what_done_add_list_form';
 import WhatDoneGraph from './what_done_graph/what_done_graph';
 import WhatDoneList from './what_done_list/what_done_list';
-import { getPerformence } from './what_done_my_function';
 import WhatDonePerformence from './what_done_performence/what_done_performence';
+import { getPerformence } from './what_done_my_function';
 
 import { whatDoneInitialState, whatDoneReducer } from './what_done_reducer';
+import WhatDoneTopThreeRate from './what_done_top_three_rate/what_done_top_three_rate';
+
+import styles from './what_done_main.module.css';
+import TransitionsModal from '../transition_modal/transition_modal';
+import AddCustomCategory from './add_custom_category/add_custom_category';
 
 interface WhatDoneMainProps {
   authService: AuthService;
@@ -112,26 +117,63 @@ const WhatDoneMain: React.FC<WhatDoneMainProps> = ({
     database.removeWhatDoneData(userId as string, 'customCategoryList', id);
   };
   return (
-    <div>
-      <WhatDoneGraph
-        doingTimeOfCategoryList={doingTimeOfCategoryList}
-        customCategoryList={state.customCategoryList}
-      />
-      <WhatDoneList
-        whatDoneList={state.whatDoneList}
-        onRemove={removeDoneList}
-      />
+    <div className={styles.main}>
+      <section className={styles.graphZone}>
+        <div className={styles.graph}>
+          <WhatDoneGraph
+            doingTimeOfCategoryList={doingTimeOfCategoryList}
+            customCategoryList={state.customCategoryList}
+          />
+        </div>
+        <div className={styles.topThree}>
+          {doingTimeOfCategoryList.length && (
+            <WhatDoneTopThreeRate
+              doingTimeOfCategoryList={doingTimeOfCategoryList}
+            />
+          )}
+        </div>
+        <TransitionsModal
+          component={
+            <WhatDoneList
+              customCategoryList={state.customCategoryList}
+              whatDoneList={state.whatDoneList}
+              onRemove={removeDoneList}
+            />
+          }
+          buttonText={'한일목록'}
+          buttonClassName={styles.modalButton}
+        />
+        <TransitionsModal
+          component={
+            <p className={styles.info}>
+              나만의 category 에 등록되지 않은 category 는 색상이 랜덤 배치되며
+              매 회 변경됩니다.
+            </p>
+          }
+          buttonText={'색깔이 계속바뀌나요?'}
+          buttonClassName={styles.infoModal}
+        />
+      </section>
+
       <WhatDoneAddListForm
         customCategoryList={state.customCategoryList}
-        addCustomCategory={addCustomCategory}
-        removeCustomCategory={removeCustomCategory}
         addDoneList={addDoneList}
       />
-      <WhatDonePerformence
-        database={database}
-        userId={userId}
-        customCategoryList={state.customCategoryList}
-      />
+
+      <section className={styles.customCategoryZone}>
+        <AddCustomCategory
+          customCategoryList={state.customCategoryList}
+          addCustomCategory={addCustomCategory}
+          removeCustomCategory={removeCustomCategory}
+        />
+      </section>
+      <section className={styles.performenceZone}>
+        <WhatDonePerformence
+          database={database}
+          userId={userId}
+          customCategoryList={state.customCategoryList}
+        />
+      </section>
     </div>
   );
 };

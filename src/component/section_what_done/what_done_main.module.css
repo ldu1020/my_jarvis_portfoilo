@@ -1,0 +1,48 @@
+/** @format */
+
+.graphZone {
+  padding: 1rem;
+  display: flex;
+  height: 50vh;
+  position: relative;
+}
+
+.customCategoryZone {
+  width: 100%;
+  padding: 1rem;
+}
+
+.graph {
+  width: 50%;
+  padding-bottom: 1px;
+}
+
+.topThree {
+  width: 50%;
+}
+
+.modalButton {
+  position: absolute;
+  bottom: 0rem;
+  left: 70%;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: gray;
+  font-style: oblique;
+  text-decoration: underline;
+}
+
+.infoModal {
+  position: absolute;
+  bottom: 2rem;
+  left: 0;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: gray;
+  font-style: oblique;
+  text-decoration: underline;
+}

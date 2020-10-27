@@ -76,6 +76,7 @@ type WhatDoneData = {
 type DoingTimeOfCategory = {
   category: string;
   doingTime: number;
+  color: string;
   rate?: number;
 };
 

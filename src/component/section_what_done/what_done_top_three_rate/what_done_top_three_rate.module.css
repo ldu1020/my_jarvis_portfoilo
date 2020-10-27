@@ -1,0 +1,31 @@
+/** @format */
+.ul {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+.list {
+  margin: 0.6rem;
+  list-style: none;
+  display: flex;
+}
+
+.li-0 {
+  font-size: 1.8rem;
+}
+
+.li-1 {
+  font-size: 1.5rem;
+  transform: translateX(0.9rem);
+}
+
+.li-2 {
+  transform: translateX(0.6rem);
+  font-size: 1.1rem;
+}

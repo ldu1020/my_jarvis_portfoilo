@@ -1,0 +1,26 @@
+/** @format */
+
+.wrapper {
+  width: 100%;
+  padding: 1rem;
+}
+
+.startTime,
+.endTime,
+.whatDo,
+.category {
+  margin-bottom: 1rem;
+}
+
+.inputTime {
+  display: flex;
+  justify-content: space-between;
+}
+
+.category {
+  width: 100%;
+}
+
+.whatDo {
+  width: 100%;
+}

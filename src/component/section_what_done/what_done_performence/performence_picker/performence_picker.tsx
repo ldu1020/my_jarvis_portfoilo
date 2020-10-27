@@ -50,7 +50,7 @@ const PerformencePicker: React.FC<PerformencePickerProps> = ({
           performenceList={performenceList}
           category={pickedValue}
         />
-      )}{' '}
+      )}
     </div>
   );
 };

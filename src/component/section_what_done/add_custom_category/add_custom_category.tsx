@@ -1,8 +1,10 @@
 /** @format */
 
-import { TextField } from '@material-ui/core';
+import { Button, Card, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
 import styles from './add_custom_category.module.css';
+import AddIcon from '@material-ui/icons/Add';
+import TransitionsModal from '../../transition_modal/transition_modal';
 
 interface AddCustomCategoryProps {
   customCategoryList: CustomCategoryData[];
@@ -39,41 +41,54 @@ const AddCustomCategory: React.FC<AddCustomCategoryProps> = ({
     }));
   };
 
+  const customList = customCategoryList.map((data) => (
+    <li key={data.id}>
+      {data.category}
+      <input type='color' value={data.color} readOnly />
+      <button
+        onClick={() => {
+          removeCustomCategory(data.id);
+        }}>
+        remove
+      </button>
+    </li>
+  ));
+
   return (
-    <div>
-      <ul>
-        {customCategoryList.map((data) => (
-          <li key={data.id}>
-            {data.category}
-            <input type='color' value={data.color} readOnly />
-            <button
-              onClick={() => {
-                removeCustomCategory(data.id);
-              }}>
-              remove
-            </button>
-          </li>
-        ))}
-      </ul>
-      <div>
+    <Card className={styles.card}>
+      <h1>나만의 카테고리</h1>
+      <TransitionsModal
+        component={<ul>{customList}</ul>}
+        buttonText='카테고리 목록'
+        buttonClassName={styles.infoModal}
+      />
+      <div className={styles.addZone}>
         <TextField
+          className={styles.textInput}
           name='category'
           type='text'
-          style={{ width: '20rem' }}
           onChange={onChange}
           value={customCagoryData.category}
+          variant='outlined'
         />
 
         <TextField
+          className={styles.colorInput}
           name='color'
           type='color'
-          style={{ width: '20rem' }}
           onChange={onChange}
           value={customCagoryData.color}
+          variant='outlined'
         />
-        <button onClick={onSubmit}>add category</button>
+
+        <Button
+          className={styles.inputButton}
+          onClick={onSubmit}
+          color='primary'>
+          <AddIcon />
+        </Button>
       </div>
-    </div>
+    </Card>
   );
 };
 
