@@ -1,10 +1,9 @@
 /** @format */
 
-import { Button, Card, TextField } from '@material-ui/core';
+import { Box, Button, Card, Chip, Paper, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
 import styles from './add_custom_category.module.css';
 import AddIcon from '@material-ui/icons/Add';
-import TransitionsModal from '../../transition_modal/transition_modal';
 
 interface AddCustomCategoryProps {
   customCategoryList: CustomCategoryData[];
@@ -41,29 +40,41 @@ const AddCustomCategory: React.FC<AddCustomCategoryProps> = ({
     }));
   };
 
-  const customList = customCategoryList.map((data) => (
-    <li key={data.id}>
-      {data.category}
-      <input type='color' value={data.color} readOnly />
-      <button
-        onClick={() => {
-          removeCustomCategory(data.id);
-        }}>
-        remove
-      </button>
-    </li>
-  ));
-
   return (
     <Card className={styles.card}>
       <h1>나만의 카테고리</h1>
-      <TransitionsModal
-        component={<ul>{customList}</ul>}
-        buttonText='카테고리 목록'
-        buttonClassName={styles.infoModal}
-      />
+      <Paper variant='outlined' className={styles.colorListWrapper}>
+        {customCategoryList.map((data) => (
+          <Chip
+            className={styles.chip}
+            icon={
+              <Box
+                className={styles.colorDisplayWrapper}
+                p={0}
+                width='1rem'
+                height='1rem'
+                borderRadius='50%'
+                boxShadow={3}
+                bgcolor={data.color}>
+                <input
+                  type='color'
+                  className={styles.colorDisplay}
+                  value={data.color}
+                  readOnly
+                />
+              </Box>
+            }
+            label={data.category}
+            onDelete={() => {
+              removeCustomCategory(data.id);
+            }}
+          />
+        ))}
+      </Paper>
+
       <div className={styles.addZone}>
         <TextField
+          label='카테고리 이름'
           className={styles.textInput}
           name='category'
           type='text'
@@ -73,12 +84,16 @@ const AddCustomCategory: React.FC<AddCustomCategoryProps> = ({
         />
 
         <TextField
+          label='색깔'
           className={styles.colorInput}
           name='color'
           type='color'
           onChange={onChange}
           value={customCagoryData.color}
           variant='outlined'
+          InputLabelProps={{
+            shrink: true,
+          }}
         />
 
         <Button

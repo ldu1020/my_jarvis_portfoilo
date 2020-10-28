@@ -1,12 +1,18 @@
 /** @format */
 
-.main {
-  padding: 1rem;
-}
-
 .card {
   padding: 0.5rem;
   position: relative;
+}
+
+.colorListWrapper {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  min-height: 3rem;
+}
+
+.chip {
+  margin: 0.2rem;
 }
 
 .addZone {
@@ -16,6 +22,24 @@
 .textInput {
   width: 60%;
   margin-right: 0.5rem;
+}
+
+.colorDisplay {
+  border-radius: 100%;
+  height: 1rem;
+  width: 1rem;
+  padding: 0;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.colorDisplay::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+.colorDisplay::-webkit-color-swatch {
+  border: none;
+  border-radius: 100%;
 }
 
 .colorInput {

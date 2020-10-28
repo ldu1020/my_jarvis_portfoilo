@@ -11,6 +11,14 @@
 .category {
   margin-bottom: 1rem;
 }
+.startTime {
+  width: 50%;
+  margin-right: 0.5rem;
+}
+.endTime {
+  width: 50%;
+  margin-left: 0.5rem;
+}
 
 .inputTime {
   display: flex;

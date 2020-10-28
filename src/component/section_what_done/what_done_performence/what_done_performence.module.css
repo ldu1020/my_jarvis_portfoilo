@@ -1,0 +1,13 @@
+/** @format */
+
+.wrapper {
+  padding: 0.5rem;
+}
+
+.inputZone {
+  margin-bottom: 1rem;
+}
+
+.graphZone {
+  height: 20rem;
+}

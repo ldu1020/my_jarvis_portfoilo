@@ -1,6 +1,6 @@
 /** @format */
 
-import { TextField } from '@material-ui/core';
+import { Card, Paper, TextField } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import DataBase from '../../../service/database';
 import { getDifferenceInDays } from '../what_done_my_function';
@@ -52,8 +52,9 @@ const WhatDonePerformence: React.FC<WhatDonePerformenceProps> = ({
   };
 
   return (
-    <div>
-      <form noValidate>
+    <Card className={styles.wrapper}>
+      <h1 className={styles.h1}>수행분석</h1>
+      <form noValidate className={styles.inputZone}>
         <TextField
           id='date'
           name='startAt'
@@ -75,16 +76,17 @@ const WhatDonePerformence: React.FC<WhatDonePerformenceProps> = ({
           onChange={onChange}
         />
       </form>
-      {performenceList && (
-        <PerformencePicker
-          performenceList={performenceList}
-          dayLength={differenceInDays}
-          customCategoryList={customCategoryList}
-        />
-      )}
-    </div>
+      <Paper className={styles.graphZone}>
+        {performenceList && (
+          <PerformencePicker
+            performenceList={performenceList}
+            dayLength={differenceInDays}
+            customCategoryList={customCategoryList}
+          />
+        )}
+      </Paper>
+    </Card>
   );
 };
 
 export default WhatDonePerformence;
-
