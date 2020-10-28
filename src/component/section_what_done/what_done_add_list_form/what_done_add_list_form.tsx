@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import styles from './what_done_add_list_form.module.css';
 
 interface WhatDoneAddListFormProps {
-  customCategoryList: CustomCategoryData[];
+  customCategoryList: CustomCategoryList;
   addDoneList: (whatDoneData: WhatDoneData) => void;
 }
 
@@ -42,7 +42,7 @@ const WhatDoneAddListForm: React.FC<WhatDoneAddListFormProps> = ({
     }));
   };
   return (
-    <div className={styles.wrapper}>
+    <>
       <div className={styles.inputTime}>
         <TextField
           className={styles.startTime}
@@ -100,7 +100,7 @@ const WhatDoneAddListForm: React.FC<WhatDoneAddListFormProps> = ({
       <Button onClick={onSubmit} color='primary'>
         <AddIcon /> 목록추가
       </Button>
-    </div>
+    </>
   );
 };
 

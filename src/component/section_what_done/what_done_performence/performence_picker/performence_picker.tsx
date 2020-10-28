@@ -4,10 +4,11 @@ import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import React, { useState } from 'react';
 import EachCategoryGraph from './each_category_graph/each_category_graph';
 import WholeCategoryGraph from './whole_category_graph/whole_category_graph';
+import styles from './performence_picker.module.css';
 
 interface PerformencePickerProps {
   performenceList: WhatDonePerfomence;
-  customCategoryList: CustomCategoryData[];
+  customCategoryList: CustomCategoryList;
   dayLength: number;
 }
 
@@ -23,9 +24,9 @@ const PerformencePicker: React.FC<PerformencePickerProps> = ({
   };
 
   return (
-    <div>
-      <FormControl>
-        <InputLabel id='demo-simple-select-label'>Age</InputLabel>
+    <div className={styles.main}>
+      <FormControl className={styles.input}>
+        <InputLabel id='demo-simple-select-label'>항목</InputLabel>
         <Select
           labelId='demo-simple-select-label'
           id='demo-simple-select'
@@ -39,18 +40,20 @@ const PerformencePicker: React.FC<PerformencePickerProps> = ({
           ))}
         </Select>
       </FormControl>
-      {pickedValue === '전체항목' ? (
-        <WholeCategoryGraph
-          performenceList={performenceList}
-          dayLength={dayLength}
-          customCategoryList={customCategoryList}
-        />
-      ) : (
-        <EachCategoryGraph
-          performenceList={performenceList}
-          category={pickedValue}
-        />
-      )}
+      <section className={styles.graphWrapper}>
+        {pickedValue === '전체항목' ? (
+          <WholeCategoryGraph
+            performenceList={performenceList}
+            dayLength={dayLength}
+            customCategoryList={customCategoryList}
+          />
+        ) : (
+          <EachCategoryGraph
+            performenceList={performenceList}
+            category={pickedValue}
+          />
+        )}
+      </section>
     </div>
   );
 };

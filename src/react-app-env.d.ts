@@ -61,9 +61,11 @@ type TodoAction =
 // WHAT DONE TYPE
 
 type WhatDoneState = {
-  whatDoneList: WhatDoneData[];
-  customCategoryList: CustomCategoryData[];
+  whatDoneList: WhatDoneList;
+  customCategoryList: CustomCategoryList;
 };
+
+type WhatDoneList = Record<string, WhatDoneData>;
 
 type WhatDoneData = {
   id: string;
@@ -72,6 +74,7 @@ type WhatDoneData = {
   whatDo: string;
   category: string;
 };
+type CustomCategoryList = Record<string, CustomCategoryData>;
 
 type DoingTimeOfCategory = {
   category: string;

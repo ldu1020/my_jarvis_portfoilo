@@ -12,8 +12,8 @@ import styles from './what_done_list.module.css';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 interface WhatDoneListProps {
-  whatDoneList: WhatDoneData[];
-  customCategoryList: CustomCategoryData[];
+  whatDoneList: WhatDoneList;
+  customCategoryList: CustomCategoryList;
   onRemove: (id: string) => void;
 }
 
@@ -24,8 +24,8 @@ const WhatDoneList: React.FC<WhatDoneListProps> = ({
 }) => {
   return (
     <List className={styles.ul}>
-      {whatDoneList.map((item) => {
-        const foundData = customCategoryList.find(
+      {Object.values(whatDoneList).map((item) => {
+        const foundData = Object.values(customCategoryList).find(
           (li) => li.category === item.category
         );
         return (
@@ -41,6 +41,7 @@ const WhatDoneList: React.FC<WhatDoneListProps> = ({
               color={foundData ? '#fff' : undefined}>
               {item.category}
             </Box>
+
             <ListItemText
               primary={`${item.startTime} - ${item.endTime}`}
               primaryTypographyProps={{ className: styles.time }}

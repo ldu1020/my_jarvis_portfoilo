@@ -1,1 +1,5 @@
 /** @format */
+.ul {
+  max-height: 20rem;
+  overflow-y: auto;
+}

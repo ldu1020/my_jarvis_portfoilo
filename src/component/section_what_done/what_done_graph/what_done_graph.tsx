@@ -6,11 +6,10 @@ import {
   getCustomOrRandomColor,
   getHexOpectityByNumber,
 } from '../what_done_my_function';
-import styles from './what_done_graph.module.css';
 
 interface WhatDoneGraphProps {
   doingTimeOfCategoryList: DoingTimeOfCategory[];
-  customCategoryList: CustomCategoryData[];
+  customCategoryList: CustomCategoryList;
 }
 
 const WhatDoneGraph: React.FC<WhatDoneGraphProps> = ({

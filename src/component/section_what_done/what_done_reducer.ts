@@ -1,12 +1,14 @@
 /** @format */
 
 export const whatDoneInitialState = {
-  whatDoneList: [] as WhatDoneData[],
-  customCategoryList: [] as CustomCategoryData[],
+  whatDoneList: {} as WhatDoneList,
+  customCategoryList: {} as CustomCategoryList,
 };
 
 export function whatDoneReducer(state: WhatDoneState, action: any) {
   const { whatDoneList, customCategoryList } = state;
+
+  let updated;
 
   switch (action.type) {
     case 'FETCH_DONE_STATE':
@@ -14,39 +16,43 @@ export function whatDoneReducer(state: WhatDoneState, action: any) {
       const customCategoryListOfDB = action.fetchData.customCategoryList;
       return {
         ...state,
-        whatDoneList: whatDoneListOfDB
-          ? (Object.values(whatDoneListOfDB) as WhatDoneData[])
-          : state.whatDoneList,
+        whatDoneList: whatDoneListOfDB ? whatDoneListOfDB : state.whatDoneList,
         customCategoryList: customCategoryListOfDB
-          ? (Object.values(customCategoryListOfDB) as CustomCategoryData[])
+          ? customCategoryListOfDB
           : state.customCategoryList,
       };
     case 'ADD_DONE_LIST':
-      return { ...state, whatDoneList: [...whatDoneList, action.whatDoneData] };
+      updated = { ...whatDoneList };
+      updated[action.whatDoneData.id] = action.whatDoneData;
+      return { ...state, whatDoneList: updated };
     case 'REMOVE_DONE_LIST':
-      let updatedDoneList: [] | WhatDoneData[];
-
-      action.id === 'removeAll'
-        ? (updatedDoneList = [])
-        : (updatedDoneList = whatDoneList.filter(
-            (data) => data.id !== action.id
-          ));
+      if (action.id === 'removeAll') {
+        updated = {};
+      } else {
+        updated = { ...whatDoneList };
+        delete updated[action.id];
+      }
       return {
         ...state,
-        whatDoneList: updatedDoneList,
+        whatDoneList: updated,
       };
     case 'ADD_CUSTOM_CATEGORY':
+      updated = { ...customCategoryList };
+      updated[action.customCategoryData.id] = action.customCategoryData;
       return {
         ...state,
-        customCategoryList: [...customCategoryList, action.customCategoryData],
+        customCategoryList: updated,
       };
     case 'REMOVE_CUSTOM_CATEGORY':
-      const updatedCCList = customCategoryList.filter(
-        (data) => data.id !== action.id
-      );
+      if (action.id === 'removeAll') {
+        updated = {};
+      } else {
+        updated = { ...customCategoryList };
+        delete updated[action.id];
+      }
       return {
         ...state,
-        customCategoryList: updatedCCList,
+        customCategoryList: updated,
       };
     default:
       return state;

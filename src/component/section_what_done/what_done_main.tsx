@@ -16,6 +16,7 @@ import WhatDoneTopThreeRate from './what_done_top_three_rate/what_done_top_three
 import styles from './what_done_main.module.css';
 import TransitionsModal from '../transition_modal/transition_modal';
 import AddCustomCategory from './add_custom_category/add_custom_category';
+import { useMediaQuery, useTheme } from '@material-ui/core';
 
 interface WhatDoneMainProps {
   authService: AuthService;
@@ -33,6 +34,8 @@ const WhatDoneMain: React.FC<WhatDoneMainProps> = ({
   const today = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`;
   const doingTimeOfCategoryList = getPerformence(state.whatDoneList);
   const history = useHistory();
+  const theme = useTheme();
+  const up960px = useMediaQuery(theme.breakpoints.up('md'));
 
   useLayoutEffect(() => {
     const stopSync = database.findTodayData(
@@ -132,17 +135,19 @@ const WhatDoneMain: React.FC<WhatDoneMainProps> = ({
             />
           )}
         </div>
-        <TransitionsModal
-          component={
-            <WhatDoneList
-              customCategoryList={state.customCategoryList}
-              whatDoneList={state.whatDoneList}
-              onRemove={removeDoneList}
-            />
-          }
-          buttonText={'한일목록'}
-          buttonClassName={styles.modalButton}
-        />
+        {!up960px && (
+          <TransitionsModal
+            component={
+              <WhatDoneList
+                customCategoryList={state.customCategoryList}
+                whatDoneList={state.whatDoneList}
+                onRemove={removeDoneList}
+              />
+            }
+            buttonText={'한일목록'}
+            buttonClassName={styles.modalButton}
+          />
+        )}
         <TransitionsModal
           component={
             <p className={styles.info}>
@@ -154,11 +159,21 @@ const WhatDoneMain: React.FC<WhatDoneMainProps> = ({
           buttonClassName={styles.infoModal}
         />
       </section>
-
-      <WhatDoneAddListForm
-        customCategoryList={state.customCategoryList}
-        addDoneList={addDoneList}
-      />
+      {up960px && (
+        <section className={styles.whatDoneListZone}>
+          <WhatDoneList
+            customCategoryList={state.customCategoryList}
+            whatDoneList={state.whatDoneList}
+            onRemove={removeDoneList}
+          />
+        </section>
+      )}
+      <section className={styles.addListZone}>
+        <WhatDoneAddListForm
+          customCategoryList={state.customCategoryList}
+          addDoneList={addDoneList}
+        />
+      </section>
 
       <section className={styles.customCategoryZone}>
         <AddCustomCategory

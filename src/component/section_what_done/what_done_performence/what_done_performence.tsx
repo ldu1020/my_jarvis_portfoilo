@@ -1,16 +1,17 @@
 /** @format */
 
-import { Card, Paper, TextField } from '@material-ui/core';
+import { Box, Card, Paper, TextField, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import DataBase from '../../../service/database';
 import { getDifferenceInDays } from '../what_done_my_function';
 import styles from './what_done_performence.module.css';
 import PerformencePicker from './performence_picker/performence_picker';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 interface WhatDonePerformenceProps {
   userId: string | null;
   database: DataBase;
-  customCategoryList: CustomCategoryData[];
+  customCategoryList: CustomCategoryList;
 }
 
 const WhatDonePerformence: React.FC<WhatDonePerformenceProps> = ({
@@ -36,7 +37,7 @@ const WhatDonePerformence: React.FC<WhatDonePerformenceProps> = ({
         targetDate.startAt.replace(/-/gi, ''),
         targetDate.endAt.replace(/-/gi, ''),
         (dataOfDB: any) => {
-          dataOfDB && setPerformenceList(dataOfDB);
+          setPerformenceList(dataOfDB);
         }
       );
       return () => stopSync();
@@ -56,7 +57,6 @@ const WhatDonePerformence: React.FC<WhatDonePerformenceProps> = ({
       <h1 className={styles.h1}>수행분석</h1>
       <form noValidate className={styles.inputZone}>
         <TextField
-          id='date'
           name='startAt'
           label='부터'
           type='date'
@@ -66,7 +66,6 @@ const WhatDonePerformence: React.FC<WhatDonePerformenceProps> = ({
           onChange={onChange}
         />
         <TextField
-          id='date'
           name='endAt'
           label='까지'
           type='date'
@@ -77,12 +76,24 @@ const WhatDonePerformence: React.FC<WhatDonePerformenceProps> = ({
         />
       </form>
       <Paper className={styles.graphZone}>
-        {performenceList && (
+        {performenceList ? (
           <PerformencePicker
             performenceList={performenceList}
             dayLength={differenceInDays}
             customCategoryList={customCategoryList}
           />
+        ) : (
+          <Box
+            color='gray'
+            display='flex'
+            flexDirection='column'
+            justifyContent='center'
+            alignItems='center'>
+            <ErrorOutlineIcon color='inherit' />
+            <Typography variant='subtitle1' color='inherit'>
+              조회 된 데이터가 없습니다
+            </Typography>
+          </Box>
         )}
       </Paper>
     </Card>

@@ -28,18 +28,18 @@ export function getAverageAndWholeTime(
 }
 
 export function getPerformence(
-  whatDoneList: WhatDoneData[]
+  whatDoneList: WhatDoneList
 ): DoingTimeOfCategory[] {
   let performence: any = [];
-  const categroies = whatDoneList //
-    .map((li) => li.category)
+  const categroies = Object.values(whatDoneList) //
+    .map((value) => value.category)
     .filter((item, index, self) => {
       return self.indexOf(item) === index;
     });
 
   categroies.forEach((category) => {
-    const doingTime = whatDoneList //
-      .filter((list) => list.category === category) //
+    const doingTime = Object.values(whatDoneList) //
+      .filter((value) => value.category === category) //
       .map((list) => calcDoingTime(list.startTime, list.endTime) || 0)
       .reduce((acc, cur) => acc + cur);
 
@@ -61,11 +61,11 @@ export function calcDoingTime(startTime: any, endTime: any) {
 }
 
 export function getCustomOrRandomColor(
-  customCategoryList: CustomCategoryData[],
+  customCategoryList: CustomCategoryList,
   doingTimeOfCategoryList: DoingTimeOfCategory[]
 ) {
   return doingTimeOfCategoryList.map((data) => {
-    const customColor = customCategoryList.find(
+    const customColor = Object.values(customCategoryList).find(
       (CC) => data.category === CC.category
     );
     return customColor

@@ -11,7 +11,7 @@ import {
 interface WholeCategoryGraphProps {
   performenceList: any;
   dayLength: number;
-  customCategoryList: CustomCategoryData[];
+  customCategoryList: CustomCategoryList;
 }
 
 const WholeCategoryGraph: React.FC<WholeCategoryGraphProps> = ({

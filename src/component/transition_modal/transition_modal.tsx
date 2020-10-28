@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'absolute',
       top: '1rem',
       right: '1rem',
+      zIndex: 100,
     },
   })
 );

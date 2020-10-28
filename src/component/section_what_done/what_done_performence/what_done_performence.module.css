@@ -5,9 +5,14 @@
 }
 
 .inputZone {
+  display: flex;
+  justify-content: space-evenly;
   margin-bottom: 1rem;
 }
 
 .graphZone {
-  height: 20rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

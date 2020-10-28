@@ -7,6 +7,11 @@
   position: relative;
 }
 
+.addListZone {
+  width: 100%;
+  padding: 1rem;
+}
+
 .customCategoryZone {
   width: 100%;
   padding: 1rem;
@@ -50,4 +55,40 @@
   color: gray;
   font-style: oblique;
   text-decoration: underline;
+}
+
+@media screen and (min-width: 960px) {
+  .main {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 1rem;
+    padding: 1rem 5rem;
+  }
+  .graphZone {
+    grid-column: 4 / 7;
+    grid-row: 1 / 2;
+    border: 0.3px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+  }
+  .whatDoneListZone {
+    grid-column: 1 / 4;
+    grid-row: 1 / 2;
+    border: 0.3px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+  }
+
+  .addListZone {
+    grid-column: 1 / 4;
+    grid-row: 2 / 3;
+  }
+
+  .performenceZone {
+    grid-column: 1 / 7;
+    grid-row: 3 / 5;
+  }
+
+  .customCategoryZone {
+    grid-column: 4 / 7;
+    grid-row: 2 / 3;
+  }
 }

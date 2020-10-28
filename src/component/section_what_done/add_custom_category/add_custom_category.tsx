@@ -6,7 +6,7 @@ import styles from './add_custom_category.module.css';
 import AddIcon from '@material-ui/icons/Add';
 
 interface AddCustomCategoryProps {
-  customCategoryList: CustomCategoryData[];
+  customCategoryList: CustomCategoryList;
   addCustomCategory: (customCategoryData: CustomCategoryData) => void;
   removeCustomCategory: (category: string) => void;
 }
@@ -19,7 +19,7 @@ const AddCustomCategory: React.FC<AddCustomCategoryProps> = ({
   const [customCagoryData, setCustomCagoryData] = useState({
     id: (Date.now() - 1).toString(),
     category: '',
-    color: '',
+    color: '#000000',
   });
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,7 +36,7 @@ const AddCustomCategory: React.FC<AddCustomCategoryProps> = ({
     setCustomCagoryData((beforeData) => ({
       id: Date.now().toString(),
       category: '',
-      color: '',
+      color: '#000000',
     }));
   };
 
@@ -44,8 +44,9 @@ const AddCustomCategory: React.FC<AddCustomCategoryProps> = ({
     <Card className={styles.card}>
       <h1>나만의 카테고리</h1>
       <Paper variant='outlined' className={styles.colorListWrapper}>
-        {customCategoryList.map((data) => (
+        {Object.values(customCategoryList).map((data) => (
           <Chip
+            key={data.id}
             className={styles.chip}
             icon={
               <Box
@@ -58,9 +59,13 @@ const AddCustomCategory: React.FC<AddCustomCategoryProps> = ({
                 bgcolor={data.color}>
                 <input
                   type='color'
+                  onChange={(event) => {
+                    let updated = { ...data };
+                    updated.color = event.target.value;
+                    addCustomCategory(updated);
+                  }}
                   className={styles.colorDisplay}
                   value={data.color}
-                  readOnly
                 />
               </Box>
             }
