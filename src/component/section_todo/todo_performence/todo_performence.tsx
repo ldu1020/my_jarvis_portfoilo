@@ -33,8 +33,6 @@ const TodoPerformence: React.FC<TodoPerformenceProps> = ({
       window.addEventListener('scroll', () => {
         let rect = section_performence_Ref.current?.getBoundingClientRect();
         rect && rect.y <= 0 ? setPerY(true) : setPerY(false);
-        console.log(rect?.y);
-        console.log(section_performence_Y);
       });
     }
     handleScrollChange();

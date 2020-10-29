@@ -1,6 +1,7 @@
 /** @format */
 import React from 'react';
 import { Line } from 'react-chartjs-2';
+import { flattenDiagnosticMessageText } from 'typescript';
 
 interface EachCategoryGraphProps {
   performenceList: WhatDonePerfomence;
@@ -13,7 +14,12 @@ const EachCategoryGraph: React.FC<EachCategoryGraphProps> = ({
 }) => {
   const dataEachCategory = getDataEachCategory(performenceList, category);
   const data = {
-    labels: Object.keys(performenceList),
+    labels: Object.keys(performenceList).map((dateText) => {
+      const fourLengthDate = dateText.substring(4);
+      return (
+        fourLengthDate.slice(0, 2) + '월 ' + fourLengthDate.slice(2) + '일'
+      );
+    }),
     datasets: [
       {
         backgroundColor: 'skyblue',
