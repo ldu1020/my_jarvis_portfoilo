@@ -13,16 +13,9 @@ type UserData = {
 type TodoState = {
   topicList: TodoTopic;
   todoList: TodoList;
-  todoPerformence: TodoPerformence;
 };
 
-type TodoStateOfDB = {
-  topicList: Record<string, TodoTopicData>;
-  todoList: TodoList;
-  todoPerformence: TodoPerformence;
-};
-
-type TodoTopic = TodoTopicData[];
+type TodoTopic = Record<string, TodoTopicData>;
 
 type TodoTopicData = {
   id: string;
@@ -99,7 +92,6 @@ type Performence = {
 type TodoPerformence = Record<string, TodoPerformenceData>;
 
 type TodoPerformenceData = {
-  id: string;
   checked: number;
   checkList: number;
 };

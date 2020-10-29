@@ -1,32 +1,29 @@
 /** @format */
 
-import { Card } from '@material-ui/core';
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { Card, useMediaQuery, useTheme } from '@material-ui/core';
+import React, { useLayoutEffect, useRef, useState } from 'react';
+import DataBase from '../../../service/database';
 import PerformenceOf3Days from './performence_of_3days/performence_of_3days';
 import TodoGraph from './todo_graph/todo_graph';
 
 import styles from './todo_performence.module.css';
 
 interface TodoPerformenceProps {
-  todoPerformence: TodoPerformence;
-  addOrUpdatePerformence: (performenceData: TodoPerformenceData) => void;
-  todoList: TodoList | null;
-  removeTodoList: (id: string) => void;
+  today: string;
+  userId: string | null;
+  database: DataBase;
+  performenceData: TodoPerformenceData;
 }
 
 const TodoPerformence: React.FC<TodoPerformenceProps> = ({
-  todoList,
-  todoPerformence,
-  addOrUpdatePerformence,
-  removeTodoList,
+  today,
+  userId,
+  database,
+  performenceData,
 }) => {
   const [section_performence_Y, setPerY] = useState(false);
-  const date = new Date();
-  const today = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`;
-  const checkList = todoList
-    ? Object.keys(todoList).map((key) => todoList[key].checked)
-    : [];
-  const checked = todoList ? checkList.filter((li) => li === true) : [];
+  const theme = useTheme();
+  const up960px = useMediaQuery(theme.breakpoints.up('md'));
 
   useLayoutEffect(() => {
     function handleScrollChange() {
@@ -41,30 +38,6 @@ const TodoPerformence: React.FC<TodoPerformenceProps> = ({
       window.removeEventListener('scroll', handleScrollChange);
     };
   }, []);
-
-  useEffect(() => {
-    if (todoPerformence[today]) {
-      addOrUpdatePerformence({
-        id: today,
-        checked: checked.length,
-        checkList: checkList.length,
-      });
-    }
-  }, [todoList]);
-
-  useEffect(() => {
-    if (todoList && Object.keys(todoList).length && !todoPerformence[today]) {
-      Object.keys(todoList).forEach((key) => {
-        removeTodoList(key);
-      });
-      addOrUpdatePerformence({
-        id: today,
-        checked: checked.length,
-        checkList: checkList.length,
-      });
-    }
-  }, [todoPerformence, todoList]);
-
   let section_performence_Ref = useRef<HTMLDivElement>(null);
 
   return (
@@ -73,10 +46,15 @@ const TodoPerformence: React.FC<TodoPerformenceProps> = ({
           ${section_performence_Y && styles.SecPerY0}`}
       ref={section_performence_Ref}>
       <section className={styles.graph_Wrapper}>
-        <TodoGraph checked={checked.length} checkList={checkList.length} />{' '}
+        <TodoGraph performenceData={performenceData} count={up960px} />
       </section>
       <section className={styles.threeDays_wrapper}>
-        <PerformenceOf3Days todoPerformence={todoPerformence} />
+        <PerformenceOf3Days
+          performenceData={performenceData}
+          today={today}
+          userId={userId}
+          database={database}
+        />
       </section>
     </Card>
   );

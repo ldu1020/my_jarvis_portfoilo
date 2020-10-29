@@ -1,5 +1,4 @@
 /** @format */
-@value mediaQuery-md from '../../../common/size.css';
 
 .section_performence {
   display: flex;
@@ -30,7 +29,7 @@
   background-color: #7986cb;
 }
 
-@media screen and (min-width: mediaQuery-md) {
+@media screen and (min-width: 960px) {
   .section_performence {
     box-shadow: none;
     position: static;
@@ -46,7 +45,7 @@
   .graph_Wrapper {
     width: 100%;
     display: flex;
-    font-size: 8px;
+    font-size: 10px;
     height: 17rem;
     margin: 0.3rem;
     border: 0.3px solid rgba(0, 0, 0, 0.1);

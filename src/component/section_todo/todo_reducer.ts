@@ -1,42 +1,39 @@
 /** @format */
 
 export const todoInitialState = {
-  topicList: [] as TodoTopic,
+  topicList: {} as TodoTopic,
   todoList: {} as TodoList,
-  todoPerformence: {} as TodoPerformence,
 };
 
-export function todoReducer(state: TodoState, action: TodoAction) {
-  const { topicList, todoList, todoPerformence } = state;
+export function todoReducer(state: TodoState, action: TodoAction): TodoState {
+  const { topicList, todoList } = state;
   let updated;
 
   switch (action.type) {
     case 'FETCH_TODO_STATE':
       const topicListOfDB = action.fetchData.topicList;
       const todoListOfDB = action.fetchData.todoList;
-      const todoPerformenceOfDB = action.fetchData.todoPerformence;
-
-      if (topicListOfDB) {
-        return {
-          topicList: Object.values(topicListOfDB),
-          todoList: todoListOfDB,
-          todoPerformence: todoPerformenceOfDB,
-        };
-      } else {
-        return state;
-      }
+      return {
+        topicList: topicListOfDB ? topicListOfDB : state.topicList,
+        todoList: todoListOfDB ? todoListOfDB : state.todoList,
+      };
     case 'ADD_TOPIC':
-      return { ...state, topicList: [...topicList, action.topicData] };
+      updated = { ...topicList };
+      updated[action.topicData.id] = action.topicData;
+      return { ...state, topicList: updated };
     case 'REMOVE_TOPIC':
-      const updatedTopic = topicList.filter((list) => {
-        return list.id !== action.id;
-      });
-      const updatedTodoList = { ...todoList };
+      let updatedTopicList = { ...topicList };
+      delete updatedTopicList[action.id];
+      let updatedTodoList = { ...todoList };
       Object.keys(updatedTodoList).forEach((key) => {
-        key.split('&')[1] === action.topic && delete updatedTodoList[key];
+        updatedTodoList[key].topic === action.topic &&
+          delete updatedTodoList[key];
       });
-
-      return { ...state, topicList: updatedTopic, todoList: updatedTodoList };
+      return {
+        ...state,
+        topicList: updatedTopicList,
+        todoList: updatedTodoList,
+      };
     case 'ADD_OR_UPDATE_TODO_LIST':
       updated = { ...todoList };
       updated[action.todoListData.id] = action.todoListData;
@@ -45,10 +42,6 @@ export function todoReducer(state: TodoState, action: TodoAction) {
       updated = { ...todoList };
       delete updated[action.id];
       return { ...state, todoList: updated };
-    case 'ADD_OR_UPDATE_TODO_PERFORMENCE':
-      updated = { ...todoPerformence };
-      updated[action.todoPerformenceData.id] = action.todoPerformenceData;
-      return { ...state, todoPerformence: updated };
     default:
       return state;
   }

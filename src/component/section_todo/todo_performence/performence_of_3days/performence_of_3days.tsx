@@ -1,24 +1,50 @@
 /** @format */
 
 import { List, ListItem, ListItemText, Typography } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './performence_of_3days.module.css';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import CountUp from 'react-countup';
+import DataBase from '../../../../service/database';
 interface PerformenceOf3DaysProps {
-  todoPerformence: TodoPerformence;
+  performenceData: TodoPerformenceData;
+  today: string;
+  userId: string | null;
+  database: DataBase;
 }
 
 const PerformenceOf3Days: React.FC<PerformenceOf3DaysProps> = ({
-  todoPerformence,
+  performenceData,
+  today,
+  userId,
+  database,
 }) => {
-  const threeDays = make3days(todoPerformence);
+  const [beforeDays, setBeforeDays] = useState({});
+  useEffect(() => {
+    console.log('Ggg');
+    const yesterday = getBeforeDay(1);
+    const yesterdayBefore = getBeforeDay(2);
+    const stopSync = database.findSomedayData(
+      userId as string,
+      'todoPerformence',
+      yesterdayBefore,
+      yesterday,
+      (dataOfDB: any) => {
+        console.log(dataOfDB);
+        dataOfDB && setBeforeDays({ ...dataOfDB });
+      }
+    );
+    return () => stopSync();
+  }, [userId, database]);
+
+  const threeDays = make3days({ ...beforeDays, [today]: performenceData });
 
   return (
     <List className={styles.section}>
       {threeDays.map((day, index) => {
         const beforeIndex = index - 1 < 0 ? 0 : index - 1;
+        console.log((day.rate - threeDays[beforeIndex].rate) * 100);
         return (
           <ListItem key={day.date} className={styles.item}>
             <ListItemText
@@ -68,6 +94,13 @@ const PerformenceOf3Days: React.FC<PerformenceOf3DaysProps> = ({
 
 export default React.memo(PerformenceOf3Days);
 
+function getBeforeDay(ago: number) {
+  const day = new Date();
+  day.setDate(day.getDate() - ago);
+  const dayAsKey = `${day.getFullYear()}${day.getMonth() + 1}${day.getDate()}`;
+  return dayAsKey;
+}
+
 function make3days(todoPerformence: TodoPerformence) {
   let days = [];
   for (let i = 0; i < 3; i++) {
@@ -90,6 +123,7 @@ function make3days(todoPerformence: TodoPerformence) {
         };
     days.push(dayValue);
   }
+  console.log(days);
 
   return days.reverse();
 }

@@ -17,8 +17,8 @@ export default class DataBase {
 
   saveTodoData(
     userId: string,
-    category: 'todoList' | 'topicList' | 'todoPerformence',
-    list: TodoListData | TodoTopicData | TodoPerformenceData
+    category: 'todoList' | 'topicList',
+    list: TodoListData | TodoTopicData
   ) {
     firebaseDatabase //
       .ref(`${userId}/todoState/${category}/${list.id}`)
@@ -27,12 +27,14 @@ export default class DataBase {
 
   removeTodoData(
     userId: string,
-    category: 'todoList' | 'topicList' | 'todoPerformence',
-    id: string
+    category: 'todoList' | 'topicList',
+    id: string | 'removeAll'
   ) {
-    firebaseDatabase //
-      .ref(`${userId}/todoState/${category}/${id}`)
-      .remove();
+    id === 'removeAll'
+      ? firebaseDatabase.ref(`${userId}/todoState/${category}`).set(null)
+      : firebaseDatabase //
+          .ref(`${userId}/todoState/${category}/${id}`)
+          .remove();
   }
 
   // WhatDone
@@ -93,6 +95,7 @@ export default class DataBase {
       .endAt(endAt)
       .on('value', (snapshot) => {
         const value = snapshot.val();
+        console.log(value);
         callback(value);
       });
 

@@ -1,5 +1,4 @@
 /** @format */
-@value mediaQuery-md from '../../common/size.css';
 
 .main {
   display: flex;
@@ -22,7 +21,7 @@
   width: 90%;
 }
 
-@media screen and (min-width: mediaQuery-md) {
+@media screen and (min-width: 960px) {
   .main {
     width: 100%;
     display: flex;

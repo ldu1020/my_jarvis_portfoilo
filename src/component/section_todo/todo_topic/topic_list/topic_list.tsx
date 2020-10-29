@@ -24,17 +24,15 @@ const TopicList: React.FC<TopicListProps> = ({
     <div>
       <List className={styles.ul}>
         {todoList &&
-          Object.keys(todoList) //
-            .filter((key) => {
-              const topicInKey = key.split('&')[1];
-              return topicInKey === topic;
+          Object.values(todoList) //
+            .filter((values) => {
+              return values.topic === topic;
             }) //
-            .map((key) => {
-              const data = todoList[key];
+            .map((values) => {
               return (
                 <TopicListItem
-                  key={key}
-                  todoListData={data}
+                  key={values.id}
+                  todoListData={values}
                   removeTodoList={removeTodoList}
                   addOrUpdateTodoList={addOrUpdateTodoList}
                 />

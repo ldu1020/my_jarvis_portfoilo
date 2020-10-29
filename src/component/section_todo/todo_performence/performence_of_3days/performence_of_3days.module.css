@@ -1,6 +1,4 @@
 /** @format */
-@value mediaQuery-sm from '../../../../common/size.css';
-@value mediaQuery-md from '../../../../common/size.css';
 
 .section {
   display: flex;
@@ -41,13 +39,13 @@
   font-size: 4px;
 }
 
-@media screen and (min-width: mediaQuery-sm) {
+@media screen and (min-width: 600px) {
   .rate {
     display: inline;
   }
 }
 
-@media screen and (min-width: mediaQuery-md) {
+@media screen and (min-width: 960px) {
   .section {
     height: 17rem;
     display: flex;

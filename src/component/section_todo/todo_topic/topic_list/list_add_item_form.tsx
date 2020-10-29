@@ -16,7 +16,7 @@ const ListAddItemForm: React.FC<ListAddItemFormProps> = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [todoData, setTodoData] = useState<TodoListData>({
-    id: Date.now().toString() + '&' + topic,
+    id: (Date.now() - 1).toString(),
     topic: topic,
     what: '',
     until: '',
@@ -40,7 +40,7 @@ const ListAddItemForm: React.FC<ListAddItemFormProps> = ({
       event.preventDefault();
       addOrUpdateTodoList(todoData);
       setTodoData({
-        id: Date.now().toString() + '&' + topic,
+        id: Date.now().toString(),
         topic: topic,
         what: '',
         until: '',

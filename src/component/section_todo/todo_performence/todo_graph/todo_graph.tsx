@@ -7,14 +7,14 @@ import styles from './todo_graph.module.css';
 
 interface TodoGraphProps {
   count?: boolean;
-  checked: number;
-  checkList: number;
+  performenceData: TodoPerformenceData;
 }
 
-const TodoGraph: React.FC<TodoGraphProps> = ({ checked, checkList, count }) => {
+const TodoGraph: React.FC<TodoGraphProps> = ({ performenceData, count }) => {
+  const { checked, checkList } = performenceData;
   const checkedRate = Math.floor((checked / checkList) * 100);
   const checkedData = [checked, checkList - checked];
-  console.log(checkedRate);
+
   const data = {
     labels: ['한 일', '할 일'],
     datasets: [
