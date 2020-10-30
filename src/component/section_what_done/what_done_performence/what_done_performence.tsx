@@ -100,4 +100,4 @@ const WhatDonePerformence: React.FC<WhatDonePerformenceProps> = ({
   );
 };
 
-export default WhatDonePerformence;
+export default React.memo(WhatDonePerformence);

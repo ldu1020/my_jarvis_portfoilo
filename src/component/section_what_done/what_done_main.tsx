@@ -1,22 +1,29 @@
 /** @format */
 
-import React, { useEffect, useLayoutEffect, useReducer } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useReducer,
+} from 'react';
 import AuthService from '../../service/auth_service';
 import DataBase from '../../service/database';
+import { useHistory } from 'react-router-dom';
+
 import WhatDoneAddListForm from './what_done_add_list_form/what_done_add_list_form';
 import WhatDoneGraph from './what_done_graph/what_done_graph';
 import WhatDoneList from './what_done_list/what_done_list';
 import WhatDonePerformence from './what_done_performence/what_done_performence';
-import { getPerformence } from './what_done_my_function';
-
-import { whatDoneInitialState, whatDoneReducer } from './what_done_reducer';
 import WhatDoneTopThreeRate from './what_done_top_three_rate/what_done_top_three_rate';
-
-import styles from './what_done_main.module.css';
-import TransitionsModal from '../transition_modal/transition_modal';
 import AddCustomCategory from './add_custom_category/add_custom_category';
+import TransitionsModal from '../transition_modal/transition_modal';
+
+import { getPerformence } from './what_done_my_function';
+import { whatDoneInitialState, whatDoneReducer } from './what_done_reducer';
+
 import { useMediaQuery, useTheme } from '@material-ui/core';
+import styles from './what_done_main.module.css';
 
 interface WhatDoneMainProps {
   authService: AuthService;
@@ -29,11 +36,16 @@ const WhatDoneMain: React.FC<WhatDoneMainProps> = ({
   database,
   userId,
 }) => {
-  const [state, dispatch] = useReducer(whatDoneReducer, whatDoneInitialState);
   const date = new Date();
   const today = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`;
-  const doingTimeOfCategoryList = getPerformence(state.whatDoneList);
+
+  const [state, dispatch] = useReducer(whatDoneReducer, whatDoneInitialState);
+  const doingTimeOfCategoryList = useMemo(() => {
+    return getPerformence(state.whatDoneList);
+  }, [state.whatDoneList]);
+
   const history = useHistory();
+
   const theme = useTheme();
   const up960px = useMediaQuery(theme.breakpoints.up('md'));
 
@@ -84,41 +96,53 @@ const WhatDoneMain: React.FC<WhatDoneMainProps> = ({
     return () => stopSync();
   }, [userId, database, history]);
 
-  const addDoneList = (whatDoneData: WhatDoneData) => {
-    dispatch({
-      type: 'ADD_DONE_LIST',
-      whatDoneData,
-    });
-    database.saveWhatDoneData(userId as string, 'whatDoneList', whatDoneData);
-  };
+  const addDoneList = useCallback(
+    (whatDoneData: WhatDoneData) => {
+      dispatch({
+        type: 'ADD_DONE_LIST',
+        whatDoneData,
+      });
+      database.saveWhatDoneData(userId as string, 'whatDoneList', whatDoneData);
+    },
+    [database, userId]
+  );
 
-  const removeDoneList = (id: string) => {
-    dispatch({
-      type: 'REMOVE_DONE_LIST',
-      id,
-    });
-    database.removeWhatDoneData(userId as string, 'whatDoneList', id);
-  };
+  const removeDoneList = useCallback(
+    (id: string) => {
+      dispatch({
+        type: 'REMOVE_DONE_LIST',
+        id,
+      });
+      database.removeWhatDoneData(userId as string, 'whatDoneList', id);
+    },
+    [database, userId]
+  );
 
-  const addCustomCategory = (customCategoryData: CustomCategoryData) => {
-    dispatch({
-      type: 'ADD_CUSTOM_CATEGORY',
-      customCategoryData,
-    });
-    database.saveWhatDoneData(
-      userId as string,
-      'customCategoryList',
-      customCategoryData
-    );
-  };
+  const addCustomCategory = useCallback(
+    (customCategoryData: CustomCategoryData) => {
+      dispatch({
+        type: 'ADD_CUSTOM_CATEGORY',
+        customCategoryData,
+      });
+      database.saveWhatDoneData(
+        userId as string,
+        'customCategoryList',
+        customCategoryData
+      );
+    },
+    [database, userId]
+  );
 
-  const removeCustomCategory = (id: string) => {
-    dispatch({
-      type: 'REMOVE_CUSTOM_CATEGORY',
-      id,
-    });
-    database.removeWhatDoneData(userId as string, 'customCategoryList', id);
-  };
+  const removeCustomCategory = useCallback(
+    (id: string) => {
+      dispatch({
+        type: 'REMOVE_CUSTOM_CATEGORY',
+        id,
+      });
+      database.removeWhatDoneData(userId as string, 'customCategoryList', id);
+    },
+    [database, userId]
+  );
   return (
     <div className={styles.main}>
       <section className={styles.graphZone}>
@@ -159,6 +183,7 @@ const WhatDoneMain: React.FC<WhatDoneMainProps> = ({
           buttonClassName={styles.infoModal}
         />
       </section>
+
       {up960px && (
         <section className={styles.whatDoneListZone}>
           <WhatDoneList

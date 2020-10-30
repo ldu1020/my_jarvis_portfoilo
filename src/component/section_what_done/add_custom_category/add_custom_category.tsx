@@ -16,7 +16,7 @@ const AddCustomCategory: React.FC<AddCustomCategoryProps> = ({
   addCustomCategory,
   removeCustomCategory,
 }) => {
-  const [customCagoryData, setCustomCagoryData] = useState({
+  const [customCategoryData, setCustomCagoryData] = useState({
     id: (Date.now() - 1).toString(),
     category: '',
     color: '#000000',
@@ -25,14 +25,13 @@ const AddCustomCategory: React.FC<AddCustomCategoryProps> = ({
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setCustomCagoryData({
-      ...customCagoryData,
+      ...customCategoryData,
       [name]: value,
     });
   };
-
   const onSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
-    addCustomCategory(customCagoryData);
+    addCustomCategory(customCategoryData);
     setCustomCagoryData((beforeData) => ({
       id: Date.now().toString(),
       category: '',
@@ -84,7 +83,7 @@ const AddCustomCategory: React.FC<AddCustomCategoryProps> = ({
           name='category'
           type='text'
           onChange={onChange}
-          value={customCagoryData.category}
+          value={customCategoryData.category}
           variant='outlined'
         />
 
@@ -94,7 +93,7 @@ const AddCustomCategory: React.FC<AddCustomCategoryProps> = ({
           name='color'
           type='color'
           onChange={onChange}
-          value={customCagoryData.color}
+          value={customCategoryData.color}
           variant='outlined'
           InputLabelProps={{
             shrink: true,
@@ -112,4 +111,4 @@ const AddCustomCategory: React.FC<AddCustomCategoryProps> = ({
   );
 };
 
-export default AddCustomCategory;
+export default React.memo(AddCustomCategory);

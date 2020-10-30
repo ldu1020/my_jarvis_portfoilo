@@ -104,4 +104,4 @@ const WhatDoneAddListForm: React.FC<WhatDoneAddListFormProps> = ({
   );
 };
 
-export default WhatDoneAddListForm;
+export default React.memo(WhatDoneAddListForm);
