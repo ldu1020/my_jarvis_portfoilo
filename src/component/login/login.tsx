@@ -69,7 +69,7 @@ const Login: React.FC<LoginProps> = ({ authService }) => {
           </Button>
           <Button className={styles.button} onClick={onAnonymousLogin}>
             <PeopleIcon className={styles.icon} />
-            Guest 로 로그인 하기
+            Guest
           </Button>
         </Card>
       </Container>
