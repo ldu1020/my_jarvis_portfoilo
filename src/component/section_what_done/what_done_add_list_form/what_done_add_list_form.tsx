@@ -2,7 +2,8 @@
 
 import { Button, TextField } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
+import { calcDoingTime } from '../what_done_my_function';
 import styles from './what_done_add_list_form.module.css';
 
 interface WhatDoneAddListFormProps {
@@ -30,17 +31,32 @@ const WhatDoneAddListForm: React.FC<WhatDoneAddListFormProps> = ({
     });
   };
 
-  const onSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.preventDefault();
-    addDoneList(doneListData);
-    setDoneListData((beforeData) => ({
-      id: Date.now().toString(),
-      startTime: beforeData.endTime,
-      endTime: '',
-      whatDo: '',
-      category: '',
-    }));
-  };
+  const onSubmit = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      const { startTime, endTime, category } = doneListData;
+      event.preventDefault();
+      if (!startTime || !endTime || !category) {
+        alert('입력되지 않은 값이 있습니다.');
+      } else if (calcDoingTime(startTime, endTime) <= 0) {
+        alert('올바른 시간이 아닙니다.');
+      } else {
+        addDoneList(doneListData);
+        setDoneListData((beforeData) => ({
+          id: Date.now().toString(),
+          startTime: beforeData.endTime,
+          endTime: '',
+          whatDo: '',
+          category: '',
+        }));
+      }
+    },
+    [doneListData, addDoneList]
+  );
+
+  const endTimeError =
+    doneListData.endTime !== '' &&
+    calcDoingTime(doneListData.startTime, doneListData.endTime) <= 0;
+
   return (
     <>
       <div className={styles.inputTime}>
@@ -64,6 +80,8 @@ const WhatDoneAddListForm: React.FC<WhatDoneAddListFormProps> = ({
           label='끝난시간'
           type='time'
           name='endTime'
+          error={endTimeError}
+          helperText={endTimeError && '올바르지 않은 시간 입니다'}
           onChange={onChange}
           value={doneListData.endTime}
           InputLabelProps={{

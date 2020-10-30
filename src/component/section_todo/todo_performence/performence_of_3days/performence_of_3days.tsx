@@ -1,7 +1,7 @@
 /** @format */
 
 import { List, ListItem, ListItemText, Typography } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styles from './performence_of_3days.module.css';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
@@ -38,7 +38,9 @@ const PerformenceOf3Days: React.FC<PerformenceOf3DaysProps> = ({
     return () => stopSync();
   }, [userId, database]);
 
-  const threeDays = make3days({ ...beforeDays, [today]: performenceData });
+  const threeDays = useMemo(() => {
+    return make3days({ ...beforeDays, [today]: performenceData });
+  }, [beforeDays, today, performenceData]);
 
   return (
     <List className={styles.section}>

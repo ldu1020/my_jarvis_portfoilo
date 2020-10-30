@@ -6,7 +6,7 @@ import {
   ListItem,
   ListItemText,
 } from '@material-ui/core';
-import React, { useCallback } from 'react';
+import React from 'react';
 import ListTimer from './list_timer';
 import CheckIcon from '@material-ui/icons/Check';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
@@ -24,54 +24,52 @@ const TopicListItem: React.FC<TopicListitemProps> = ({
   removeTodoList,
   addOrUpdateTodoList,
 }) => {
-  const updateCheck = useCallback(() => {
+  const updateCheck = () => {
     let updated = { ...todoListData };
     updated.checked = !updated.checked;
     addOrUpdateTodoList(updated);
-  }, [addOrUpdateTodoList, todoListData]);
+  };
 
-  const updateAutoCheck = useCallback(() => {
+  const updateAutoCheck = () => {
     let updated = { ...todoListData };
     updated.autoCheck = !updated.autoCheck;
     addOrUpdateTodoList(updated);
-  }, [addOrUpdateTodoList, todoListData]);
+  };
 
   return (
-    <>
-      <ListItem alignItems='flex-start'>
-        <ListItemText
-          primary={todoListData.what}
-          primaryTypographyProps={{ noWrap: true, className: styles.what }}
-          secondary={
-            <ListTimer
-              addOrUpdateTodo={addOrUpdateTodoList}
-              todoListData={todoListData}
-            />
-          }
-        />
+    <ListItem alignItems='flex-start'>
+      <ListItemText
+        primary={todoListData.what}
+        primaryTypographyProps={{ noWrap: true, className: styles.what }}
+        secondary={
+          <ListTimer
+            addOrUpdateTodo={addOrUpdateTodoList}
+            todoListData={todoListData}
+          />
+        }
+      />
 
-        <Checkbox
-          icon={<AlarmOnIcon className={styles.icon} />}
-          size='small'
-          checkedIcon={<AlarmOnIcon className={styles.icon} />}
-          onChange={updateAutoCheck}
-          checked={todoListData.autoCheck}
-        />
-        <Checkbox
-          icon={<CheckIcon className={styles.icon} />}
-          size='small'
-          checkedIcon={<CheckIcon className={styles.icon} />}
-          onChange={updateCheck}
-          checked={todoListData.checked}
-        />
-        <IconButton
-          onClick={() => {
-            removeTodoList(todoListData.id);
-          }}>
-          <DeleteOutlineIcon fontSize='small' className={styles.icon} />
-        </IconButton>
-      </ListItem>
-    </>
+      <Checkbox
+        icon={<AlarmOnIcon className={styles.icon} />}
+        size='small'
+        checkedIcon={<AlarmOnIcon className={styles.icon} />}
+        onChange={updateAutoCheck}
+        checked={todoListData.autoCheck}
+      />
+      <Checkbox
+        icon={<CheckIcon className={styles.icon} />}
+        size='small'
+        checkedIcon={<CheckIcon className={styles.icon} />}
+        onChange={updateCheck}
+        checked={todoListData.checked}
+      />
+      <IconButton
+        onClick={() => {
+          removeTodoList(todoListData.id);
+        }}>
+        <DeleteOutlineIcon fontSize='small' className={styles.icon} />
+      </IconButton>
+    </ListItem>
   );
 };
 

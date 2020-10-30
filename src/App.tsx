@@ -7,6 +7,7 @@ import AuthService from './service/auth_service';
 import DataBase from './service/database';
 import Main from './component/main/main';
 import { CssBaseline, StylesProvider } from '@material-ui/core';
+import './common/color.css';
 
 interface AppProps {
   authService: AuthService;

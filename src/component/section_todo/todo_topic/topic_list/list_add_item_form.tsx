@@ -1,7 +1,7 @@
 /** @format */
 
 import { IconButton, ListItem, TextField } from '@material-ui/core';
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import AddIcon from '@material-ui/icons/Add';
 import styles from './list_add_item_form.module.css';
 
@@ -24,20 +24,19 @@ const ListAddItemForm: React.FC<ListAddItemFormProps> = ({
     autoCheck: false,
   });
 
-  const onChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = event.target;
-      setTodoData({
-        ...todoData,
-        [name]: value,
-      });
-    },
-    [todoData]
-  );
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setTodoData({
+      ...todoData,
+      [name]: value,
+    });
+  };
 
-  const onSubmit = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      event.preventDefault();
+  const onSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault();
+    if (!todoData.what) {
+      alert('무엇을 했는지 입력해 주세요');
+    } else {
       addOrUpdateTodoList(todoData);
       setTodoData({
         id: Date.now().toString(),
@@ -48,9 +47,8 @@ const ListAddItemForm: React.FC<ListAddItemFormProps> = ({
         autoCheck: false,
       });
       setOpen(false);
-    },
-    [topic, todoData, addOrUpdateTodoList]
-  );
+    }
+  };
 
   return (
     <ListItem className={styles.list}>

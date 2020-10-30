@@ -1,0 +1,16 @@
+/** @format */
+
+.toggleBtn {
+  color: var(--main-color);
+}
+.topic::after,
+.topic:hover {
+  border-color: var(--light-main-color);
+}
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}

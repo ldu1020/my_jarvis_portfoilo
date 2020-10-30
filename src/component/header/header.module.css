@@ -1,1 +1,10 @@
 /** @format */
+.header {
+  background-color: var(--main-color);
+  position: relative;
+}
+
+.logoutBtn {
+  position: absolute;
+  right: 1rem;
+}

@@ -54,16 +54,22 @@ const HeaderDrawer: React.FC<HeaderDrawerProps> = ({
         ModalProps={{
           keepMounted: true, // Better open performance on mobile.
         }}>
-        <List>
+        <List className={styles.list}>
           {drawerState.map((item) => (
-            <ListItem button key={item.label}>
-              <ListItemIcon>
-                <item.iconName />
-              </ListItemIcon>
-              <Link to={item.path}>
-                <ListItemText primary={item.label} />
-              </Link>
-            </ListItem>
+            <Link
+              key={item.label}
+              to={item.path}
+              style={{ textDecoration: 'none' }}>
+              <ListItem className={styles.item} button>
+                <ListItemIcon>
+                  <item.iconName />
+                </ListItemIcon>
+                <ListItemText
+                  primary={item.label}
+                  primaryTypographyProps={{ className: styles.text }}
+                />
+              </ListItem>
+            </Link>
           ))}
         </List>
         <Divider />

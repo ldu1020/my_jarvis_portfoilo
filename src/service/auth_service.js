@@ -12,13 +12,16 @@ class AuthService {
     return firebaseAuth.signInWithPopup(authProvider);
   }
 
+  loginAnonymous(){
+    return firebaseAuth.signInAnonymously()
+  }
+
   logout() {
     firebaseAuth.signOut();
   }
 
   onAuthChange(onUserChanged) {
     firebaseAuth.onAuthStateChanged((user) => {
-      console.log(user);
       onUserChanged(user);
     });
   }

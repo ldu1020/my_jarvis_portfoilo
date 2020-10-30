@@ -59,4 +59,4 @@ const TodoGraph: React.FC<TodoGraphProps> = ({ performenceData, count }) => {
   );
 };
 
-export default TodoGraph;
+export default React.memo(TodoGraph);

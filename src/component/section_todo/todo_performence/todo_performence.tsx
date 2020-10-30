@@ -60,4 +60,4 @@ const TodoPerformence: React.FC<TodoPerformenceProps> = ({
   );
 };
 
-export default TodoPerformence;
+export default React.memo(TodoPerformence);

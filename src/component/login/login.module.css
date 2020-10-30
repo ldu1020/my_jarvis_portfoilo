@@ -1,0 +1,49 @@
+/** @format */
+
+.title {
+  font-size: 3rem;
+  font-weight: 100;
+  letter-spacing: 4px;
+  text-align: center;
+  color: var(--main-color);
+  text-shadow: 0.1rem 0.2rem 0.4rem rgba(0, 0, 0, 0.2);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  display: flex;
+  padding: 2rem;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 20rem;
+}
+
+.button {
+  outline: none;
+  border: 0.8px solid var(--light-main-color);
+  border-radius: 20rem;
+  background: none;
+  height: 3rem;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--main-color);
+  transition: all 0.2s ease-in;
+}
+
+.button:hover {
+  color: #fff;
+  background-color: var(--light-main-color);
+}
+
+.icon {
+  color: #fff;
+  position: absolute;
+  left: 10%;
+}

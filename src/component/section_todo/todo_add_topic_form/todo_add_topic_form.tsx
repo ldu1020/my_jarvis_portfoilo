@@ -1,7 +1,6 @@
 /** @format */
 
-import { Card, IconButton, TextField } from '@material-ui/core';
-import { nanoid } from 'nanoid';
+import { Button, Card, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
 import AddIcon from '@material-ui/icons/Add';
 import styles from './todo_add_topic_form.module.css';
@@ -13,7 +12,7 @@ interface TodoAddTopicFormProps {
 const TodoAddTopicForm: React.FC<TodoAddTopicFormProps> = ({ onAdd }) => {
   const [open, setOpen] = useState(false);
   const [topicData, setTopicData] = useState<TodoTopicData>({
-    id: nanoid(),
+    id: (Date.now() - 1).toString(),
     topic: '',
     made: '',
     complete: false,
@@ -30,43 +29,45 @@ const TodoAddTopicForm: React.FC<TodoAddTopicFormProps> = ({ onAdd }) => {
   };
 
   const onSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    console.log('sub');
-    event.preventDefault();
-    onAdd(topicData);
-    console.log(topicData);
-    setTopicData({
-      id: Date.now().toString(),
-      topic: '',
-      made: '',
-      complete: false,
-    });
-    setOpen(false);
+    if (!topicData.topic) {
+      alert('topic 을 입력 해 주세요');
+    } else {
+      onAdd(topicData);
+      setTopicData({
+        id: Date.now().toString(),
+        topic: '',
+        made: '',
+        complete: false,
+      });
+      setOpen(false);
+    }
   };
 
   return (
     <div>
       {open ? (
-        <Card>
-          <form>
-            <TextField
-              label='TOPIC'
-              type='text'
-              name='topic'
-              onChange={onChange}
-              value={topicData.topic}
-            />
-            <IconButton className={styles.toggleBtn} onClick={onSubmit}>
-              <AddIcon />
-            </IconButton>
-          </form>
+        <Card className={styles.card}>
+          <TextField
+            className={styles.topic}
+            label='TOPIC'
+            type='text'
+            name='topic'
+            onChange={onChange}
+            value={topicData.topic}
+          />
+          <Button className={styles.toggleBtn} onClick={onSubmit}>
+            추가하기
+            <AddIcon />
+          </Button>
         </Card>
       ) : (
-        <IconButton className={styles.toggleBtn} onClick={() => setOpen(!open)}>
+        <Button className={styles.toggleBtn} onClick={() => setOpen(!open)}>
           <AddIcon />
-        </IconButton>
+          Topic
+        </Button>
       )}
     </div>
   );
 };
 
-export default TodoAddTopicForm;
+export default React.memo(TodoAddTopicForm);

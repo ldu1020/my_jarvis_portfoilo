@@ -1,7 +1,12 @@
 /** @format */
 
-import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core';
-import { AccountCircle } from '@material-ui/icons';
+import {
+  AppBar,
+  Button,
+  IconButton,
+  Toolbar,
+  Typography,
+} from '@material-ui/core';
 import React, { useState } from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
 import styles from './header.module.css';
@@ -32,16 +37,12 @@ const Header: React.FC<HeaderProps> = ({ onLogout, userData }) => {
           MY JARVIS
         </Typography>
         {userData && (
-          <div>
-            <IconButton
-              aria-label='account of current user'
-              aria-controls='menu-appbar'
-              aria-haspopup='true'
-              onClick={onLogout}
-              color='inherit'>
-              <AccountCircle />
-            </IconButton>
-          </div>
+          <Button
+            className={styles.logoutBtn}
+            onClick={onLogout}
+            color='inherit'>
+            logout
+          </Button>
         )}
       </Toolbar>
       {userData && (

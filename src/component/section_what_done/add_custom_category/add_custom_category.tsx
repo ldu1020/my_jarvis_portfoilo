@@ -31,12 +31,16 @@ const AddCustomCategory: React.FC<AddCustomCategoryProps> = ({
   };
   const onSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
-    addCustomCategory(customCategoryData);
-    setCustomCagoryData((beforeData) => ({
-      id: Date.now().toString(),
-      category: '',
-      color: '#000000',
-    }));
+    if (customCategoryData.category === '') {
+      alert('카테고리를 입력해 주세요');
+    } else {
+      addCustomCategory(customCategoryData);
+      setCustomCagoryData((beforeData) => ({
+        id: Date.now().toString(),
+        category: '',
+        color: '#000000',
+      }));
+    }
   };
 
   return (
