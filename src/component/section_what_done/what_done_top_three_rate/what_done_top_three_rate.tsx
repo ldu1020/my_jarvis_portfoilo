@@ -10,7 +10,7 @@ interface WhatDoneTopThreeRateProps {
 const WhatDoneTopThreeRate: React.FC<WhatDoneTopThreeRateProps> = ({
   doingTimeOfCategoryList,
 }) => {
-  const topThree = doingTimeOfCategoryList //
+  const topThree =  doingTimeOfCategoryList //
     .sort((a: any, b: any) => b.doingTime - a.doingTime)
     .slice(0, 3);
 
@@ -23,9 +23,11 @@ const WhatDoneTopThreeRate: React.FC<WhatDoneTopThreeRateProps> = ({
       {topThree.map((li, index) => {
         let text = `${li.category}`;
         const rate = ((li.doingTime / wholeTime) * 100).toFixed(1) + '%';
+        
         if (text.length > 4) {
           text = text.substr(0, 4) + '...';
         }
+        
         return (
           <li
             key={li.category}

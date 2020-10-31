@@ -36,7 +36,7 @@ const TodoGraph: React.FC<TodoGraphProps> = ({ performenceData, count }) => {
     },
 
     animation: {
-      easing: checkedRate === 100 ? 'easeInQuart' : 'easeInOutBack',
+      easing: 'easeInOutSine',
     },
   };
   const allClear = checkedRate === 100 && styles.allClear;

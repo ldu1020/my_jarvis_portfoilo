@@ -1,0 +1,61 @@
+/** @format */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--bg-color);
+}
+
+.infoTitleText {
+  font-weight: lighter;
+  color: var(--main-color);
+  text-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2);
+}
+
+.cardWrapper {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: auto;
+}
+
+.card {
+  height: 12rem;
+  padding: 1rem;
+  margin: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cardTop {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  margin-right: 1rem;
+  width: 3rem;
+  height: 3rem;
+}
+
+.textInfo {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+@media screen and (min-width: 700px) {
+  .cardWrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .cardWrapper {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
