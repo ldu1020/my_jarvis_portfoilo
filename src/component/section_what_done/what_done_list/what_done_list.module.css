@@ -1,5 +1,20 @@
 /** @format */
 .ul {
-  max-height: 20rem;
+  height: 100%;
   overflow-y: auto;
+}
+
+.li {
+  animation: createItem 0.8s;
+}
+
+@keyframes createItem {
+  0% {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

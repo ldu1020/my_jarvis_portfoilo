@@ -2,6 +2,8 @@
 
 /// <reference types="react-scripts" />
 
+type DataBase = DataBase;
+
 type UserData = {
   displayName: string | null;
   email: string | null;

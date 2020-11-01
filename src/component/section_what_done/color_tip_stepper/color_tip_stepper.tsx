@@ -33,7 +33,11 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: 400,
       flexGrow: 1,
     },
+    title: {
+      marginBottom: '3rem',
+    },
     header: {
+      padding: '1rem',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -64,7 +68,9 @@ export default function ColorTipStepper() {
   return (
     <div className={classes.root}>
       <Paper square elevation={0} className={classes.header}>
-        <Typography variant='h6'>{colorTipData[activeStep].title}</Typography>
+        <Typography className={classes.title} variant='h6'>
+          {colorTipData[activeStep].title}
+        </Typography>
         <span>{colorTipData[activeStep].description}</span>
       </Paper>
       <img

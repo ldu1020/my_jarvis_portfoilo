@@ -1,12 +1,13 @@
 /** @format */
 
-import { List, ListItem, ListItemText, Typography } from '@material-ui/core';
 import React, { useEffect, useMemo, useState } from 'react';
-import styles from './performence_of_3days.module.css';
+import { List, ListItem, ListItemText, Typography } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import CountUp from 'react-countup';
 import DataBase from '../../../../service/database';
+import styles from './performence_of_3days.module.css';
+
 interface PerformenceOf3DaysProps {
   performenceData: TodoPerformenceData;
   today: string;
@@ -22,7 +23,6 @@ const PerformenceOf3Days: React.FC<PerformenceOf3DaysProps> = ({
 }) => {
   const [beforeDays, setBeforeDays] = useState({});
   useEffect(() => {
-    console.log('Ggg');
     const yesterday = getBeforeDay(1);
     const yesterdayBefore = getBeforeDay(2);
     const stopSync = database.findSomedayData(
@@ -31,7 +31,6 @@ const PerformenceOf3Days: React.FC<PerformenceOf3DaysProps> = ({
       yesterdayBefore,
       yesterday,
       (dataOfDB: any) => {
-        console.log(dataOfDB);
         dataOfDB && setBeforeDays({ ...dataOfDB });
       }
     );
@@ -48,9 +47,6 @@ const PerformenceOf3Days: React.FC<PerformenceOf3DaysProps> = ({
         const beforeIndex = index - 1 < 0 ? 0 : index - 1;
         const growthRate = Math.floor(
           (day.rate - threeDays[beforeIndex].rate) * 100
-        );
-        console.log(
-          index + ':' + (day.rate - threeDays[beforeIndex].rate) * 100
         );
         return (
           <ListItem key={day.date} className={styles.item}>

@@ -32,12 +32,10 @@ const TodoPerformence: React.FC<TodoPerformenceProps> = ({
         rect && rect.y <= 0 ? setPerY(true) : setPerY(false);
       });
     }
-    handleScrollChange();
+    !up960px && handleScrollChange();
 
-    return () => {
-      window.removeEventListener('scroll', handleScrollChange);
-    };
-  }, []);
+    return () => window.removeEventListener('scroll', handleScrollChange);
+  }, [up960px]);
   let section_performence_Ref = useRef<HTMLDivElement>(null);
 
   return (

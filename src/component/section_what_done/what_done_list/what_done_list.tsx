@@ -29,7 +29,7 @@ const WhatDoneList: React.FC<WhatDoneListProps> = ({
           (li) => li.category === item.category
         );
         return (
-          <ListItem key={item.id} className={styles.ul}>
+          <ListItem key={item.id} className={styles.li}>
             <Box
               component='div'
               p={1}

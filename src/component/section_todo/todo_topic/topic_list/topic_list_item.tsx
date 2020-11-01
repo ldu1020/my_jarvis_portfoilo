@@ -38,7 +38,7 @@ const TopicListItem: React.FC<TopicListitemProps> = ({
   };
 
   return (
-    <ListItem alignItems='flex-start'>
+    <ListItem alignItems='flex-start' className={styles.item}>
       <ListItemText
         primary={todoListData.what}
         primaryTypographyProps={{ noWrap: true, className: styles.what }}
