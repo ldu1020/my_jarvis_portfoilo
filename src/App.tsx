@@ -1,14 +1,16 @@
 /** @format */
 
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Login from './component/login/login';
 import AuthService from './service/auth_service';
 import DataBase from './service/database';
-import Main from './component/main/main';
 import { CssBaseline, StylesProvider } from '@material-ui/core';
 import './common/color.css';
 import LandingPage from './component/landing_page/landing_page';
+import Loading from './component/loading/loading';
+
+const Main = lazy(() => import('./component/main/main'));
 
 interface AppProps {
   authService: AuthService;
@@ -28,7 +30,9 @@ const App: React.FC<AppProps> = ({ authService, database }) => {
             <Login authService={authService} />
           </Route>
           <Route path='/main'>
-            <Main authService={authService} database={database} />
+            <Suspense fallback={<Loading />}>
+              <Main authService={authService} database={database} />
+            </Suspense>
           </Route>
         </Switch>
       </StylesProvider>

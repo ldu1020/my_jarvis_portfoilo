@@ -98,7 +98,7 @@ const TodoMain: React.FC<TodoMainProps> = ({
       database.removeTodoData(userId as string, 'topicList', id);
       todoState.todoList &&
         Object.keys(todoState.todoList).forEach((key) => {
-          key.split('&')[1] === topic &&
+          todoState.todoList[key].topic === topic &&
             database.removeTodoData(userId as string, 'todoList', key);
         });
     },

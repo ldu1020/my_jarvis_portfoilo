@@ -1,5 +1,6 @@
 /** @format */
 
+import { Container } from '@material-ui/core';
 import React, { useCallback, useEffect, useState } from 'react';
 import { BrowserRouter, Route, useHistory, Switch } from 'react-router-dom';
 import AuthService from '../../service/auth_service';
@@ -35,22 +36,24 @@ const Main: React.FC<MainProps> = ({ authService, database }) => {
     <div>
       <BrowserRouter>
         <Header userData={userData} onLogout={onLogout} />
-        <Switch>
-          <Route exact path={['/main', '/main/what-done']}>
-            <WhatDoneMain
-              authService={authService}
-              database={database}
-              userId={userData ? userData.uid : null}
-            />
-          </Route>
-          <Route exact path='/main/atomic-habits'>
-            <TodoMain
-              authService={authService}
-              database={database}
-              userId={userData ? userData.uid : null}
-            />
-          </Route>
-        </Switch>
+        <Container maxWidth='lg'>
+          <Switch>
+            <Route exact path={['/main', '/main/what-done']}>
+              <WhatDoneMain
+                authService={authService}
+                database={database}
+                userId={userData ? userData.uid : null}
+              />
+            </Route>
+            <Route exact path='/main/atomic-habits'>
+              <TodoMain
+                authService={authService}
+                database={database}
+                userId={userData ? userData.uid : null}
+              />
+            </Route>
+          </Switch>
+        </Container>
       </BrowserRouter>
     </div>
   );

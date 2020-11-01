@@ -6,6 +6,16 @@
   justify-content: space-between;
 }
 
+.what {
+  font-size: 0.2rem;
+  flex: 1 45%;
+}
+
 .until {
-  width: 50%;
+  font-size: 0.6rem;
+  flex: 1 45%;
+}
+
+.submit {
+  flex: 1 10%;
 }
