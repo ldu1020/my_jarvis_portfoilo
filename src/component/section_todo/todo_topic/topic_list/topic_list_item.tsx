@@ -5,6 +5,7 @@ import {
   IconButton,
   ListItem,
   ListItemText,
+  Tooltip,
 } from '@material-ui/core';
 import React from 'react';
 import ListTimer from './list_timer';
@@ -49,13 +50,15 @@ const TopicListItem: React.FC<TopicListitemProps> = ({
         }
       />
 
-      <Checkbox
-        icon={<AlarmOnIcon className={styles.icon} />}
-        size='small'
-        checkedIcon={<AlarmOnIcon className={styles.icon} />}
-        onChange={updateAutoCheck}
-        checked={todoListData.autoCheck}
-      />
+      <Tooltip title='Auto-Check: 시간 설정시 자동 체크'>
+        <Checkbox
+          icon={<AlarmOnIcon className={styles.icon} />}
+          size='small'
+          checkedIcon={<AlarmOnIcon className={styles.icon} />}
+          onChange={updateAutoCheck}
+          checked={todoListData.autoCheck}
+        />
+      </Tooltip>
       <Checkbox
         icon={<CheckIcon className={styles.icon} />}
         size='small'

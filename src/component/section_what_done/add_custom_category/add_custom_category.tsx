@@ -1,6 +1,14 @@
 /** @format */
 
-import { Box, Button, Card, Chip, Paper, TextField } from '@material-ui/core';
+import {
+  Box,
+  Button,
+  Card,
+  Chip,
+  Paper,
+  TextField,
+  Tooltip,
+} from '@material-ui/core';
 import React, { useState } from 'react';
 import styles from './add_custom_category.module.css';
 import AddIcon from '@material-ui/icons/Add';
@@ -52,25 +60,27 @@ const AddCustomCategory: React.FC<AddCustomCategoryProps> = ({
             key={data.id}
             className={styles.chip}
             icon={
-              <Box
-                className={styles.colorDisplayWrapper}
-                p={0}
-                width='1rem'
-                height='1rem'
-                borderRadius='50%'
-                boxShadow={3}
-                bgcolor={data.color}>
-                <input
-                  type='color'
-                  onChange={(event) => {
-                    let updated = { ...data };
-                    updated.color = event.target.value;
-                    addCustomCategory(updated);
-                  }}
-                  className={styles.colorDisplay}
-                  value={data.color}
-                />
-              </Box>
+              <Tooltip title='update color'>
+                <Box
+                  className={styles.colorDisplayWrapper}
+                  p={0}
+                  width='1rem'
+                  height='1rem'
+                  borderRadius='50%'
+                  boxShadow={3}
+                  bgcolor={data.color}>
+                  <input
+                    type='color'
+                    onChange={(event) => {
+                      let updated = { ...data };
+                      updated.color = event.target.value;
+                      addCustomCategory(updated);
+                    }}
+                    className={styles.colorDisplay}
+                    value={data.color}
+                  />
+                </Box>
+              </Tooltip>
             }
             label={data.category}
             onDelete={() => {

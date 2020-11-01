@@ -1,8 +1,11 @@
 /** @format */
 
-
-.form {
+.list {
   width: 100%;
   display: flex;
   justify-content: space-between;
+}
+
+.until {
+  width: 50%;
 }

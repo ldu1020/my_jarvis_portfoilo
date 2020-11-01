@@ -36,7 +36,7 @@ const WhatDoneAddListForm: React.FC<WhatDoneAddListFormProps> = ({
       const { startTime, endTime, category } = doneListData;
       event.preventDefault();
       if (!startTime || !endTime || !category) {
-        alert('입력되지 않은 값이 있습니다.');
+        alert('시작시간, 끝나는 시간, 분류 항목은 필수 항목 입니다.');
       } else if (calcDoingTime(startTime, endTime) <= 0) {
         alert('올바른 시간이 아닙니다.');
       } else {
@@ -96,7 +96,7 @@ const WhatDoneAddListForm: React.FC<WhatDoneAddListFormProps> = ({
 
       <TextField
         className={styles.category}
-        label='분류'
+        label='카테고리'
         type='text'
         name='category'
         onChange={onChange}
@@ -105,7 +105,7 @@ const WhatDoneAddListForm: React.FC<WhatDoneAddListFormProps> = ({
       />
       <TextField
         className={styles.whatDo}
-        label='무엇을'
+        label='무엇을(option)'
         type='text'
         name='whatDo'
         multiline

@@ -24,6 +24,7 @@ import { whatDoneInitialState, whatDoneReducer } from './what_done_reducer';
 
 import { useMediaQuery, useTheme } from '@material-ui/core';
 import styles from './what_done_main.module.css';
+import ColorTipStepper from './color_tip_stepper/color_tip_stepper';
 
 interface WhatDoneMainProps {
   authService: AuthService;
@@ -37,7 +38,9 @@ const WhatDoneMain: React.FC<WhatDoneMainProps> = ({
   userId,
 }) => {
   const date = new Date();
-  const today = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`;
+  const today = `${date.getFullYear()}${date.getMonth() + 1}${
+    date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()
+  }`;
 
   const [state, dispatch] = useReducer(whatDoneReducer, whatDoneInitialState);
   const doingTimeOfCategoryList = useMemo(() => {
@@ -153,11 +156,11 @@ const WhatDoneMain: React.FC<WhatDoneMainProps> = ({
           />
         </div>
         <div className={styles.topThree}>
-          {doingTimeOfCategoryList.length && (
+          {doingTimeOfCategoryList.length ? (
             <WhatDoneTopThreeRate
               doingTimeOfCategoryList={doingTimeOfCategoryList}
             />
-          )}
+          ) : null}
         </div>
         {!up960px && (
           <TransitionsModal
@@ -173,12 +176,7 @@ const WhatDoneMain: React.FC<WhatDoneMainProps> = ({
           />
         )}
         <TransitionsModal
-          component={
-            <p className={styles.info}>
-              나만의 category 에 등록되지 않은 category 는 색상이 랜덤 배치되며
-              매 회 변경됩니다.
-            </p>
-          }
+          component={<ColorTipStepper />}
           buttonText={'색깔이 계속바뀌나요?'}
           buttonClassName={styles.infoModal}
         />

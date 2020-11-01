@@ -30,7 +30,9 @@ const TodoMain: React.FC<TodoMainProps> = ({
   const [todoState, dispatch] = useReducer(todoReducer, todoInitialState);
   const history = useHistory();
   const date = new Date();
-  const today = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`;
+  const today = `${date.getFullYear()}${date.getMonth() + 1}${
+    date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()
+  }`;
   const performenceData = getTodoPerformence(todoState.todoList);
 
   useLayoutEffect(() => {

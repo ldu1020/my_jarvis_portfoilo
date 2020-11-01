@@ -46,7 +46,12 @@ const PerformenceOf3Days: React.FC<PerformenceOf3DaysProps> = ({
     <List className={styles.section}>
       {threeDays.map((day, index) => {
         const beforeIndex = index - 1 < 0 ? 0 : index - 1;
-        console.log((day.rate - threeDays[beforeIndex].rate) * 100);
+        const growthRate = Math.floor(
+          (day.rate - threeDays[beforeIndex].rate) * 100
+        );
+        console.log(
+          index + ':' + (day.rate - threeDays[beforeIndex].rate) * 100
+        );
         return (
           <ListItem key={day.date} className={styles.item}>
             <ListItemText
@@ -65,24 +70,14 @@ const PerformenceOf3Days: React.FC<PerformenceOf3DaysProps> = ({
                   />
 
                   <Typography color='secondary' className={styles.rate}>
-                    <CountUp
-                      end={Math.floor(
-                        (day.rate - threeDays[beforeIndex].rate) * 100
-                      )}
-                      suffix='%'
-                    />
+                    <CountUp end={growthRate ? growthRate : 0} suffix='%' />
                   </Typography>
                 </>
               ) : (
                 <>
                   <ArrowDropUpIcon color='primary' className={styles.icon} />
                   <Typography color='primary' className={styles.rate}>
-                    <CountUp
-                      end={Math.floor(
-                        (day.rate - threeDays[beforeIndex].rate) * 100
-                      )}
-                      suffix='%'
-                    />
+                    <CountUp end={growthRate ? growthRate : 0} suffix='%' />
                   </Typography>
                 </>
               )}
@@ -99,7 +94,9 @@ export default React.memo(PerformenceOf3Days);
 function getBeforeDay(ago: number) {
   const day = new Date();
   day.setDate(day.getDate() - ago);
-  const dayAsKey = `${day.getFullYear()}${day.getMonth() + 1}${day.getDate()}`;
+  const dayAsKey = `${day.getFullYear()}${day.getMonth() + 1}${
+    day.getDate() < 10 ? `0${day.getDate()}` : day.getDate()
+  }`;
   return dayAsKey;
 }
 
@@ -109,7 +106,9 @@ function make3days(todoPerformence: TodoPerformence) {
     let day = new Date();
 
     day.setDate(day.getDate() - i);
-    let dayAsKey = `${day.getFullYear()}${day.getMonth() + 1}${day.getDate()}`;
+    let dayAsKey = `${day.getFullYear()}${day.getMonth() + 1}${
+      day.getDate() < 10 ? `0${day.getDate()}` : day.getDate()
+    }`;
     const dayValue = todoPerformence[dayAsKey]
       ? {
           date: `${day.getMonth() + 1}.${day.getDate()}`,
@@ -125,7 +124,6 @@ function make3days(todoPerformence: TodoPerformence) {
         };
     days.push(dayValue);
   }
-  console.log(days);
 
   return days.reverse();
 }

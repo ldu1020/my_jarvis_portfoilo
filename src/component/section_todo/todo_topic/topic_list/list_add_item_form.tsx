@@ -33,9 +33,8 @@ const ListAddItemForm: React.FC<ListAddItemFormProps> = ({
   };
 
   const onSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.preventDefault();
     if (!todoData.what) {
-      alert('무엇을 했는지 입력해 주세요');
+      alert('무엇을 했는지 입력 해 주세요');
     } else {
       addOrUpdateTodoList(todoData);
       setTodoData({
@@ -53,7 +52,7 @@ const ListAddItemForm: React.FC<ListAddItemFormProps> = ({
   return (
     <ListItem className={styles.list}>
       {open ? (
-        <form autoComplete='off' className={styles.form}>
+        <>
           <TextField
             className={styles.what}
             name='what'
@@ -69,7 +68,7 @@ const ListAddItemForm: React.FC<ListAddItemFormProps> = ({
           <TextField
             className={styles.until}
             id='time'
-            label='언제까지'
+            label='언제까지(option)'
             name='until'
             type='time'
             onChange={onChange}
@@ -81,7 +80,7 @@ const ListAddItemForm: React.FC<ListAddItemFormProps> = ({
           <IconButton className={styles.submit} onClick={onSubmit}>
             <AddIcon />
           </IconButton>
-        </form>
+        </>
       ) : (
         <IconButton className={styles.toggleBtn} onClick={() => setOpen(!open)}>
           <AddIcon />

@@ -11,9 +11,21 @@ import {
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './header_drawer.module.css';
-import HomeIcon from '@material-ui/icons/Home';
 import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
 import PieChartIcon from '@material-ui/icons/PieChart';
+
+const drawerState = [
+  {
+    label: '할일목록',
+    path: '/main/atomic-habits',
+    iconName: PlaylistAddCheckIcon,
+  },
+  {
+    label: '한일목록',
+    path: '/main/what-done',
+    iconName: PieChartIcon,
+  },
+];
 
 interface HeaderDrawerProps {
   userData: UserData;
@@ -26,24 +38,6 @@ const HeaderDrawer: React.FC<HeaderDrawerProps> = ({
   open,
   toggleOpen,
 }) => {
-  const drawerState = [
-    {
-      label: '홈',
-      path: '/home',
-      iconName: HomeIcon,
-    },
-    {
-      label: '할일목록',
-      path: '/main/atomic-habits',
-      iconName: PlaylistAddCheckIcon,
-    },
-    {
-      label: '한일목록',
-      path: '/main/what-done',
-      iconName: PieChartIcon,
-    },
-  ];
-
   return (
     <nav className={styles.nav} aria-label='mailbox folders'>
       <Drawer
@@ -55,13 +49,12 @@ const HeaderDrawer: React.FC<HeaderDrawerProps> = ({
           keepMounted: true, // Better open performance on mobile.
         }}>
         <List className={styles.list}>
-
           {drawerState.map((item) => (
             <Link
               key={item.label}
               to={item.path}
               style={{ textDecoration: 'none' }}>
-              <ListItem className={styles.item} button>
+              <ListItem className={styles.item} onClick={toggleOpen} button>
                 <ListItemIcon>
                   <item.iconName />
                 </ListItemIcon>
@@ -79,4 +72,4 @@ const HeaderDrawer: React.FC<HeaderDrawerProps> = ({
   );
 };
 
-export default HeaderDrawer;
+export default React.memo(HeaderDrawer);

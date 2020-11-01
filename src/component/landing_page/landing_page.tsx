@@ -55,6 +55,9 @@ const LandingPage = () => {
         </div>
         <div className={styles.imageZone}></div>
       </section>
+      <section>
+        <FunctionInfo checked={LoginButotn_Y} />
+      </section>
       {LoginButotn_Y && (
         <Button
           className={`${styles.button} ${styles.Btn_Y}`}
@@ -64,9 +67,6 @@ const LandingPage = () => {
           시작하기
         </Button>
       )}
-      <section>
-        <FunctionInfo />
-      </section>
     </div>
   );
 };

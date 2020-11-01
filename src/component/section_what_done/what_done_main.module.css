@@ -81,15 +81,14 @@
     grid-column: 1 / 4;
     grid-row: 2 / 3;
   }
-  
+
   .customCategoryZone {
     grid-column: 4 / 7;
     grid-row: 2 / 3;
   }
-  
+
   .performenceZone {
     grid-column: 1 / 7;
     grid-row: 3 / 5;
   }
-
 }

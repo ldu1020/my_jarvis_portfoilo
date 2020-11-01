@@ -8,7 +8,7 @@ import AlarmOnIcon from '@material-ui/icons/AlarmOn';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import LoyaltyIcon from '@material-ui/icons/Loyalty';
 import styles from './function_info.module.css';
-import { Card } from '@material-ui/core';
+import { Card, Zoom } from '@material-ui/core';
 
 const WhatDoneInfoData = [
   {
@@ -56,50 +56,64 @@ const todoInfoData = [
 
 const InfoCard: React.FC<any> = (props) => {
   return (
-    <Card className={styles.card}>
-      <div className={styles.cardTop}>
-        <props.icon className={styles.icon} style={{ color: props.color }} />
-        <h4 className={styles.textHeading}>{props.heading}</h4>
-      </div>
-      <div className={styles.textInfo}>
-        {props.info.split('\n').map((line: string) => {
-          return (
-            <span key={line}>
-              {line}
-              <br />
-            </span>
-          );
-        })}
-      </div>
-    </Card>
+    <Zoom
+      in={props.checked}
+      style={{
+        transitionDelay: props.checked ? `${500 * props.index}ms` : '0ms',
+      }}>
+      <Card className={styles.card}>
+        <div className={styles.cardTop}>
+          <props.icon className={styles.icon} style={{ color: props.color }} />
+          <h4 className={styles.textHeading}>{props.heading}</h4>
+        </div>
+        <div className={styles.textInfo}>
+          {props.info.split('\n').map((line: string) => {
+            return (
+              <span key={line}>
+                {line}
+                <br />
+              </span>
+            );
+          })}
+        </div>
+      </Card>
+    </Zoom>
   );
 };
 
-const FunctionInfo = () => {
+interface FunctionInfoProps {
+  checked: boolean;
+}
+
+const FunctionInfo: React.FC<FunctionInfoProps> = ({ checked }) => {
   return (
     <div>
       <section className={styles.container}>
         <h1 className={styles.infoTitleText}>Info. WHAT DONE LIST</h1>
         <div className={styles.cardWrapper}>
-          {WhatDoneInfoData.map((data) => (
+          {WhatDoneInfoData.map((data, index) => (
             <InfoCard
               key={data.heading}
               icon={data.icon}
               heading={data.heading}
               info={data.info}
               color={data.iconColor}
+              checked={checked}
+              index={index}
             />
           ))}
         </div>
         <h1 className={styles.infoTitleText}>Info. TODO LIST</h1>
         <div className={styles.cardWrapper}>
-          {todoInfoData.map((data) => (
+          {todoInfoData.map((data, index) => (
             <InfoCard
               key={data.heading}
               icon={data.icon}
               heading={data.heading}
               info={data.info}
               color={data.iconColor}
+              checked={checked}
+              index={index}
             />
           ))}
         </div>
