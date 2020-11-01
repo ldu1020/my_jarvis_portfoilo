@@ -95,7 +95,6 @@ export default class DataBase {
       .endAt(endAt)
       .on('value', (snapshot) => {
         const value = snapshot.val();
-        console.log(value);
         callback(value);
       });
 

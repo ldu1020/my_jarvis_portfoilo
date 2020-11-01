@@ -16,7 +16,6 @@ const ListTimer: React.FC<TimerProps> = ({ todoListData, addOrUpdateTodo }) => {
   function reducer(state: any, action: any) {
     switch (action.type) {
       case 'SET_REST_TIME':
-        console.log('fuck.....');
         const REST_TIME = getRestTime(todoListData.until, new Date());
         if (todoListData.autoCheck && REST_TIME === 0) {
           const updated = { ...todoListData };
@@ -26,7 +25,6 @@ const ListTimer: React.FC<TimerProps> = ({ todoListData, addOrUpdateTodo }) => {
           action.clear();
         } else if (todoListData.checked || REST_TIME === 0) {
           action.clear();
-          console.log('fine ^^');
           return 0;
         }
         return REST_TIME;
@@ -46,7 +44,6 @@ const ListTimer: React.FC<TimerProps> = ({ todoListData, addOrUpdateTodo }) => {
 
     return () => {
       clearInterval(setNow);
-      console.log('use return');
     };
   }, [dispatch, todoListData]);
 
