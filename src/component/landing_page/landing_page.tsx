@@ -1,8 +1,9 @@
 /** @format */
 
-import { Button } from '@material-ui/core';
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Button } from '@material-ui/core';
+
 import FunctionInfo from './funtion_info';
 import styles from './landing_page.module.css';
 

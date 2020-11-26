@@ -1,5 +1,6 @@
 /** @format */
 
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -9,9 +10,8 @@ import {
   TextField,
   Tooltip,
 } from '@material-ui/core';
-import React, { useState } from 'react';
-import styles from './add_custom_category.module.css';
 import AddIcon from '@material-ui/icons/Add';
+import styles from './add_custom_category.module.css';
 
 interface AddCustomCategoryProps {
   customCategoryList: CustomCategoryList;

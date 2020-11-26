@@ -2,8 +2,8 @@
 
 import { firebaseDatabase } from './firebase';
 
-export default class DataBase {
-  syncData(userId: any, category: any, onUpdate: any) {
+export class DataBase {
+  syncData(userId: string, category: string, onUpdate: any) {
     const ref = firebaseDatabase.ref(`${userId}/${category}`);
     ref.on('value', (snapshot) => {
       const value = snapshot.val();
@@ -112,3 +112,5 @@ export default class DataBase {
       .set(list);
   }
 }
+
+export type DataBaseType = InstanceType<typeof DataBase>;

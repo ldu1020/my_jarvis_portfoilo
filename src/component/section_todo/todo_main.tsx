@@ -6,19 +6,22 @@ import React, {
   useLayoutEffect,
   useReducer,
 } from 'react';
-import AuthService from '../../service/auth_service';
-import DataBase from '../../service/database';
+import { useHistory } from 'react-router-dom';
+
+import { AuthServiceType } from '../../service/auth_service';
+import { DataBaseType } from '../../service/database';
 import TodoAddTopicForm from './todo_add_topic_form/todo_add_topic_form';
 import TodoTopic from './todo_topic/todo_topic';
-import styles from './todo_main.module.css';
 import TodoPerformence from './todo_performence/todo_performence';
+
 import { todoInitialState, todoReducer } from './todo_reducer';
-import { useHistory } from 'react-router-dom';
 import { getTodoPerformence } from './todo_my_function';
 
+import styles from './todo_main.module.css';
+
 interface TodoMainProps {
-  authService: AuthService;
-  database: DataBase;
+  authService: AuthServiceType;
+  database: DataBaseType;
   userId: string | null;
 }
 
@@ -67,12 +70,16 @@ const TodoMain: React.FC<TodoMainProps> = ({
   }, [userId, database, today, performenceData]);
 
   useEffect(() => {
-    const stopSync = database.syncData(userId, 'todoState', (dataOfDB: any) => {
-      dispatch({
-        type: 'FETCH_TODO_STATE',
-        fetchData: dataOfDB,
-      });
-    });
+    const stopSync = database.syncData(
+      userId as string,
+      'todoState',
+      (dataOfDB: any) => {
+        dispatch({
+          type: 'FETCH_TODO_STATE',
+          fetchData: dataOfDB,
+        });
+      }
+    );
 
     return () => stopSync();
   }, [userId, database, history]);

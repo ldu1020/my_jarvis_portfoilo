@@ -1,17 +1,19 @@
 /** @format */
 
-import { Button, Card, Container } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import AuthService from '../../service/auth_service';
-import Header from '../header/header';
-import styles from './login.module.css';
+
+import SettingsBackupRestoreIcon from '@material-ui/icons/SettingsBackupRestore';
+import { Button, Card, Container } from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import PeopleIcon from '@material-ui/icons/People';
-import SettingsBackupRestoreIcon from '@material-ui/icons/SettingsBackupRestore';
+
+import { AuthServiceType } from '../../service/auth_service';
+import Header from '../header/header';
+import styles from './login.module.css';
 
 interface LoginProps {
-  authService: AuthService;
+  authService: AuthServiceType;
 }
 
 const Login: React.FC<LoginProps> = ({ authService }) => {

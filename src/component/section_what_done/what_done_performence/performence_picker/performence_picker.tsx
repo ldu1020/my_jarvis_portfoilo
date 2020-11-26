@@ -1,7 +1,8 @@
 /** @format */
 
-import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import React, { useState } from 'react';
+import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+
 import EachCategoryGraph from './each_category_graph/each_category_graph';
 import WholeCategoryGraph from './whole_category_graph/whole_category_graph';
 import styles from './performence_picker.module.css';

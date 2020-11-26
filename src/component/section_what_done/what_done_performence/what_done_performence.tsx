@@ -1,16 +1,18 @@
 /** @format */
 
-import { Box, Card, Paper, TextField, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import DataBase from '../../../service/database';
+
+import { Box, Card, Paper, TextField, Typography } from '@material-ui/core';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+
+import { DataBaseType } from '../../../service/database';
+import PerformencePicker from './performence_picker/performence_picker';
 import { getDifferenceInDays } from '../what_done_my_function';
 import styles from './what_done_performence.module.css';
-import PerformencePicker from './performence_picker/performence_picker';
-import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 interface WhatDonePerformenceProps {
   userId: string | null;
-  database: DataBase;
+  database: DataBaseType;
   customCategoryList: CustomCategoryList;
 }
 

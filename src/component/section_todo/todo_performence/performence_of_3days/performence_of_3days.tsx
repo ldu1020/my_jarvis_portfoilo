@@ -1,18 +1,20 @@
 /** @format */
 
 import React, { useEffect, useMemo, useState } from 'react';
-import { List, ListItem, ListItemText, Typography } from '@material-ui/core';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import CountUp from 'react-countup';
-import DataBase from '../../../../service/database';
+
+import { List, ListItem, ListItemText, Typography } from '@material-ui/core';
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+
+import { DataBaseType } from '../../../../service/database';
 import styles from './performence_of_3days.module.css';
 
 interface PerformenceOf3DaysProps {
   performenceData: TodoPerformenceData;
   today: string;
   userId: string | null;
-  database: DataBase;
+  database: DataBaseType;
 }
 
 const PerformenceOf3Days: React.FC<PerformenceOf3DaysProps> = ({

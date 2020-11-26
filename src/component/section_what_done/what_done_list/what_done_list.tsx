@@ -1,5 +1,6 @@
 /** @format */
 
+import React from 'react';
 import {
   Box,
   IconButton,
@@ -7,9 +8,8 @@ import {
   ListItem,
   ListItemText,
 } from '@material-ui/core';
-import React from 'react';
-import styles from './what_done_list.module.css';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import styles from './what_done_list.module.css';
 
 interface WhatDoneListProps {
   whatDoneList: WhatDoneList;

@@ -1,32 +1,28 @@
 /** @format */
 
-import {
-  firebaseAuth,
-  githubProvider,
-  googleProvider
-} from './firebase';
+import { firebaseAuth, githubProvider, googleProvider } from './firebase';
 
-class AuthService {
-  login(providerName) {
+export class AuthService {
+  login(providerName: string) {
     const authProvider = this.getProvider(providerName);
     return firebaseAuth.signInWithPopup(authProvider);
   }
 
-  loginAnonymous(){
-    return firebaseAuth.signInAnonymously()
+  loginAnonymous() {
+    return firebaseAuth.signInAnonymously();
   }
 
   logout() {
     firebaseAuth.signOut();
   }
 
-  onAuthChange(onUserChanged) {
+  onAuthChange(onUserChanged: (user: firebase.User | null) => void) {
     firebaseAuth.onAuthStateChanged((user) => {
       onUserChanged(user);
     });
   }
 
-  getProvider(providerName) {
+  getProvider(providerName: string) {
     switch (providerName) {
       case 'Google':
         return googleProvider;
@@ -39,4 +35,4 @@ class AuthService {
   }
 }
 
-export default AuthService;
+export type AuthServiceType = InstanceType<typeof AuthService>;

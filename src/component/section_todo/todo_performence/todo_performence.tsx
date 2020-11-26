@@ -1,17 +1,19 @@
 /** @format */
 
-import { Card, useMediaQuery, useTheme } from '@material-ui/core';
 import React, { useLayoutEffect, useRef, useState } from 'react';
-import DataBase from '../../../service/database';
+
+import { Card, useMediaQuery, useTheme } from '@material-ui/core';
+
+import { DataBaseType } from '../../../service/database';
 import PerformenceOf3Days from './performence_of_3days/performence_of_3days';
 import TodoGraph from './todo_graph/todo_graph';
 
 import styles from './todo_performence.module.css';
 
 interface TodoPerformenceProps {
+  database: DataBaseType;
   today: string;
   userId: string | null;
-  database: DataBase;
   performenceData: TodoPerformenceData;
 }
 

@@ -1,14 +1,16 @@
 /** @format */
 
 import React from 'react';
+import { Card, Zoom } from '@material-ui/core';
+
 import PieChartIcon from '@material-ui/icons/PieChart';
 import SearchIcon from '@material-ui/icons/Search';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import AlarmOnIcon from '@material-ui/icons/AlarmOn';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import LoyaltyIcon from '@material-ui/icons/Loyalty';
+
 import styles from './function_info.module.css';
-import { Card, Zoom } from '@material-ui/core';
 
 const WhatDoneInfoData = [
   {

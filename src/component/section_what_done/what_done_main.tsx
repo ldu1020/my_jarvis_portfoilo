@@ -7,10 +7,11 @@ import React, {
   useMemo,
   useReducer,
 } from 'react';
-import AuthService from '../../service/auth_service';
-import DataBase from '../../service/database';
 import { useHistory } from 'react-router-dom';
+import { useMediaQuery, useTheme } from '@material-ui/core';
 
+import { AuthServiceType } from '../../service/auth_service';
+import { DataBaseType } from '../../service/database';
 import WhatDoneAddListForm from './what_done_add_list_form/what_done_add_list_form';
 import WhatDoneGraph from './what_done_graph/what_done_graph';
 import WhatDoneList from './what_done_list/what_done_list';
@@ -18,17 +19,16 @@ import WhatDonePerformence from './what_done_performence/what_done_performence';
 import WhatDoneTopThreeRate from './what_done_top_three_rate/what_done_top_three_rate';
 import AddCustomCategory from './add_custom_category/add_custom_category';
 import TransitionsModal from '../transition_modal/transition_modal';
+import ColorTipStepper from './color_tip_stepper/color_tip_stepper';
 
 import { getPerformence } from './what_done_my_function';
 import { whatDoneInitialState, whatDoneReducer } from './what_done_reducer';
 
-import { useMediaQuery, useTheme } from '@material-ui/core';
 import styles from './what_done_main.module.css';
-import ColorTipStepper from './color_tip_stepper/color_tip_stepper';
 
 interface WhatDoneMainProps {
-  authService: AuthService;
-  database: DataBase;
+  authService: AuthServiceType;
+  database: DataBaseType;
   userId: string | null;
 }
 
@@ -86,7 +86,7 @@ const WhatDoneMain: React.FC<WhatDoneMainProps> = ({
 
   useEffect(() => {
     const stopSync = database.syncData(
-      userId,
+      userId as string,
       'whatDoneState',
       (dataOfDB: any) => {
         dispatch({

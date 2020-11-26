@@ -1,4 +1,5 @@
 /** @format */
+import React, { useState } from 'react';
 
 import {
   AppBar,
@@ -7,8 +8,8 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core';
-import React, { useState } from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
+
 import styles from './header.module.css';
 import HeaderDrawer from './header_drawer/header_drawer';
 

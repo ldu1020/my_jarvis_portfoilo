@@ -1,17 +1,19 @@
 /** @format */
 
-import { Container } from '@material-ui/core';
 import React, { useCallback, useEffect, useState } from 'react';
 import { BrowserRouter, Route, useHistory, Switch } from 'react-router-dom';
-import AuthService from '../../service/auth_service';
-import DataBase from '../../service/database';
+
+import { Container } from '@material-ui/core';
+
+import { AuthServiceType } from '../../service/auth_service';
+import { DataBaseType } from '../../service/database';
 import Header from '../header/header';
 import TodoMain from '../section_todo/todo_main';
 import WhatDoneMain from '../section_what_done/what_done_main';
 
 interface MainProps {
-  authService: AuthService;
-  database: DataBase;
+  authService: AuthServiceType;
+  database: DataBaseType;
 }
 
 const Main: React.FC<MainProps> = ({ authService, database }) => {
@@ -22,7 +24,7 @@ const Main: React.FC<MainProps> = ({ authService, database }) => {
   }, [authService]);
 
   useEffect(() => {
-    authService.onAuthChange((user: firebase.User) => {
+    authService.onAuthChange((user: firebase.User | null) => {
       if (user) {
         const { uid, displayName, email } = user;
         const data = { uid, displayName, email };
