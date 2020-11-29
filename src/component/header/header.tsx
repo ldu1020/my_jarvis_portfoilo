@@ -36,7 +36,7 @@ const navList = [
   },
   {
     label: '도움말',
-    path: '/main/what-done',
+    path: '/main/get-start',
     icon: <HelpOutlineIcon />,
   },
 ];
@@ -57,6 +57,7 @@ const Header: React.FC<HeaderProps> = ({ onLogout, userData }) => {
             <nav className={styles.nav}>
               {navList.map((list, index) => (
                 <IconButton
+                  key={list.label}
                   style={{
                     color:
                       navSelected === index

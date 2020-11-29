@@ -44,7 +44,7 @@ const TodoAddTopicForm: React.FC<TodoAddTopicFormProps> = ({ onAdd }) => {
   };
 
   return (
-    <div>
+    <div className={styles.addForm}>
       {open ? (
         <Card className={styles.card}>
           <TextField

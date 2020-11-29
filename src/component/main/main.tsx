@@ -10,6 +10,7 @@ import { DataBaseType } from '../../service/database';
 import Header from '../header/header';
 import TodoMain from '../section_todo/todo_main';
 import WhatDoneMain from '../section_what_done/what_done_main';
+import GetStartMain from '../section_get_start/get_start_main';
 
 interface MainProps {
   authService: AuthServiceType;
@@ -40,7 +41,7 @@ const Main: React.FC<MainProps> = ({ authService, database }) => {
         <Header userData={userData} onLogout={onLogout} />
         <Container maxWidth='lg'>
           <Switch>
-            <Route exact path={['/main', '/main/what-done']}>
+            <Route exact path='/main/what-done'>
               <WhatDoneMain
                 authService={authService}
                 database={database}
@@ -53,6 +54,9 @@ const Main: React.FC<MainProps> = ({ authService, database }) => {
                 database={database}
                 userId={userData ? userData.uid : null}
               />
+            </Route>
+            <Route path={['/main', '/main/get-start']}>
+              <GetStartMain />
             </Route>
           </Switch>
         </Container>
