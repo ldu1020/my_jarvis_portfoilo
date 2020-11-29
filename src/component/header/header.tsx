@@ -16,6 +16,7 @@ import PieChartIcon from '@material-ui/icons/PieChart';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
 import styles from './header.module.css';
+import BottomNav from './bottom_nav';
 
 interface HeaderProps {
   onLogout?: () => void;
@@ -26,17 +27,17 @@ const navList = [
   {
     label: '할일목록',
     path: '/main/atomic-habits',
-    iconName: PlaylistAddCheckIcon,
+    icon: <PlaylistAddCheckIcon />,
   },
   {
     label: '한일목록',
     path: '/main/what-done',
-    iconName: PieChartIcon,
+    icon: <PieChartIcon />,
   },
   {
     label: '도움말',
     path: '/main/what-done',
-    iconName: HelpOutlineIcon,
+    icon: <HelpOutlineIcon />,
   },
 ];
 
@@ -63,10 +64,11 @@ const Header: React.FC<HeaderProps> = ({ onLogout, userData }) => {
                         : '#fff',
                   }}
                   onClick={() => {
-                    setNavSelected(index);
                     history.push(list.path);
+                    setNavSelected(index);
+                    console.log(history);
                   }}>
-                  <list.iconName />
+                  {list.icon}
                 </IconButton>
               ))}
             </nav>
@@ -76,6 +78,13 @@ const Header: React.FC<HeaderProps> = ({ onLogout, userData }) => {
           </div>
         )}
       </Toolbar>
+      {userData && (
+        <BottomNav
+          list={navList}
+          selected={navSelected}
+          setSelected={setNavSelected}
+        />
+      )}
     </AppBar>
   );
 };
