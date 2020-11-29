@@ -10,6 +10,7 @@ import { DataBaseType } from '../../service/database';
 import Header from '../header/header';
 import TodoMain from '../section_todo/todo_main';
 import WhatDoneMain from '../section_what_done/what_done_main';
+import BottomNav from '../nav/bottom_nav';
 
 interface MainProps {
   authService: AuthServiceType;
@@ -56,6 +57,7 @@ const Main: React.FC<MainProps> = ({ authService, database }) => {
             </Route>
           </Switch>
         </Container>
+        <BottomNav />
       </BrowserRouter>
     </div>
   );

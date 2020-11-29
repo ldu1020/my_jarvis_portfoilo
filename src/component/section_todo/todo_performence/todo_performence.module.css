@@ -38,7 +38,7 @@
     align-items: center;
     z-index: auto;
     width: 100%;
-
+    background: none;
     transition: none;
   }
 
@@ -50,11 +50,12 @@
     margin: 0.3rem;
     border: 0.3px solid rgba(0, 0, 0, 0.1);
     border-radius: 4px;
+    background-color: #fff;
   }
 
   .threeDays_wrapper {
     margin: 0.3rem;
-
+    background-color: #fff;
     width: 100%;
   }
 

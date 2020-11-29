@@ -1,5 +1,6 @@
 /** @format */
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import {
   AppBar,
@@ -7,54 +8,74 @@ import {
   IconButton,
   Toolbar,
   Typography,
+  useTheme,
 } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+
+import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
+import PieChartIcon from '@material-ui/icons/PieChart';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
 import styles from './header.module.css';
-import HeaderDrawer from './header_drawer/header_drawer';
 
 interface HeaderProps {
   onLogout?: () => void;
   userData?: UserData;
 }
 
+const navList = [
+  {
+    label: '할일목록',
+    path: '/main/atomic-habits',
+    iconName: PlaylistAddCheckIcon,
+  },
+  {
+    label: '한일목록',
+    path: '/main/what-done',
+    iconName: PieChartIcon,
+  },
+  {
+    label: '도움말',
+    path: '/main/what-done',
+    iconName: HelpOutlineIcon,
+  },
+];
+
 const Header: React.FC<HeaderProps> = ({ onLogout, userData }) => {
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [navSelected, setNavSelected] = useState(0);
+  const history = useHistory();
+  const theme = useTheme();
 
   return (
     <AppBar position='static' className={styles.header}>
       <Toolbar>
-        <IconButton
-          onClick={() => {
-            setDrawerOpen(!drawerOpen);
-          }}
-          edge='start'
-          className={styles.menuButton}
-          color='inherit'
-          aria-label='menu'>
-          <MenuIcon />
-        </IconButton>
         <Typography variant='h6' className={styles.title}>
           MY JARVIS
         </Typography>
         {userData && (
-          <Button
-            className={styles.logoutBtn}
-            onClick={onLogout}
-            color='inherit'>
-            logout
-          </Button>
+          <div className={styles.tools}>
+            <nav className={styles.nav}>
+              {navList.map((list, index) => (
+                <IconButton
+                  style={{
+                    color:
+                      navSelected === index
+                        ? theme.palette.warning.light
+                        : '#fff',
+                  }}
+                  onClick={() => {
+                    setNavSelected(index);
+                    history.push(list.path);
+                  }}>
+                  <list.iconName />
+                </IconButton>
+              ))}
+            </nav>
+            <Button onClick={onLogout} color='inherit'>
+              logout
+            </Button>
+          </div>
         )}
       </Toolbar>
-      {userData && (
-        <HeaderDrawer
-          userData={userData}
-          open={drawerOpen}
-          toggleOpen={() => {
-            setDrawerOpen(!drawerOpen);
-          }}
-        />
-      )}
     </AppBar>
   );
 };
