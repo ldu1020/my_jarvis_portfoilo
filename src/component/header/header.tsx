@@ -42,9 +42,20 @@ const navList = [
 ];
 
 const Header: React.FC<HeaderProps> = ({ onLogout, userData }) => {
-  const [navSelected, setNavSelected] = useState(0);
   const history = useHistory();
   const theme = useTheme();
+  const [navSelected, setNavSelected] = useState(() => {
+    switch (history.location.pathname) {
+      case '/main/atomic-habits':
+        return 0;
+      case '/main/what-done':
+        return 1;
+      case '/main/get-start':
+        return 2;
+      default:
+        return 0;
+    }
+  });
 
   return (
     <AppBar position='static' className={styles.header}>
@@ -67,7 +78,6 @@ const Header: React.FC<HeaderProps> = ({ onLogout, userData }) => {
                   onClick={() => {
                     history.push(list.path);
                     setNavSelected(index);
-                    console.log(history);
                   }}>
                   {list.icon}
                 </IconButton>

@@ -1,5 +1,9 @@
 /** @format */
 
+.h1 {
+  opacity: 0.6;
+}
+
 .wrapper {
   padding: 0.5rem;
 }

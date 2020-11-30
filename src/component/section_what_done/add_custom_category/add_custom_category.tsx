@@ -53,7 +53,7 @@ const AddCustomCategory: React.FC<AddCustomCategoryProps> = ({
 
   return (
     <Card className={styles.card}>
-      <h1>나만의 카테고리</h1>
+      <h1 className={styles.h1}>나만의 카테고리</h1>
       <Paper variant='outlined' className={styles.colorListWrapper}>
         {Object.values(customCategoryList).map((data) => (
           <Chip

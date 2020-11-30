@@ -14,7 +14,7 @@ const GetStartMain = () => {
 
   return (
     <section className={styles.root}>
-      <h1>도움말</h1>
+      <h1 className={styles.mainTitle}>도움말</h1>
       <nav className={styles.nav}>
         <h5>목차</h5>
         <button

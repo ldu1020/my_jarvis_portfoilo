@@ -41,6 +41,13 @@ const Main: React.FC<MainProps> = ({ authService, database }) => {
         <Header userData={userData} onLogout={onLogout} />
         <Container maxWidth='lg'>
           <Switch>
+            <Route exact path={['/main', '/main/atomic-habits']}>
+              <TodoMain
+                authService={authService}
+                database={database}
+                userId={userData ? userData.uid : null}
+              />
+            </Route>
             <Route exact path='/main/what-done'>
               <WhatDoneMain
                 authService={authService}
@@ -48,14 +55,7 @@ const Main: React.FC<MainProps> = ({ authService, database }) => {
                 userId={userData ? userData.uid : null}
               />
             </Route>
-            <Route exact path='/main/atomic-habits'>
-              <TodoMain
-                authService={authService}
-                database={database}
-                userId={userData ? userData.uid : null}
-              />
-            </Route>
-            <Route path={['/main', '/main/get-start']}>
+            <Route exact path='/main/get-start'>
               <GetStartMain />
             </Route>
           </Switch>

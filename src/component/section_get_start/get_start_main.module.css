@@ -3,6 +3,11 @@
   position: relative;
 }
 
+.mainTitle {
+  font-size: 2rem;
+  opacity: 0.6;
+}
+
 .paper {
   padding: 0.5rem;
   margin-bottom: 1rem;
@@ -61,6 +66,9 @@
 }
 
 @media (min-width: 750px) {
+  .mainTitle {
+    margin: 4rem 0;
+  }
   .paper {
     width: calc(100% - 10rem);
     padding: 1rem 3rem;
