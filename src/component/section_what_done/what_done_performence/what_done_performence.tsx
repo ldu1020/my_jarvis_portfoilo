@@ -86,6 +86,7 @@ const WhatDonePerformence: React.FC<WhatDonePerformenceProps> = ({
           />
         ) : (
           <Box
+            minHeight='10rem'
             color='gray'
             display='flex'
             flexDirection='column'

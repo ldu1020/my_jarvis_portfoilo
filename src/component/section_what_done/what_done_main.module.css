@@ -1,5 +1,9 @@
 /** @format */
 
+.main {
+  padding-bottom: 5rem;
+}
+
 .graphZone {
   padding: 1rem;
   display: flex;
