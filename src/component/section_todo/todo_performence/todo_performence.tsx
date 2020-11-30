@@ -29,13 +29,10 @@ const TodoPerformence: React.FC<TodoPerformenceProps> = ({
 
   useLayoutEffect(() => {
     function handleScrollChange() {
-      window.addEventListener('scroll', () => {
-        let rect = section_performence_Ref.current?.getBoundingClientRect();
-        rect && rect.y <= 0 ? setPerY(true) : setPerY(false);
-      });
+      let rect = section_performence_Ref.current?.getBoundingClientRect();
+      rect && rect.y <= 0 ? setPerY(true) : setPerY(false);
     }
-    !up960px && handleScrollChange();
-
+    !up960px && window.addEventListener('scroll', handleScrollChange);
     return () => window.removeEventListener('scroll', handleScrollChange);
   }, [up960px]);
   let section_performence_Ref = useRef<HTMLDivElement>(null);

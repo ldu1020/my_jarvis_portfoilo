@@ -12,13 +12,10 @@ const LandingPage = () => {
   const [LoginButotn_Y, setPerY] = useState(false);
   useLayoutEffect(() => {
     function handleScrollChange() {
-      window.addEventListener('scroll', () => {
-        let rect = LoginButotn_Ref.current?.getBoundingClientRect();
-        rect && rect.y <= 0 ? setPerY(true) : setPerY(false);
-      });
+      let rect = LoginButotn_Ref.current?.getBoundingClientRect();
+      rect && rect.y <= 0 ? setPerY(true) : setPerY(false);
     }
-    handleScrollChange();
-
+    window.addEventListener('scroll', handleScrollChange);
     return () => {
       window.removeEventListener('scroll', handleScrollChange);
     };

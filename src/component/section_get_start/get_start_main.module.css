@@ -61,6 +61,10 @@
   color: var(--main-color);
 }
 
+.textField {
+  width: 6rem;
+}
+
 .strong {
   font-weight: bolder;
 }

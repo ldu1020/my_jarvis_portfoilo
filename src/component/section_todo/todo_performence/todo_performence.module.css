@@ -3,7 +3,7 @@
 .section_performence {
   display: flex;
   align-items: center;
-  width: 90%;
+  width: 100%;
   transition: all 1s;
 }
 
@@ -25,7 +25,6 @@
 
 .SecPerY0 {
   transition: all 1s;
-  width: 100%;
   background-color: var(--light-main-color);
 }
 

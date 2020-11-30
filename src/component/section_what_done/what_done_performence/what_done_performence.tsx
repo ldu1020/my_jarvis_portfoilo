@@ -59,6 +59,7 @@ const WhatDonePerformence: React.FC<WhatDonePerformenceProps> = ({
       <h1 className={styles.h1}>수행분석</h1>
       <form noValidate className={styles.inputZone}>
         <TextField
+          className={styles.textField}
           name='startAt'
           label='부터'
           type='date'
@@ -68,6 +69,7 @@ const WhatDonePerformence: React.FC<WhatDonePerformenceProps> = ({
           onChange={onChange}
         />
         <TextField
+          className={styles.textField}
           name='endAt'
           label='까지'
           type='date'

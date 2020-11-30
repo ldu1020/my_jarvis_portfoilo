@@ -5,7 +5,6 @@
 }
 
 .graphZone {
-  padding: 1rem;
   display: flex;
   height: 50vh;
   position: relative;
@@ -13,17 +12,16 @@
 
 .addListZone {
   width: 100%;
-  padding: 1rem;
+  margin-bottom: 2rem;
 }
 
 .customCategoryZone {
   width: 100%;
-  padding: 1rem;
+  margin-bottom: 2rem;
 }
 
 .performenceZone {
   width: 100%;
-  padding: 1rem;
 }
 
 .graph {

@@ -9,7 +9,7 @@
 .section_performence {
   position: sticky;
   top: 0;
-  margin: 1rem;
+  margin: 1rem 0;
   z-index: 100;
   display: flex;
   align-items: center;
@@ -18,7 +18,7 @@
 }
 
 .section_topicList {
-  width: 90%;
+  width: 100%;
 }
 
 @media screen and (min-width: 960px) {
