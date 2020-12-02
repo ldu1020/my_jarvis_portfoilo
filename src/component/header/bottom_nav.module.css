@@ -7,10 +7,6 @@
   box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.2);
 }
 
-.nav.Mui-selected {
-  color: var(--main-color);
-}
-
 @media (min-width: 960px) {
   .nav {
     display: none;
