@@ -1,44 +1,70 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## My-Jarvis
 
-In the project directory, you can run:
+DART API 가 제공하는 상장회사의 주요 제무정보를 가시적으로 전달하는 WEB APP
 
-### `yarn start`
+-go to page: <https://portfolio-2020-analisys-company.netlify.app/>
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### 주요기능
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+**할일목록(to-do)**   
 
-### `yarn test`
+- 로그인 및 사용자,날짜 별 데이터 저장과 삭제
+- 주제별 체크리스트와 하루달성도의 표현
+- 시간대 설정과 시간 달성시 오토체크 여부의 옵션
+- 3일간 목표달성율의 증/감 율 표현
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**한일목록(what-done)**   
 
-### `yarn build`
+- 카테고리별 소모시간의 가시적인 조회
+- 임의의 기간동안 카테고리 별 소모시간 총 합 순위별  조회
+- 임의의 카테고리의 날짜 별 소모시간 조회
+- 카테고리 별 나만의 색깔 설정 및 저장 수정 삭제 가능
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 기술요점
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+- firebase 를 이용한 실시간 데이터 관리
+- 요일 별 state 관리 
+- 유저의 option 에 따른 기능적 선택사항
+- 각 state 의 상호작용 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### App 구조
 
-### `yarn eject`
+<img src="/App.png" width="40%" height="30%" title="앱 구조" alt="앱 구조"></img>
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### back-end 구조
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+firebase 에서 제공하는 데이터 베이스 솔루션 (데이터 평면화)을 최대한 적용 해 보고자 했습니다. 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+> 각 id 별 uuid
+> > performence
+> > todoState
+> > whatDoneState
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- **데이터 검색할 때마다 필요한 26800 개가 되는 상장회사 코드**
 
-## Learn More
+  -> state 저장 혹은 큰 용량의 반복되는 데이터 페칭보다 . firebase에 데이터를 저장해서 firebase 에서 제공하는 검색기능으로 state 와 네트워크의 부담을 최소화했습니다.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **회사 코드는 존재하지만 데이터가 비어있는 경우가 많고 , dart api 의 문제시**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+  ->firebase 에 백업데이터를 준비함으로써 예외의 상황에 대비하였습니다.
+
+### front-end 구조
+
+- **앱전체의 영향을 미치는 스테이트**
+  => mob x 로 전역적으로 관리
+- **부분에만 영향을 미치는 스테이트**
+  => 각 컴포넌트의 스테이트로 관리
+
+컴포넌트의 스테이트는 되도록 react 에서 제공하는 hook 솔루션을 이용하려 했습니다.
+
+복잡성이 증가하면 mobx 에서 제공하는 useLocalObservable Hook 을 이용하기도 했습니다.
+
+각각의 컴포넌트 내에서는 prop 이 있는게 가독성이 좋다 판단하여 최대한 porp을 활용 했습니다
+
+### 향후 추가 할 기능들
+
+- analisys of accounts 부분의 사용자가 자신의 커스텀 분석
+- firebase 를 이용한 개별적 관리
+- router 를 이용한 url 정보공유
+
