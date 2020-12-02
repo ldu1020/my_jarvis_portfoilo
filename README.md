@@ -32,7 +32,7 @@ DART API 가 제공하는 상장회사의 주요 제무정보를 가시적으로
 
 ### App 구조
 
-<img src="/App.png" width="40%" height="30%" title="앱 구조" alt="앱 구조"></img>
+<img src="/App.png" width="100%" height="100%" title="앱 구조" alt="앱 구조"></img>
 
 ### back-end 구조
 
