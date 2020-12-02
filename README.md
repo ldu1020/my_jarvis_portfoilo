@@ -40,10 +40,10 @@ firebase 에서 제공하는 데이터 베이스 솔루션 (데이터 평면화)
 
 <pre>
 <code>
-<!-- Example -->
+//Example
 {
   {
-  <!-- 각 id 별 uuid -->
+  // 각 id 별 uuid 
   t1LMdgqqGyU3hKGSetfpwPFiyHu1:{
       perofrmence:{
         todoPerformance:{
@@ -67,7 +67,11 @@ firebase 에서 제공하는 데이터 베이스 솔루션 (데이터 평면화)
       },
       todoState:{
         todoList:{
+<<<<<<< HEAD
         // Date.now()를 이용한 key | id 
+=======
+         //Date.now()를 이용한 key | id 
+>>>>>>> 79c9daf... add app stucture image
           56465231243:{
             autoCheck:false,
             checked:false,
