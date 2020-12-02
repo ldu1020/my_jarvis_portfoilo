@@ -36,10 +36,75 @@ DART API 가 제공하는 상장회사의 주요 제무정보를 가시적으로
 
 firebase 에서 제공하는 데이터 베이스 솔루션 (데이터 평면화)을 최대한 적용 해 보고자 했습니다. 
 
-> 각 id 별 uuid
-> > performence
-> > todoState
-> > whatDoneState
+<pre>
+<code>
+
+{
+  {
+  각 id 별 uuid:{
+      perofrmence:{
+        todoPerformance:{
+          20201104:{
+            checkList:0,
+            checked:0
+          }
+        },
+        whatDonePerformance:{
+          20201104:[
+            {
+              category:'공부',
+              doingTime:360
+            },
+            {
+              category:'휴식',
+              doingTime:150
+            }
+          ]
+        },
+      },
+      todoState:{
+        todoList:{
+          56465231243:{
+            autoCheck:false,
+            checked:false,
+            id:'56465231243',
+            topic:'건강',
+            what:"아침 밥 먹기",
+            until:'17:50'
+          }
+        },
+        topicList:{
+          1234564564:{
+            complete:false,
+            id:'1234564564',
+            made:'2020.11.04',
+            topic:"건강"
+          }
+        }
+      },
+      whatDoneState:{
+        whatDoneList:{
+          12345641235:{
+            id:'12345641235',
+            category:'공부',
+            startTime:'08:30',
+            endTime:'14:30',
+            whatDo:'데이터베이스 평면화 공부'
+          }
+        },
+        customCategoryList:{
+          1235612546:{
+            id:'1235612546',
+            category:'공부'
+            color:'#ffffff'
+          }
+        }
+      }
+    }
+  }
+}
+</code>
+</pre>
 
 - **데이터 검색할 때마다 필요한 26800 개가 되는 상장회사 코드**
 
