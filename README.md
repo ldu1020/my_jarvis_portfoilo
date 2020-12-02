@@ -41,8 +41,6 @@ firebase 에서 제공하는 데이터 베이스 솔루션 (데이터 평면화)
 <pre>
 <code>
 //Example
-{
-  {
   // 각 id 별 uuid 
   t1LMdgqqGyU3hKGSetfpwPFiyHu1:{
       perofrmence:{
@@ -105,8 +103,6 @@ firebase 에서 제공하는 데이터 베이스 솔루션 (데이터 평면화)
         }
       }
     }
-  }
-}
 </code>
 </pre>
 
