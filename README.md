@@ -135,7 +135,7 @@ WhatDoneState 하위목록: whatDoneList[key = now()], customCetegoryList[key = 
 
 - 최적화는 대부분 React.memo 로 진행했으며 state 의 변화가 잦거나 , 의미없는 랜더링의 비용이 크다고 생각되는 부분만 적용했습니다.
 
-- SSR 의 http path 의 문제는 배포 페이지인 netlify 에서 제공하는 re-direction 솔루션으로 해결 했습니다.
+- SPA 의 http path 의 문제는 배포 페이지인 netlify 에서 제공하는 re-direction 솔루션으로 해결 했습니다.
 
 ### 향후 추가 할 기능들
 
